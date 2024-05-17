@@ -15,6 +15,10 @@ Our mission is to transform how NUS students engage academically and socially wi
 ### Features
 1. **Mentorship Matching System**: Connects students with alumni and industry professionals for mentorship.
 2. **Study Group Formation Tool**: Allows students to create, discover, and join study groups within their course or subject area.
+3.	**Peer Tutoring Network**: An extension to the study group tool, this feature enables students to offer or seek tutoring services. It includes capabilities for scheduling tutoring sessions, providing feedback, and integrating with the study group formation tool for seamless academic support.
+4.	**Academic Resource Sharing**: A platform for students to share and access academic resources such as lecture notes, study guides, and past papers. This feature encourages collaborative learning and provides students with additional support materials.
+5.	**Career Insights Panel**: An extension of the mentorship matching system, offering webinars, Q&A sessions, and panel discussions with alumni and professionals. This feature aims to provide students with career advice, industry insights, and networking opportunities.
+
 
 ### User Stories
 1. **Senior Student Seeking Career Direction**: Connect with alumni for insights and guidance.
