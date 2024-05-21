@@ -12,10 +12,16 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 0;
+
+            color: rgb(101, 65, 65);
             text-align: center;
+        }
+        header div{
+            background: #ffffff;
+        }
+        header img {
+            width: 150px;
+   
         }
         .container {
             padding: 20px;
@@ -66,11 +72,28 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            position: absolute;
+            width: 100%;
+        }
+        footer a {
+            color: #1e90ff; /* DodgerBlue */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to EduConnect</h1>
+        <div><img src="./images/logo.webp" alt="EduConnect Logo"></div>
+        <h1>EduConnect</h1>
+        <p>Connecting Minds, Fostering Futures</p>
     </header>
     <div class="container">
         <section class="intro">
@@ -105,6 +128,9 @@
             <div id="login-message" class="message"></div>
         </section>
     </div>
+    <footer>
+        <p>Developed by OrbitCraft Team. Contact us at: <a href="mailto:yangtonghang0504@outlook.com">yangtonghang0504@outlook.com</a></p>
+    </footer>
     <script>
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
