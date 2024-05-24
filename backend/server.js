@@ -1,17 +1,26 @@
+// server.js
 const express = require('express');
-const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
-// Connect to database
-connectDB();
-
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
 
-// Define routes
-app.use('/api', require('./routes/auth'));
+// Routes
+app.use('/api/auth', authRoutes);
+
+// MongoDB Connection String
+const dbURI = 'mongodb://localhost:27017/orbitcraft';
+
+// Connect to MongoDB
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error:', err));
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

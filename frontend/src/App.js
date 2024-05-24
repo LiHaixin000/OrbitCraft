@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import Auth from './pages/Auth';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     </div>
   );

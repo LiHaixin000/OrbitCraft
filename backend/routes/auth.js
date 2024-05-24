@@ -1,42 +1,28 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
-const authController = require('../controllers/authController');
 
-// @route   POST api/register
-// @desc    Register user
-// @access  Public
-router.post(
-  '/register',
-  [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 }),
-  ],
-  (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+// Register route
+router.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  console.log('Received registration request:', { username, password }); // Log the request
+  try {
+    let user = await User.findOne({ username });
+    if (user) {
+      console.log('User already exists:', username); // Log if user already exists
+      return res.status(400).json({ msg: 'User already exists' });
     }
-    authController.register(req, res);
+    user = new User({ username, password });
+    await user.save();
+    console.log('User registered successfully:', username); // Log successful registration
+    res.status(201).json({ msg: 'User registered successfully' });
+  } catch (err) {
+    console.error('Registration error:', err); // Log any errors
+    res.status(500).send('Server error');
   }
-);
-
-// @route   POST api/login
-// @desc    Authenticate user & get token
-// @access  Public
-router.post(
-  '/login',
-  [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists(),
-  ],
-  (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    authController.login(req, res);
-  }
-);
+});
 
 module.exports = router;
