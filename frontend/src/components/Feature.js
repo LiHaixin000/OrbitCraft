@@ -7,20 +7,20 @@ function Feature({ title, description, link }) {
     <div style={styles.feature}>
       <h3>{title}</h3>
       <p>{description}</p>
-      <Link to={link} style={styles.link}>Learn more</Link>
+      <Link to={link} style={styles.link}>Learn More</Link>
     </div>
   );
 }
 
 const styles = {
   feature: {
+    marginBottom: '20px',
+    padding: '10px',
     border: '1px solid #ccc',
     borderRadius: '5px',
-    padding: '20px',
-    marginBottom: '20px',
   },
   link: {
-    color: '#1e90ff', // DodgerBlue
+    color: '#4CAF50',
     textDecoration: 'none',
   },
 };
