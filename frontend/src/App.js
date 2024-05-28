@@ -1,16 +1,20 @@
+// src/App.js
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import Auth from './pages/Auth';
-import Home from './pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import AuthPage from './pages/AuthPage';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
+    <div>
+      <Header />
       <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

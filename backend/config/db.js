@@ -1,13 +1,10 @@
-const mongoose = require('mongoose');
+const mysql = require('mysql2/promise');
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/orbitcraft');
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
-};
+const db = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: 'yourpassword',
+  database: 'orbitcraft'
+});
 
-module.exports = connectDB;
+module.exports = db;

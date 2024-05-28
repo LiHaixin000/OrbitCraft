@@ -1,16 +1,10 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
 
-// Find the root element in your HTML
-const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// Create a root
-const root = createRoot(rootElement);
-
-// Initial render
 root.render(
   <React.StrictMode>
     <Router>

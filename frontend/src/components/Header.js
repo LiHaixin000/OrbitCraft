@@ -1,19 +1,31 @@
+// src/components/Header.js
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const Header = () => {
+function Header() {
   return (
-    <header>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/register">Register</Link></li>
-        </ul>
-      </nav>
+    <header style={styles.header}>
+      <div style={styles.logoContainer}>
+        <img src="/images/logo.webp" alt="EduConnect Logo" style={styles.logo} />
+      </div>
+      <h1>EduConnect</h1>
+      <p>Connecting Minds, Fostering Futures</p>
     </header>
   );
+}
+
+const styles = {
+  header: {
+    color: 'rgb(101, 65, 65)',
+    textAlign: 'center',
+    background: '#ffffff',
+    padding: '20px 0',
+  },
+  logoContainer: {
+    background: '#ffffff',
+  },
+  logo: {
+    width: '150px',
+  },
 };
 
 export default Header;

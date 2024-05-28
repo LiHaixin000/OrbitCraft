@@ -1,11 +1,27 @@
+// src/components/Footer.js
 import React from 'react';
 
-const Footer = () => {
+function Footer() {
   return (
-    <footer>
-      <p>&copy; 2024 OrbitCraft. All rights reserved.</p>
+    <footer style={styles.footer}>
+      <p>Developed by OrbitCraft Team. Contact us at: <a href="mailto:yangtonghang0504@gmail.com" style={styles.link}>yangtonghang0504@gmail.com</a></p>
     </footer>
   );
+}
+
+const styles = {
+  footer: {
+    backgroundColor: '#333',
+    color: 'white',
+    textAlign: 'center',
+    padding: '1em 0',
+    position: 'absolute',
+    width: '100%',
+  },
+  link: {
+    color: '#1e90ff', // DodgerBlue
+    textDecoration: 'none',
+  },
 };
 
 export default Footer;
