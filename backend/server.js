@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3000' // Replace with your frontend URL
+  origin: 'https://orbit-craft.vercel.app' // Replace with your frontend URL
 }));
 
 // Routes
