@@ -1,4 +1,3 @@
-// src/pages/AuthPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,8 +36,7 @@ function AuthPage() {
         setIsLogin(true);
       }
     } else {
-      setMessage(data.error || 'Something went wrong');
-    }
+      setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));    }
   };
 
   return (
