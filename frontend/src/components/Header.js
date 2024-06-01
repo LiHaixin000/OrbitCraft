@@ -10,10 +10,16 @@ function Header() {
         <img src="/images/logo.png" alt="EduConnect Logo" style={styles.logo} />
       </div>
       <nav style={styles.nav}>
-        {['/', '/Mentorship', '/Study Group', '/Resources', '/Career'].map((path, index) => (
+        {[
+          { path: '/', label: 'Home' },
+          { path: '/mentorship', label: 'Mentorship' },
+          { path: '/studygroup', label: 'Study Group' },
+          { path: '/resourcesharing', label: 'Resources' },
+          { path: '/careerinsights', label: 'Career Insights' },
+        ].map((link, index) => (
           <Link
             key={index}
-            to={path}
+            to={link.path}
             style={{
               ...styles.navLink,
               ...(hoveredLink === index ? styles.navLinkHover : {})
@@ -21,7 +27,7 @@ function Header() {
             onMouseEnter={() => setHoveredLink(index)}
             onMouseLeave={() => setHoveredLink(null)}
           >
-            {path === '/' ? 'Home' : path.replace('/', '').replace(/([A-Z])/g, ' $1').trim()}
+            {link.label}
           </Link>
         ))}
       </nav>

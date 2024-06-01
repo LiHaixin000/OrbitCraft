@@ -1,18 +1,15 @@
 import React from 'react';
+import './commonStyles.css'; // Import the common styles
 
-function Mentorship() {
+function StudyGroupPage() {
   return (
-    <div style={styles.container}>
-      <h2>Study Group Formation Tool</h2>
-      <p>Enables creation, discovery, and joining of study groups within courses or subject areas. Supports group chat, scheduling study sessions, and sharing resources. Enhances peer learning and collaboration </p>
+    <div className="container">
+      <h2 className="heading">Study Groups</h2>
+      <p className="paragraph">
+        Join study groups to collaborate with peers, share knowledge, and prepare for exams together. Find or create study groups that match your academic interests and schedule.
+      </p>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    padding: '20px',
-  },
-};
-
-export default Mentorship;
+export default StudyGroupPage;

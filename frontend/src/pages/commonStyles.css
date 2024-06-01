@@ -1,0 +1,29 @@
+/* commonStyles.css */
+.container {
+    width: 100%;
+    max-width: 1200px; /* Ensure it matches the max width used in HomePage */
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center text to match the HomePage style */
+  }
+  
+  .heading {
+    font-size: 28px; /* Adjust font size to match HomePage headings */
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* Ensure consistent text color */
+  }
+  
+  .paragraph {
+    font-size: 16px; /* Adjust font size to match HomePage text */
+    line-height: 1.5;
+    color: #666; /* Ensure consistent text color */
+    max-width: 800px; /* Limit paragraph width for better readability */
+    margin: 0 auto; /* Center the paragraph */
+  }
+  
+  

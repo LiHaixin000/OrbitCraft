@@ -1,18 +1,28 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
+import MentorshipPage from './pages/MentorshipPage';
+import StudyGroupPage from './pages/StudyGroupPage';
+import ResourcesPage from './pages/ResourcesPage';
+import CareerInsightsPage from './pages/CareerInsightsPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 function App() {
+  const location = useLocation(); // Hook to get the current route
+
   return (
-    <div>
-      <Header />
-      <main style={styles.main}>
+    <div style={styles.appContainer}> {/* Ensure the styles are applied */}
+      {location.pathname !== '/auth' && <Header />} {/* Conditionally render Header */}
+      <main style={styles.mainContent}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/mentorship" element={<MentorshipPage />} />
+          <Route path="/studygroup" element={<StudyGroupPage />} />
+          <Route path="/resourcesharing" element={<ResourcesPage />} />
+          <Route path="/careerinsights" element={<CareerInsightsPage />} />
         </Routes>
       </main>
       <Footer />

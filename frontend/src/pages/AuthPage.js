@@ -109,8 +109,10 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f2f5',
+    height: '100vh', // Ensure the container takes up the full height of the viewport
+    width: '100%',
+    backgroundColor: '#fff3e0', // Light orange background to match HomePage
+    padding: '20px',
   },
   card: {
     backgroundColor: '#fff',
@@ -118,7 +120,7 @@ const styles = {
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '100%',
-    maxWidth: '400px',
+    maxWidth: '200px',
     textAlign: 'center',
   },
   title: {
@@ -145,7 +147,7 @@ const styles = {
     padding: '12px',
     borderRadius: '5px',
     border: 'none',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#ff7043', // Vibrant orange to match HomePage
     color: 'white',
     cursor: 'pointer',
     fontSize: '16px',
@@ -153,7 +155,7 @@ const styles = {
     transition: 'background-color 0.3s',
   },
   buttonHover: {
-    backgroundColor: '#45a049',
+    backgroundColor: '#e64a19',
   },
   message: {
     marginTop: '10px',

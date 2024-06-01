@@ -1,18 +1,15 @@
 import React from 'react';
+import './commonStyles.css'; // Import the common styles
 
-function Mentorship() {
+function ResourcesPage() {
   return (
-    <div style={styles.container}>
-      <h2>Academic Resource Sharing</h2>
-      <p>Provides a centralized platform for sharing lecture notes, study guides, and past papers. Encourages collaborative learning. Ensures easy access to a wealth of academic resources</p>
+    <div className="container">
+      <h2 className="heading">Resources</h2>
+      <p className="paragraph">
+        Access a wide range of educational resources including lecture notes, textbooks, and online courses. Share your own resources to help others in the community.
+      </p>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    padding: '20px',
-  },
-};
-
-export default Mentorship;
+export default ResourcesPage;

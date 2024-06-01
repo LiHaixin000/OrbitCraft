@@ -1,18 +1,15 @@
 import React from 'react';
+import './commonStyles.css'; // Import the common styles
 
-function Mentorship() {
+function CareerInsightsPage() {
   return (
-    <div style={styles.container}>
-      <h2>Career Insights Panel</h2>
-      <p>Offers webinars, Q&A sessions, and panel discussions with alumni and industry professionals. Provides valuable career advice and industry insights. Enhances networking opportunities and career development</p>
+    <div className="container">
+      <h2 className="heading">Career Insights</h2>
+      <p className="paragraph">
+        Gain insights into various career paths, industry trends, and job opportunities. Connect with professionals to learn about their experiences and get advice on advancing your career.
+      </p>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    padding: '20px',
-  },
-};
-
-export default Mentorship;
+export default CareerInsightsPage;
