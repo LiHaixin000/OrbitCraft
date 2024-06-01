@@ -9,6 +9,8 @@ function AuthPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +20,7 @@ function AuthPage() {
       ? { username, password }
       : { username, email, password, confirmPassword };
 
-    const response = await fetch(`http://localhost:5001/api/auth/${endpoint}`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
