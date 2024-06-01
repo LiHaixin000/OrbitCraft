@@ -1,70 +1,64 @@
-import React from 'react';
-import { FaBars } from 'react-icons/fa'; // Importing an icon for the hamburger menu
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
+  const [hoveredLink, setHoveredLink] = useState(null);
+
   return (
     <header style={styles.header}>
-      <div style={styles.container}>
-        <div style={styles.left}>
-          <img src="/images/logo.webp" alt="EduConnect Logo" style={styles.logo} />
-          <button style={styles.homeButton}>Home</button>
-        </div>
-        <div style={styles.right}>
-          <FaBars style={styles.hamburger} />
-        </div>
+      <div style={styles.logoContainer}>
+        <img src="/images/logo.png" alt="EduConnect Logo" style={styles.logo} />
       </div>
+      <nav style={styles.nav}>
+        {['/', '/Mentorship', '/Study Group', '/Resources', '/Career'].map((path, index) => (
+          <Link
+            key={index}
+            to={path}
+            style={{
+              ...styles.navLink,
+              ...(hoveredLink === index ? styles.navLinkHover : {})
+            }}
+            onMouseEnter={() => setHoveredLink(index)}
+            onMouseLeave={() => setHoveredLink(null)}
+          >
+            {path === '/' ? 'Home' : path.replace('/', '').replace(/([A-Z])/g, ' $1').trim()}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }
 
 const styles = {
   header: {
-    color: '#654141',
-    background: '#ffffff',
-    padding: '0', // Removed padding to ensure no extra space
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    position: 'fixed',
-    width: '100%',
-    top: 0,
-    zIndex: 1000,
-    transition: 'all 0.3s ease', // Smooth transition for scrolling
-  },
-  container: {
+    width: '100vw',
+    boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
+    padding: '5px 20px', // Adjust padding to add space to the left and right
+    backgroundColor: '#ff7043', // Vibrant orange
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
-    padding: '0 20px', // Added padding to the sides for better spacing
-    boxSizing: 'border-box', // Include padding in width calculation
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
-  left: {
+  logoContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: 'auto', // Push left section to the left
   },
   logo: {
-    width: '70px', // Reduced logo size
-    marginRight: '20px',
-    marginLeft: '0', // Ensure no left margin
+    width: '70px', // Adjust the size of the logo as needed
   },
-  homeButton: {
-    background: 'none',
-    border: 'none',
-    color: '#654141',
-    fontSize: '16px',
-    cursor: 'pointer',
-    padding: '8px',
-    fontWeight: 'bold',
-  },
-  right: {
+  nav: {
     display: 'flex',
-    alignItems: 'center',
-    marginLeft: 'auto', // Push right section to the right
+    gap: '15px',
   },
-  hamburger: {
-    fontSize: '24px',
-    cursor: 'pointer',
-    color: '#654141',
+  navLink: {
+    color: '#fff',
+    textDecoration: 'none',
+    fontSize: '16px',
+    transition: 'color 0.3s ease',
+  },
+  navLinkHover: {
+    color: '#ffd54f',
   },
 };
 

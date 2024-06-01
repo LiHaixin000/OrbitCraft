@@ -1,26 +1,68 @@
-// src/components/Footer.js
-import React from 'react';
+import React, { useState } from 'react';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Import social media icons
 
 function Footer() {
+  const [hoveredLink, setHoveredLink] = useState(null);
+
+  const socialLinks = [
+    { name: 'Facebook', url: 'https://facebook.com', icon: <FaFacebook /> },
+    { name: 'Twitter', url: 'https://twitter.com', icon: <FaTwitter /> },
+    { name: 'Instagram', url: 'https://instagram.com', icon: <FaInstagram /> },
+  ];
+
   return (
     <footer style={styles.footer}>
-      <p>Developed by OrbitCraft Team. Contact us at: <a href="mailto:yangtonghang0504@gmail.com" style={styles.link}>yangtonghang0504@gmail.com</a></p>
+      <div style={styles.contactInfo}>
+        <p style={styles.footerText}>Contact us: contact@educonnect.com</p>
+      </div>
+      <div style={styles.socialLinks}>
+        {socialLinks.map((link, index) => (
+          <a
+            key={index}
+            href={link.url}
+            style={{
+              ...styles.socialLink,
+              ...(hoveredLink === index ? styles.socialLinkHover : {})
+            }}
+            onMouseEnter={() => setHoveredLink(index)}
+            onMouseLeave={() => setHoveredLink(null)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.icon}
+          </a>
+        ))}
+      </div>
     </footer>
   );
 }
 
 const styles = {
   footer: {
-    backgroundColor: '#333',
-    color: 'white',
-    textAlign: 'center',
-    padding: '1em 0',
-    position: 'absolute',
-    width: '100%',
+    width: '100vw',
+    boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
+    backgroundColor: '#ff7043', // Vibrant orange
+    padding: '15px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    boxShadow: '0 -4px 8px rgba(0, 0, 0, 0.1)',
   },
-  link: {
-    color: '#1e90ff', // DodgerBlue
-    textDecoration: 'none',
+  contactInfo: {
+    color: '#fff',
+    fontSize: '14px',
+  },
+  socialLinks: {
+    display: 'flex',
+    gap: '15px',
+  },
+  socialLink: {
+    color: '#fff',
+    fontSize: '24px',
+    transition: 'color 0.3s ease',
+  },
+  socialLinkHover: {
+    color: '#ffd54f',
   },
 };
 

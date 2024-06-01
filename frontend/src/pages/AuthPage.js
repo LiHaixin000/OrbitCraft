@@ -36,66 +36,69 @@ function AuthPage() {
         setIsLogin(true);
       }
     } else {
-      setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));    }
+      setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));
+    }
   };
 
   return (
     <div style={styles.container}>
-      <h2>{isLogin ? 'Login' : 'Register'}</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          style={styles.input}
-        />
-        {!isLogin && (
+      <div style={styles.card}>
+        <h2 style={styles.title}>{isLogin ? 'Login' : 'Register'}</h2>
+        <form onSubmit={handleSubmit} style={styles.form}>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
             style={styles.input}
           />
-        )}
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={styles.input}
-        />
-        {!isLogin && (
+          {!isLogin && (
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={styles.input}
+            />
+          )}
           <input
             type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
             style={styles.input}
           />
-        )}
-        <button type="submit" style={styles.button}>
-          {isLogin ? 'Login' : 'Register'}
-        </button>
-      </form>
-      {message && <div style={styles.message}>{message}</div>}
-      <p>
-        {isLogin ? 'Not yet a member?' : 'Already a member?'}{' '}
-        <span
-          onClick={() => {
-            setIsLogin(!isLogin);
-            setMessage('');
-          }}
-          style={styles.toggle}
-        >
-          {isLogin ? 'Sign up' : 'Sign in'}
-        </span>
-      </p>
+          {!isLogin && (
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              style={styles.input}
+            />
+          )}
+          <button type="submit" style={styles.button}>
+            {isLogin ? 'Login' : 'Register'}
+          </button>
+        </form>
+        {message && <div style={styles.message}>{message}</div>}
+        <p style={styles.toggleText}>
+          {isLogin ? 'Not yet a member?' : 'Already a member?'}{' '}
+          <span
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setMessage('');
+            }}
+            style={styles.toggle}
+          >
+            {isLogin ? 'Sign up' : 'Sign in'}
+          </span>
+        </p>
+      </div>
     </div>
   );
 }
@@ -107,37 +110,64 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#f0f2f5',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: '40px',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '100%',
+    maxWidth: '400px',
+    textAlign: 'center',
+  },
+  title: {
+    marginBottom: '20px',
+    fontSize: '24px',
+    color: '#333',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '5px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   },
   input: {
     margin: '10px 0',
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
-    border: '1px solid #ccc',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    transition: 'border-color 0.3s',
+  },
+  inputFocus: {
+    borderColor: '#4CAF50',
   },
   button: {
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
     border: 'none',
     backgroundColor: '#4CAF50',
     color: 'white',
     cursor: 'pointer',
+    fontSize: '16px',
+    marginTop: '20px',
+    transition: 'background-color 0.3s',
+  },
+  buttonHover: {
+    backgroundColor: '#45a049',
   },
   message: {
     marginTop: '10px',
     color: 'red',
   },
+  toggleText: {
+    marginTop: '20px',
+    fontSize: '14px',
+    color: '#666',
+  },
   toggle: {
-    color: 'blue',
+    color: '#1e90ff',
     cursor: 'pointer',
+    fontWeight: 'bold',
   },
 };
 

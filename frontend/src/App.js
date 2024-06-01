@@ -21,8 +21,21 @@ function App() {
 }
 
 const styles = {
-  main: {
-    paddingTop: '60px', // Adjust this value based on your header's height
+  appContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    width: '100vw',
+    overflow: 'hidden', // Prevent any overflow
+  },
+  mainContent: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
+    width: '100%', // Ensure it takes the full width
+    overflow: 'hidden', // Prevent any overflow
   },
 };
 
