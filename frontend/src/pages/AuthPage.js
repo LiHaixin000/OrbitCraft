@@ -29,6 +29,7 @@ function AuthPage() {
       body: JSON.stringify(body)
     });
 
+
     const data = await response.json();
     if (response.ok) {
       if (isLogin) {
