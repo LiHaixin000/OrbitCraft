@@ -13,6 +13,16 @@ function AuthPage() {
 
   console.log(API_BASE_URL); // Check if this logs the correct URL
 
+  const buildUrl = (base, path) => {
+    if (base.endsWith('/')) {
+      base = base.slice(0, -1);
+    }
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    return base + path;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,7 +31,7 @@ function AuthPage() {
       ? { username, password }
       : { username, email, password, confirmPassword };
 
-    const response = await fetch(`${API_BASE_URL}/api/auth/${endpoint}`, {
+    const response = await fetch(buildUrl(API_BASE_URL, `/api/auth/${endpoint}`), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
