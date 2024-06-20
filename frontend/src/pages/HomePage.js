@@ -90,6 +90,12 @@ function HomePage() {
       >
         Logout
       </button>
+      <button
+        style={styles.profileButton}
+        onClick={() => navigate('/profile')}
+      >
+        Profile
+      </button>
     </div>
   );
 }
@@ -175,6 +181,17 @@ const styles = {
     backgroundColor: '#e64a19',
     transform: 'scale(1.05)',
   },
+  profileButton: {
+    backgroundColor: '#4CAF50', // Green color
+    color: '#fff',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    marginTop: '20px',
+    transition: 'background-color 0.3s ease, transform 0.3s ease',
+  }
 };
 
 export default HomePage;

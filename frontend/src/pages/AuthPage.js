@@ -1,3 +1,4 @@
+//AuthPage
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,16 +26,16 @@ function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const endpoint = isLogin ? 'login' : 'register';
     const body = isLogin
       ? { username, password }
       : { username, email, password, confirmPassword };
-  
+
     const url = buildUrl(API_BASE_URL, `/api/auth/${endpoint}`);
     console.log('Submitting to:', url);
     console.log('Request body:', body);
-  
+
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -43,10 +44,10 @@ function AuthPage() {
         },
         body: JSON.stringify(body)
       });
-  
+
       const data = await response.json();
       console.log('Response data:', data);
-  
+
       if (response.ok) {
         if (isLogin) {
           localStorage.setItem('token', data.token);
@@ -55,6 +56,7 @@ function AuthPage() {
           setMessage('Registration successful, please login');
           setIsLogin(true);
         }
+
       } else {
         setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));
       }
@@ -63,7 +65,7 @@ function AuthPage() {
       setMessage('Failed to connect to the server');
     }
   };
-  
+
 
   return (
     <div style={styles.container}>
