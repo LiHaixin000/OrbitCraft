@@ -30,6 +30,7 @@
   width: 100%;
   max-width: 500px;
   margin: 20px 0;
+  position: relative; /* Added to handle absolute positioning of dropdown */
 }
 
 .form input {
@@ -52,6 +53,28 @@
 
 .form button:hover {
   background-color: #e64a19;
+}
+
+.dropdown {
+  position: absolute;
+  width: 100%; /* Match the input width */
+  max-height: 200px; /* Set a max height to enable scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  z-index: 1000;
+  box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
 }
 
 .message-list {

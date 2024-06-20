@@ -34,4 +34,3 @@ function StudyGroupPage() {
 }
 
 export default StudyGroupPage;
-
