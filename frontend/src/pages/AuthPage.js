@@ -11,7 +11,7 @@ function AuthPage() {
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  console.log(API_BASE_URL); // Check if this logs the correct URL
+  console.log('API_BASE_URL:', API_BASE_URL);
 
   const buildUrl = (base, path) => {
     if (base.endsWith('/')) {
@@ -25,34 +25,45 @@ function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const endpoint = isLogin ? 'login' : 'register';
     const body = isLogin
       ? { username, password }
       : { username, email, password, confirmPassword };
-
-    const response = await fetch(buildUrl(API_BASE_URL, `/api/auth/${endpoint}`), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-
-
-    const data = await response.json();
-    if (response.ok) {
-      if (isLogin) {
-        localStorage.setItem('token', data.token);
-        navigate('/');
+  
+    const url = buildUrl(API_BASE_URL, `/api/auth/${endpoint}`);
+    console.log('Submitting to:', url);
+    console.log('Request body:', body);
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+  
+      const data = await response.json();
+      console.log('Response data:', data);
+  
+      if (response.ok) {
+        if (isLogin) {
+          localStorage.setItem('token', data.token);
+          navigate('/');
+        } else {
+          setMessage('Registration successful, please login');
+          setIsLogin(true);
+        }
       } else {
-        setMessage('Registration successful, please login');
-        setIsLogin(true);
+        setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));
       }
-    } else {
-      setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setMessage('Failed to connect to the server');
     }
   };
+  
 
   return (
     <div style={styles.container}>

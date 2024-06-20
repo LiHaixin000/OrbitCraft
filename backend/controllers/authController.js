@@ -1,4 +1,4 @@
-//authController.js
+// authController.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { createUser, getUserByUsername } = require('../models/User');
@@ -28,10 +28,11 @@ const register = [
       await createUser(username, email, hashedPassword);
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-      if (error.code === 'ER_DUP_ENTRY') {
+      console.error('Registration error:', error); // Log detailed error
+      if (error.code === '23505') { // PostgreSQL error code for unique violation
         return res.status(400).json({ error: 'Username or email already exists' });
       }
-      res.status(500).json({ error: 'User registration failed' });
+      res.status(500).json({ error: 'User registration failed', details: error.message });
     }
   }
 ];
@@ -56,7 +57,8 @@ const login = [
         res.status(401).json({ error: 'Invalid credentials' });
       }
     } catch (error) {
-      res.status(500).json({ error: 'Login failed' });
+      console.error('Login error:', error); // Log detailed error
+      res.status(500).json({ error: 'Login failed', details: error.message });
     }
   }
 ];
@@ -65,4 +67,3 @@ module.exports = {
   register,
   login
 };
-
