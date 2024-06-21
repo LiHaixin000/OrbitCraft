@@ -24,8 +24,8 @@ function StudyGroupPage() {
   };
 
   const handleJoinGroup = (group) => {
+    setGroups([...groups, group]);
     setMessages([...messages, { type: 'joinRequest', group }]);
-    // Navigate to the group chat page
     navigate(`/groups/${group.group_name}`);
   };
 

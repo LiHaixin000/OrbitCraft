@@ -9,23 +9,35 @@ function GroupChat() {
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
-    // Fetch existing messages for the group from the backend
-    fetch(`/api/groups/${groupName}/messages`)
-      .then(response => response.json())
-      .then(data => setMessages(data))
-      .catch(error => console.error('Error fetching messages:', error));
+    // Fetch messages for the group
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://localhost:5001/api/groups/${groupName}/messages`);
+        if (response.ok) {
+          const data = await response.json();
+          setMessages(data);
+        } else {
+          console.error('Failed to fetch messages');
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+    fetchMessages();
   }, [groupName]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    // Send the new message to the backend
+    if (!newMessage.trim()) return;
+
     try {
-      const response = await fetch(`/api/groups/${groupName}/messages`, {
+      const response = await fetch(`http://localhost:5001/api/groups/${groupName}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newMessage }),
+        body: JSON.stringify({ content: newMessage, sender: 'currentUser' }), // Replace 'currentUser' with actual user identifier
       });
 
       if (response.ok) {
@@ -41,21 +53,21 @@ function GroupChat() {
   };
 
   return (
-    <div className="chat-container">
-      <h3 className="heading">{groupName} Chat</h3>
+    <div className="group-chat-container">
+      <h2 className="heading">Group Chat: {groupName}</h2>
       <div className="messages">
-        {messages.map((message, index) => (
+        {messages.map((msg, index) => (
           <div key={index} className="message">
-            {message.text}
+            <strong>{msg.sender}:</strong> {msg.content}
           </div>
         ))}
       </div>
-      <form className="form" onSubmit={handleSendMessage}>
+      <form className="message-form" onSubmit={handleSendMessage}>
         <input
           type="text"
+          placeholder="Type a message"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          required
         />
         <button type="submit">Send</button>
       </form>

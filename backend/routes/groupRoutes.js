@@ -56,4 +56,37 @@ router.post('/join', async (req, res) => {
   }
 });
 
+// Fetch messages for a group
+router.get('/:groupName/messages', async (req, res) => {
+  const { groupName } = req.params;
+  try {
+    const result = await db.query('SELECT * FROM messages WHERE group_name = $1 ORDER BY created_at ASC', [groupName]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Post a new message to a group
+router.post('/:groupName/messages', async (req, res) => {
+  const { groupName } = req.params;
+  const { content, sender } = req.body;
+
+  if (!content || !sender) {
+    return res.status(400).json({ message: 'Content and sender are required' });
+  }
+
+  try {
+    const result = await db.query(
+      'INSERT INTO messages (group_name, content, sender, created_at) VALUES ($1, $2, $3, NOW()) RETURNING *',
+      [groupName, content, sender]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error posting message:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

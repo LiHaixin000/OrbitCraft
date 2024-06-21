@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -7,6 +6,7 @@ import MentorshipPage from './pages/MentorshipPage';
 import StudyGroupPage from './pages/StudyGroupPage';
 import ResourcesPage from './pages/ResourcesPage';
 import CareerInsightsPage from './pages/CareerInsightsPage';
+import GroupChat from './components/GroupChat'; // Import the GroupChat component
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -24,6 +24,7 @@ function App() {
           <Route path="/studygroup" element={<StudyGroupPage />} />
           <Route path="/resourcesharing" element={<ResourcesPage />} />
           <Route path="/careerinsights" element={<CareerInsightsPage />} />
+          <Route path="/groups/:groupName" element={<GroupChat />} /> {/* Add the group chat route */}
         </Routes>
       </main>
       <Footer />
