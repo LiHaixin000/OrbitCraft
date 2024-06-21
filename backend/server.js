@@ -1,8 +1,8 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
+const groupRoutes = require('./routes/groupRoutes'); // Import the group routes
 
 console.log('Starting server with PORT:', process.env.PORT);
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
@@ -23,9 +23,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/groups', groupRoutes); // Add the group routes
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-
-

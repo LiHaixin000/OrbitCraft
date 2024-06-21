@@ -1,22 +1,36 @@
-// StudyGroupPage.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import CreateGroup from '../components/CreateGroup';
 import JoinGroup from '../components/JoinGroup';
-import MessageList from '../components/MessageList';
 import GroupList from '../components/GroupList';
+import MessageList from '../components/MessageList';
+import Notification from '../components/Notification';
 import './commonStyles.css';
 
 function StudyGroupPage() {
   const [groups, setGroups] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [notification, setNotification] = useState('');
+  const navigate = useNavigate(); 
 
   const handleCreateGroup = (newGroup) => {
-    setGroups([...groups, newGroup]);
-    setMessages([...messages, { type: 'groupCreated', group: newGroup }]);
+    if (newGroup.group_name) {
+      setGroups([...groups, newGroup]);
+      setMessages([...messages, { type: 'groupCreated', group: newGroup }]);
+      setNotification(`Group "${newGroup.group_name}" created successfully!`);
+    } else {
+      setNotification('Failed to create group: Group name is missing.');
+    }
   };
 
   const handleJoinGroup = (group) => {
     setMessages([...messages, { type: 'joinRequest', group }]);
+    // Navigate to the group chat page
+    navigate(`/groups/${group.group_name}`);
+  };
+
+  const handleCloseNotification = () => {
+    setNotification('');
   };
 
   return (
@@ -29,6 +43,7 @@ function StudyGroupPage() {
       <JoinGroup onJoinGroup={handleJoinGroup} />
       <GroupList groups={groups} />
       <MessageList messages={messages} />
+      <Notification message={notification} onClose={handleCloseNotification} />
     </div>
   );
 }

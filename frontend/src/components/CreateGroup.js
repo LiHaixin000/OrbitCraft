@@ -1,4 +1,3 @@
-// src/components/CreateGroup.js
 import React, { useState, useEffect } from 'react';
 import './commonStyles.css';
 
@@ -7,9 +6,9 @@ function CreateGroup({ onCreateGroup }) {
   const [courseCode, setCourseCode] = useState('');
   const [modules, setModules] = useState([]);
   const [filteredModules, setFilteredModules] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    // Fetch NUS modules from NUSMods API
     fetch('https://api.nusmods.com/v2/2023-2024/moduleList.json')
       .then(response => response.json())
       .then(data => {
@@ -26,7 +25,7 @@ function CreateGroup({ onCreateGroup }) {
     if (value.length > 0) {
       const filtered = modules.filter(module =>
         module.toLowerCase().startsWith(value.toLowerCase())
-      ); // Include all matching results
+      );
       setFilteredModules(filtered);
     } else {
       setFilteredModules([]);
@@ -38,17 +37,51 @@ function CreateGroup({ onCreateGroup }) {
     setFilteredModules([]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newGroup = { groupName, courseCode, members: [] };
-    onCreateGroup(newGroup);
-    setGroupName('');
-    setCourseCode('');
+
+    // Ensure groupName is not empty before proceeding
+    if (!groupName) {
+      setError('Group name is required');
+      return;
+    }
+
+    // Log the newGroup object to check its structure
+    console.log('Creating group with:', newGroup);
+
+    // Send new group to backend
+    try {
+      const response = await fetch('http://localhost:5001/api/groups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newGroup),
+      });
+
+      if (response.ok) {
+        const createdGroup = await response.json();
+        onCreateGroup(createdGroup);
+        setGroupName('');
+        setCourseCode('');
+        setFilteredModules([]);
+        setError('');
+      } else {
+        const errorMessage = await response.json();
+        console.error('Failed to create group', errorMessage);
+        setError('Failed to create group: ' + errorMessage.message);
+      }
+    } catch (error) {
+      console.error('Error creating group:', error);
+      setError('Error creating group: ' + error.message);
+    }
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
       <h3 className="heading">Create Group</h3>
+      {error && <p className="error">{error}</p>}
       <div className="form-group">
         <label>Group Name:</label>
         <input
