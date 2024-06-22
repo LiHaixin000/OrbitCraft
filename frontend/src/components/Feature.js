@@ -5,18 +5,16 @@ function Feature({ title, description, link }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      style={{
-        ...styles.feature,
-        ...(isHovered ? styles.featureHover : {}),
-      }}
+    <Link
+      to={link}
+      style={{ ...styles.feature, ...(isHovered ? styles.featureHover : {}) }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <h3 style={styles.title}>{title}</h3>
       <p style={styles.description}>{description}</p>
-      <Link to={link} style={styles.link}>Learn More</Link>
-    </div>
+      <span style={styles.link}>Learn More</span>
+    </Link>
   );
 }
 
@@ -35,6 +33,7 @@ const styles = {
     justifyContent: 'center',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     cursor: 'pointer',
+    textDecoration: 'none', // Ensure link styles do not override your styles
   },
   featureHover: {
     transform: 'scale(1.05)',

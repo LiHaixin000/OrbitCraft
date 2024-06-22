@@ -13,7 +13,7 @@ function Footer() {
   return (
     <footer style={styles.footer}>
       <div style={styles.contactInfo}>
-        <p style={styles.footerText}>Contact us: contact@educonnect.com</p>
+        <a href="mailto:yangtonghang@u.nus.edu" style={styles.footerText}>Contact us: yangtonghang@u.nus.edu</a>
       </div>
       <div style={styles.socialLinks}>
         {socialLinks.map((link, index) => (
@@ -51,6 +51,11 @@ const styles = {
   contactInfo: {
     color: '#fff',
     fontSize: '14px',
+  },
+  footerText: {
+    color: '#fff',
+    textDecoration: 'none',
+    transition: 'color 0.3s ease',
   },
   socialLinks: {
     display: 'flex',

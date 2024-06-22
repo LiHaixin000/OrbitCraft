@@ -1,64 +1,87 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function ProfilePage() {
-  const navigate = useNavigate();
-  const [age, setAge] = useState('');
-  const [major, setMajor] = useState('');
-  const [description, setDescription] = useState('');
-  const [message, setMessage] = useState('');
+function Profile() {
+  const currentYear = new Date().getFullYear();
+  const startYear = currentYear - 10; // 10 years before current year
+  const endYear = currentYear + 10; // 10 years after current year
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
-  const handleSubmit = async (e) => {
+  const [profile, setProfile] = useState({
+    age: '',
+    major: '',
+    bio: '',
+    gender: '',
+    year_of_study: '',
+    profileComplete: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const body = { age, major, description, upload: false };
-
-    const response = await fetch('http://localhost:5001/api/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (response.ok) {
-      setMessage('Profile updated successfully');
-      navigate('/');
-    } else {
-      setMessage('Failed to update profile');
-    }
+    // Save profile to the database
+    console.log('Profile saved', profile);
   };
 
   return (
     <div style={styles.container}>
-      <h2>Profile</h2>
+      <h2>Edit Profile</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
-          type="number"
+          type="text"
+          name="age"
           placeholder="Age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required
+          value={profile.age}
+          onChange={handleChange}
           style={styles.input}
         />
         <input
           type="text"
+          name="major"
           placeholder="Major"
-          value={major}
-          onChange={(e) => setMajor(e.target.value)}
-          required
+          value={profile.major}
+          onChange={handleChange}
           style={styles.input}
         />
         <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
+          name="bio"
+          placeholder="Bio"
+          value={profile.bio}
+          onChange={handleChange}
           style={styles.textarea}
         />
+        <select
+          name="gender"
+          value={profile.gender}
+          onChange={handleChange}
+          style={styles.select}
+        >
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <select
+          name="year_of_study"
+          value={profile.year_of_study}
+          onChange={handleChange}
+          style={styles.select}
+        >
+          <option value="">Select Year of Study</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
         <button type="submit" style={styles.button}>Save</button>
       </form>
-      {message && <div style={styles.message}>{message}</div>}
     </div>
   );
 }
@@ -70,40 +93,45 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f4f4f4',
+    padding: '20px',
+    backgroundColor: '#fff3e0',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '5px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    width: '300px',
   },
   input: {
     margin: '10px 0',
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
-    border: '1px solid #ccc',
+    border: '1px solid #ddd',
+    fontSize: '16px',
   },
   textarea: {
     margin: '10px 0',
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
-    border: '1px solid #ccc',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    height: '100px',
+  },
+  select: {
+    margin: '10px 0',
+    padding: '12px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
   },
   button: {
-    padding: '10px',
+    padding: '12px',
     borderRadius: '5px',
     border: 'none',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#ff7043',
     color: 'white',
     cursor: 'pointer',
-  },
-  message: {
-    marginTop: '10px',
-    color: 'red',
+    fontSize: '16px',
   },
 };
 
-export default ProfilePage;
+export default Profile;

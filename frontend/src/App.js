@@ -8,6 +8,7 @@ import StudyGroupPage from './pages/StudyGroupPage';
 import ResourcesPage from './pages/ResourcesPage';
 import CareerInsightsPage from './pages/CareerInsightsPage';
 import Header from './components/Header';
+import Profile from './pages/Profile'; // Import the Profile component
 import Footer from './components/Footer';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/studygroup" element={<StudyGroupPage />} />
           <Route path="/resourcesharing" element={<ResourcesPage />} />
           <Route path="/careerinsights" element={<CareerInsightsPage />} />
+          <Route path="/profile" element={<Profile />} /> {/* Add the Profile route */}
         </Routes>
       </main>
       <Footer />
