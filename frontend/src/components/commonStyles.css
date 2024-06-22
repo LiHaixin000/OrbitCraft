@@ -108,3 +108,22 @@
   border-radius: 5px;
   text-align: left;
 }
+
+/* New additions */
+.loading {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.no-results {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #999;
+}
+
+.error-message {
+  margin: 20px 0;
+  font-size: 16px;
+  color: red;
+}

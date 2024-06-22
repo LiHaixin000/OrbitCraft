@@ -1,3 +1,4 @@
+// frontend/src/components/MessageList.js
 import React from 'react';
 import './commonStyles.css';
 

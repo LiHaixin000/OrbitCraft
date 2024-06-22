@@ -1,3 +1,4 @@
+// backend/routes/groupRoutes.js
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
@@ -22,10 +23,19 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all groups
+// Get all groups or search groups
 router.get('/', async (req, res) => {
+  const { search } = req.query;
   try {
-    const result = await db.query('SELECT * FROM groups');
+    let result;
+    if (search) {
+      result = await db.query(
+        'SELECT * FROM groups WHERE group_name ILIKE $1 OR course_code ILIKE $2',
+        [`${search}%`, `${search}%`] // Use searchTerm% to match the start of the string
+      );
+    } else {
+      result = await db.query('SELECT * FROM groups');
+    }
     res.status(200).json(result.rows);
   } catch (error) {
     console.error('Error fetching groups:', error);

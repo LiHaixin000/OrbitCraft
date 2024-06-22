@@ -1,3 +1,4 @@
+// frontend/src/pages/CareerInsightsPage.js
 import React from 'react';
 import './commonStyles.css'; // Import the common styles
 

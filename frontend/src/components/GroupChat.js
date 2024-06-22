@@ -1,3 +1,4 @@
+// frontend/src/components/GroupChat.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './commonStyles.css';

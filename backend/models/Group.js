@@ -1,10 +1,21 @@
-// backend/models/Group.js
-const mongoose = require('mongoose');
+// backend/models/group.js
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/db'); // Adjust the path to your database configuration
 
-const groupSchema = new mongoose.Schema({
-  groupName: { type: String, required: true },
-  courseCode: { type: String, required: true },
-  members: [{ type: String }],
+const Group = sequelize.define('Group', {
+  groupName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  courseCode: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  members: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    defaultValue: [],
+  },
 });
 
-module.exports = mongoose.model('Group', groupSchema);
+module.exports = Group;
+

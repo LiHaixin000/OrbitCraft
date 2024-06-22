@@ -1,3 +1,4 @@
+// frontend/src/components/GroupList.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './commonStyles.css';

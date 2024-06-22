@@ -1,3 +1,4 @@
+// frontend/src/components/CreateGroup.js
 import React, { useState, useEffect } from 'react';
 import './commonStyles.css';
 

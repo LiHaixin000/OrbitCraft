@@ -1,4 +1,4 @@
-// HomePage.js
+// frontend/src/pages/HomePage.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Feature from '../components/Feature';

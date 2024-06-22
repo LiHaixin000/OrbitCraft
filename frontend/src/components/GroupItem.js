@@ -1,4 +1,4 @@
-// GroupItem.js
+// frontend/src/components/GroupItem.js
 import React from 'react';
 import './commonStyles.css';
 

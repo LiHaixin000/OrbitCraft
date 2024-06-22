@@ -1,3 +1,4 @@
+// backend/testDb.js
 const { createUser, getUserByUsername, updateUser, deleteUser } = require('./models/User');
 
 const testDatabase = async () => {

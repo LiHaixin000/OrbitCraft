@@ -1,4 +1,4 @@
-// authRoutes.js
+// backend/routes/authRoutes.js
 const express = require('express');
 const { register, login } = require('../controllers/authController');
 const router = express.Router();

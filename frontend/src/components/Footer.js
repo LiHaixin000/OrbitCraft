@@ -1,3 +1,4 @@
+// frontend/src/components/Footer.js
 import React, { useState } from 'react';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'; // Import social media icons
 
