@@ -8,8 +8,8 @@ function MessageList({ messages }) {
       <ul>
         {messages.map((message, index) => (
           <li key={index}>
-            {message.type === 'groupCreated' && `Group "${message.group.groupName}" created.`}
-            {message.type === 'joinRequest' && `Join request for group "${message.group}".`}
+            {message.type === 'groupCreated' && `Group "${message.group.group_name}" created.`}
+            {message.type === 'joinRequest' && `Join request for group "${message.group.group_name}".`}
           </li>
         ))}
       </ul>
