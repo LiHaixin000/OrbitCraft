@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import CreateGroup from '../components/CreateGroup';
 import JoinGroup from '../components/JoinGroup';
@@ -12,6 +12,25 @@ function StudyGroupPage() {
   const [messages, setMessages] = useState([]);
   const [notification, setNotification] = useState('');
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    // Fetch all groups from the backend when the component mounts
+    const fetchGroups = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/api/groups');
+        if (response.ok) {
+          const data = await response.json();
+          setGroups(data);
+        } else {
+          console.error('Failed to fetch groups');
+        }
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+      }
+    };
+
+    fetchGroups();
+  }, []);
 
   const handleCreateGroup = (newGroup) => {
     if (newGroup.group_name) {

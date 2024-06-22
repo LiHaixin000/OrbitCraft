@@ -1,5 +1,4 @@
-// src/components/GroupChat.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import './commonStyles.css';
 
@@ -7,6 +6,9 @@ function GroupChat() {
   const { groupName } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     // Fetch messages for the group
@@ -18,14 +20,23 @@ function GroupChat() {
           setMessages(data);
         } else {
           console.error('Failed to fetch messages');
+          setError('Failed to fetch messages');
         }
       } catch (error) {
         console.error('Error fetching messages:', error);
+        setError('Error fetching messages');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMessages();
   }, [groupName]);
+
+  useEffect(() => {
+    // Scroll to the bottom whenever messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -46,31 +57,42 @@ function GroupChat() {
         setNewMessage('');
       } else {
         console.error('Failed to send message');
+        setError('Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      setError('Error sending message');
     }
   };
 
   return (
     <div className="group-chat-container">
       <h2 className="heading">Group Chat: {groupName}</h2>
-      <div className="messages">
-        {messages.map((msg, index) => (
-          <div key={index} className="message">
-            <strong>{msg.sender}:</strong> {msg.content}
+      {loading ? (
+        <p>Loading messages...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <>
+          <div className="messages">
+            {messages.map((msg, index) => (
+              <div key={index} className="message">
+                <strong>{msg.sender}:</strong> {msg.content}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
           </div>
-        ))}
-      </div>
-      <form className="message-form" onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          placeholder="Type a message"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <button type="submit">Send</button>
-      </form>
+          <form className="message-form" onSubmit={handleSendMessage}>
+            <input
+              type="text"
+              placeholder="Type a message"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <button type="submit">Send</button>
+          </form>
+        </>
+      )}
     </div>
   );
 }
