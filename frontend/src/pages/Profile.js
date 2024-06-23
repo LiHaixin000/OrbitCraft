@@ -1,0 +1,137 @@
+import React, { useState } from 'react';
+
+function Profile() {
+  const currentYear = new Date().getFullYear();
+  const startYear = currentYear - 10; // 10 years before current year
+  const endYear = currentYear + 10; // 10 years after current year
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+
+  const [profile, setProfile] = useState({
+    age: '',
+    major: '',
+    bio: '',
+    gender: '',
+    year_of_study: '',
+    profileComplete: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Save profile to the database
+    console.log('Profile saved', profile);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Edit Profile</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <input
+          type="text"
+          name="age"
+          placeholder="Age"
+          value={profile.age}
+          onChange={handleChange}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          name="major"
+          placeholder="Major"
+          value={profile.major}
+          onChange={handleChange}
+          style={styles.input}
+        />
+        <textarea
+          name="bio"
+          placeholder="Bio"
+          value={profile.bio}
+          onChange={handleChange}
+          style={styles.textarea}
+        />
+        <select
+          name="gender"
+          value={profile.gender}
+          onChange={handleChange}
+          style={styles.select}
+        >
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+        <select
+          name="year_of_study"
+          value={profile.year_of_study}
+          onChange={handleChange}
+          style={styles.select}
+        >
+          <option value="">Select Year of Study</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+        <button type="submit" style={styles.button}>Save</button>
+      </form>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    padding: '20px',
+    backgroundColor: '#fff3e0',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '300px',
+  },
+  input: {
+    margin: '10px 0',
+    padding: '12px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+  },
+  textarea: {
+    margin: '10px 0',
+    padding: '12px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+    height: '100px',
+  },
+  select: {
+    margin: '10px 0',
+    padding: '12px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+    fontSize: '16px',
+  },
+  button: {
+    padding: '12px',
+    borderRadius: '5px',
+    border: 'none',
+    backgroundColor: '#ff7043',
+    color: 'white',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+};
+
+export default Profile;

@@ -1,9 +1,9 @@
-// frontend/src/components/Header.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
   const [hoveredLink, setHoveredLink] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <header style={styles.header}>
@@ -32,6 +32,33 @@ function Header() {
           </Link>
         ))}
       </nav>
+      <div style={styles.profileContainer}>
+        <button
+          style={styles.profileButton}
+          onClick={() => navigate('/profile')}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="8"
+              r="4"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <path
+              d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20"
+              stroke="black"
+              strokeWidth="2"
+            />
+          </svg>
+        </button>
+      </div>
     </header>
   );
 }
@@ -41,7 +68,7 @@ const styles = {
     width: '100vw',
     boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
     padding: '5px 20px', // Adjust padding to add space to the left and right
-    backgroundColor: '#ff7043', // Vibrant orange
+    backgroundColor: '#ff7043',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -52,20 +79,30 @@ const styles = {
     alignItems: 'center',
   },
   logo: {
-    width: '70px', // Adjust the size of the logo as needed
+    height: '80px',
   },
   nav: {
     display: 'flex',
-    gap: '15px',
+    alignItems: 'center',
+    gap: '20px',
   },
   navLink: {
-    color: '#fff',
     textDecoration: 'none',
+    color: '#333',
     fontSize: '16px',
     transition: 'color 0.3s ease',
   },
   navLinkHover: {
     color: '#ffd54f',
+  },
+  profileContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  profileButton: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
   },
 };
 

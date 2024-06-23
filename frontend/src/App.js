@@ -10,6 +10,7 @@ import CareerInsightsPage from './pages/CareerInsightsPage';
 import GroupChat from './components/GroupChat'; // Import the GroupChat component
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Profile from './pages/Profile'; // Import the Profile component
 
 function App() {
   const location = useLocation(); // Hook to get the current route
@@ -25,6 +26,7 @@ function App() {
           <Route path="/studygroup" element={<StudyGroupPage />} />
           <Route path="/resourcesharing" element={<ResourcesPage />} />
           <Route path="/careerinsights" element={<CareerInsightsPage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/groups/:groupName" element={<GroupChat />} /> {/* Add the group chat route */}
         </Routes>
       </main>
