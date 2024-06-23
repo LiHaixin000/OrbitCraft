@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Profile() {
   const currentYear = new Date().getFullYear();
@@ -11,7 +12,7 @@ function Profile() {
     major: '',
     bio: '',
     gender: '',
-    year_of_study: '',
+    year_of_graduation: '',
     profileComplete: false,
   });
 
@@ -23,11 +24,29 @@ function Profile() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Save profile to the database
-    console.log('Profile saved', profile);
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
+      console.log('Token:', token); // Log the token to ensure it's retrieved correctly
+  
+      const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
+      console.log('Submitting to:', url); // Log the URL to ensure it's correct
+  
+      const response = await axios.put(url, profile, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('Profile saved', response.data);
+    } catch (error) {
+      console.error('Error saving profile:', error.response ? error.response.data : error.message);
+    }
   };
+  
 
   return (
     <div style={styles.container}>
@@ -68,12 +87,12 @@ function Profile() {
           <option value="other">Other</option>
         </select>
         <select
-          name="year_of_study"
-          value={profile.year_of_study}
+          name="year_of_graduation"
+          value={profile.year_of_graduation}
           onChange={handleChange}
           style={styles.select}
         >
-          <option value="">Select Year of Study</option>
+          <option value="">Select Year of Graduation</option>
           {years.map((year) => (
             <option key={year} value={year}>
               {year}
@@ -135,3 +154,4 @@ const styles = {
 };
 
 export default Profile;
+

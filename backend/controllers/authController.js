@@ -1,7 +1,7 @@
 // backend/config/authController.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { createUser, getUserByUsername } = require('../models/User');
+const { createUser, getUserByUsername, createUserProfile } = require('../models/User');
 require('dotenv').config();
 const { body, validationResult } = require('express-validator');
 
@@ -16,6 +16,7 @@ const register = [
     }
     return true;
   }),
+
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -25,8 +26,13 @@ const register = [
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-      await createUser(username, email, hashedPassword);
-      res.status(201).json({ message: 'User registered successfully' });
+      const user = await createUser(username, email, hashedPassword);
+
+      // Create a profile for the new user
+      await createUserProfile(username);
+
+      const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
       console.error('Registration error:', error); // Log detailed error
       if (error.code === '23505') { // PostgreSQL error code for unique violation

@@ -1,4 +1,3 @@
-// frontend/src/pages/AuthPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,8 +52,8 @@ function AuthPage() {
           localStorage.setItem('token', data.token);
           navigate('/');
         } else {
-          setMessage('Registration successful, please login');
-          setIsLogin(true);
+          setMessage('Registration successful. Please log in.');
+          setIsLogin(true); // Switch to login view after successful registration
         }
       } else {
         setMessage(data.error || (data.errors ? data.errors.map(err => err.msg).join(', ') : 'Something went wrong'));
@@ -65,7 +64,6 @@ function AuthPage() {
     }
   };
   
-
   return (
     <div style={styles.container}>
       <div style={styles.card}>
@@ -146,7 +144,7 @@ const styles = {
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '100%',
-    maxWidth: '200px',
+    maxWidth: '400px',
     textAlign: 'center',
   },
   title: {

@@ -47,11 +47,11 @@ const getUserProfile = async (username) => {
   }
 };
 
-const updateUserProfile = async (username, age, major, description, gender, year_of_study, upload) => {
+const updateUserProfile = async (username, age, major, description, gender, year_of_graduation, upload) => {
   try {
     const result = await db.query(
-      'UPDATE profiles SET age = $1, major = $2, description = $3, gender = $4, year_of_study = $5, upload = $6 WHERE username = $7 RETURNING *',
-      [age, major, description, gender, year_of_study, upload, username]
+      'UPDATE profiles SET age = $1, major = $2, description = $3, gender = $4, year_of_graduation = $5, upload = $6 WHERE username = $7 RETURNING *',
+      [age, major, description, gender, year_of_graduation, upload, username]
     );
     return result.rows[0];
   } catch (error) {
