@@ -57,30 +57,38 @@ function Profile() {
     <div style={styles.container}>
       <h2 style={styles.header}>Edit Profile</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
+        <label htmlFor="age" style={styles.label}>Age</label>
         <input
           type="text"
+          id="age"
           name="age"
           placeholder="Age"
           value={profile.age}
           onChange={handleChange}
           style={styles.input}
         />
+        <label htmlFor="major" style={styles.label}>Major</label>
         <input
           type="text"
+          id="major"
           name="major"
           placeholder="Major"
           value={profile.major}
           onChange={handleChange}
           style={styles.input}
         />
+        <label htmlFor="bio" style={styles.label}>Bio</label>
         <textarea
+          id="bio"
           name="bio"
           placeholder="Bio"
           value={profile.bio}
           onChange={handleChange}
           style={styles.textarea}
         />
+        <label htmlFor="gender" style={styles.label}>Gender</label>
         <select
+          id="gender"
           name="gender"
           value={profile.gender}
           onChange={handleChange}
@@ -91,7 +99,9 @@ function Profile() {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+        <label htmlFor="year_of_graduation" style={styles.label}>Year of Graduation</label>
         <select
+          id="year_of_graduation"
           name="year_of_graduation"
           value={profile.year_of_graduation}
           onChange={handleChange}
@@ -136,6 +146,12 @@ const styles = {
     padding: '20px',
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  },
+  label: {
+    margin: '10px 0 5px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    color: '#333',
   },
   input: {
     margin: '10px 0',
