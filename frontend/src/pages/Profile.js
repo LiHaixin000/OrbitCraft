@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const currentYear = new Date().getFullYear();
   const startYear = currentYear - 10; // 10 years before current year
   const endYear = currentYear + 10; // 10 years after current year
@@ -32,10 +34,10 @@ function Profile() {
         throw new Error('No token found');
       }
       console.log('Token:', token); // Log the token to ensure it's retrieved correctly
-  
+
       const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
       console.log('Submitting to:', url); // Log the URL to ensure it's correct
-  
+
       const response = await axios.put(url, profile, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,11 +48,14 @@ function Profile() {
       console.error('Error saving profile:', error.response ? error.response.data : error.message);
     }
   };
-  
+
+  const handleBack = () => {
+    navigate('/'); // Navigate to the homepage
+  };
 
   return (
     <div style={styles.container}>
-      <h2>Edit Profile</h2>
+      <h2 style={styles.header}>Edit Profile</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="text"
@@ -101,6 +106,7 @@ function Profile() {
         </select>
         <button type="submit" style={styles.button}>Save</button>
       </form>
+      <button onClick={handleBack} style={styles.backButton}>Back to Home</button>
     </div>
   );
 }
@@ -112,13 +118,24 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
+    width: '100vw',
     padding: '20px',
-    backgroundColor: '#fff3e0',
+    backgroundColor: '#ffefd5', // Light orange background color
+  },
+  header: {
+    marginBottom: '20px',
+    fontSize: '24px',
+    color: '#333',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    width: '300px',
+    width: '100%',
+    maxWidth: '400px',
+    backgroundColor: '#fff',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
   input: {
     margin: '10px 0',
@@ -144,14 +161,40 @@ const styles = {
   },
   button: {
     padding: '12px',
+    margin: '10px 0',
     borderRadius: '5px',
     border: 'none',
-    backgroundColor: '#ff7043',
-    color: 'white',
-    cursor: 'pointer',
+    backgroundColor: '#007bff', // Blue background color for button
+    color: '#fff',
     fontSize: '16px',
+    cursor: 'pointer',
+  },
+  backButton: {
+    padding: '12px',
+    margin: '10px 0',
+    borderRadius: '5px',
+    border: 'none',
+    backgroundColor: '#ff7043', // Grey background color for back button
+    color: '#fff',
+    fontSize: '16px',
+    cursor: 'pointer',
   },
 };
 
-export default Profile;
+// Additional global styles to ensure the background covers the entire screen
+const globalStyles = `
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffefd5; /* Light orange background color */
+  }
+`;
 
+// Inject global styles into the document
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = globalStyles;
+document.head.appendChild(styleSheet);
+
+export default Profile;
