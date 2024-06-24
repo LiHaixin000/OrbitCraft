@@ -1,22 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 10; // 10 years before current year
-  const endYear = currentYear + 10; // 10 years after current year
+  const startYear = currentYear - 10;
+  const endYear = currentYear + 10;
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
 
   const [profile, setProfile] = useState({
+    username: '',
     age: '',
     major: '',
-    bio: '',
+    description: '', // Ensure this matches the backend field name
     gender: '',
     year_of_graduation: '',
     profileComplete: false,
   });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No token found');
+        }
+
+        const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error.response ? error.response.data : error.message);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,10 +58,10 @@ function Profile() {
       if (!token) {
         throw new Error('No token found');
       }
-      console.log('Token:', token); // Log the token to ensure it's retrieved correctly
+      console.log('Token:', token);
 
       const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
-      console.log('Submitting to:', url); // Log the URL to ensure it's correct
+      console.log('Submitting to:', url);
 
       const response = await axios.put(url, profile, {
         headers: {
@@ -50,12 +75,12 @@ function Profile() {
   };
 
   const handleBack = () => {
-    navigate('/'); // Navigate to the homepage
+    navigate('/');
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.header}>Edit Profile</h2>
+      <h2 style={styles.header}>Edit Profile for {profile.username}</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <label htmlFor="age" style={styles.label}>Age</label>
         <input
@@ -77,12 +102,12 @@ function Profile() {
           onChange={handleChange}
           style={styles.input}
         />
-        <label htmlFor="bio" style={styles.label}>Bio</label>
+        <label htmlFor="description" style={styles.label}>Description</label> {/* Updated label */}
         <textarea
-          id="bio"
-          name="bio"
-          placeholder="Bio"
-          value={profile.bio}
+          id="description"
+          name="description"
+          placeholder="Description"
+          value={profile.description}
           onChange={handleChange}
           style={styles.textarea}
         />
@@ -130,7 +155,7 @@ const styles = {
     height: '100vh',
     width: '100vw',
     padding: '20px',
-    backgroundColor: '#ffefd5', // Light orange background color
+    backgroundColor: '#ffefd5',
   },
   header: {
     marginBottom: '20px',
@@ -180,7 +205,7 @@ const styles = {
     margin: '10px 0',
     borderRadius: '5px',
     border: 'none',
-    backgroundColor: '#007bff', // Blue background color for button
+    backgroundColor: '#007bff',
     color: '#fff',
     fontSize: '16px',
     cursor: 'pointer',
@@ -190,24 +215,22 @@ const styles = {
     margin: '10px 0',
     borderRadius: '5px',
     border: 'none',
-    backgroundColor: '#ff7043', // Grey background color for back button
+    backgroundColor: '#ff7043',
     color: '#fff',
     fontSize: '16px',
     cursor: 'pointer',
   },
 };
 
-// Additional global styles to ensure the background covers the entire screen
 const globalStyles = `
   html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ffefd5; /* Light orange background color */
+    background-color: #ffefd5;
   }
 `;
 
-// Inject global styles into the document
 const styleSheet = document.createElement("style");
 styleSheet.type = "text/css";
 styleSheet.innerText = globalStyles;

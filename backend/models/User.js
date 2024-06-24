@@ -1,4 +1,3 @@
-// backend/models/User.js
 const db = require('../config/db');
 
 const createUser = async (username, email, hashedPassword) => {

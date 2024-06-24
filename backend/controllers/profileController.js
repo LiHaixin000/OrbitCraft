@@ -1,4 +1,3 @@
-// backend/config/profileController.js
 const { getUserProfile, updateUserProfile, createUserProfile } = require('../models/User');
 
 const getProfile = async (req, res) => {
@@ -18,32 +17,31 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfileHandler = async (req, res) => {
-    try {
-      const username = req.user.username;
-      const { age, major, bio, gender, year_of_graduation } = req.body;
-      console.log('Updating profile for user:', username);
-      console.log('Profile data:', { age, major, bio, gender, year_of_graduation });
-  
-      // Check if the profile exists
-      let profile = await getUserProfile(username);
-      if (!profile) {
-        // Create a new profile if it doesn't exist
-        profile = await createUserProfile(username);
-      }
-  
-      const updatedProfile = await updateUserProfile(username, age, major, bio, gender, year_of_graduation, null);
-  
-      if (!updatedProfile) {
-        return res.status(404).json({ error: 'Profile not found' });
-      }
-  
-      res.json({ message: 'Profile updated successfully', profile: updatedProfile });
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      res.status(500).json({ error: 'Failed to update profile', details: error.message });
+  try {
+    const username = req.user.username;
+    const { age, major, description, gender, year_of_graduation } = req.body; // Updated bio to description
+    console.log('Updating profile for user:', username);
+    console.log('Profile data:', { age, major, description, gender, year_of_graduation });
+
+    // Check if the profile exists
+    let profile = await getUserProfile(username);
+    if (!profile) {
+      // Create a new profile if it doesn't exist
+      profile = await createUserProfile(username);
     }
-  };
-  
+
+    const updatedProfile = await updateUserProfile(username, age, major, description, gender, year_of_graduation, null); // Updated bio to description
+
+    if (!updatedProfile) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    res.json({ message: 'Profile updated successfully', profile: updatedProfile });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ error: 'Failed to update profile', details: error.message });
+  }
+};
 
 module.exports = {
   getProfile,
