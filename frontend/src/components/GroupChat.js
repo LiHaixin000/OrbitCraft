@@ -1,7 +1,6 @@
-// frontend/src/components/GroupChat.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import './commonStyles.css';
+import './GroupChat.css'; // Updated to use a specific CSS file for the GroupChat component
 
 function GroupChat() {
   const { groupName } = useParams();
