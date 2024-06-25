@@ -2,7 +2,9 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
+const resourceRoutes = require('./routes/resourceRoutes');
 
 console.log('Starting server with PORT:', process.env.PORT);
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
@@ -22,7 +24,10 @@ app.use(cors({
 }));
 
 // Routes
+app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/profile', profileRoutes); // Add the profile routes
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

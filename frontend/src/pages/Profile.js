@@ -11,7 +11,7 @@ function Profile() {
     major: '',
     bio: '',
     gender: '',
-    year_of_study: '',
+    year_of_graduation: '',
     profileComplete: false,
   });
 
@@ -68,12 +68,12 @@ function Profile() {
           <option value="other">Other</option>
         </select>
         <select
-          name="year_of_study"
-          value={profile.year_of_study}
+          name="year_of_graduation"
+          value={profile.year_of_graduation}
           onChange={handleChange}
           style={styles.select}
         >
-          <option value="">Select Year of Study</option>
+          <option value="">Select Year of Graduation</option>
           {years.map((year) => (
             <option key={year} value={year}>
               {year}
