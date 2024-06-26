@@ -1,3 +1,4 @@
+// frontend/src/pages/Profile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -13,11 +14,13 @@ function Profile() {
     username: '',
     age: '',
     major: '',
-    description: '', // Ensure this matches the backend field name
+    description: '', 
     gender: '',
     year_of_graduation: '',
     profileComplete: false,
   });
+
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -34,8 +37,12 @@ function Profile() {
           },
         });
 
-        setProfile(response.data);
+        setProfile({
+          ...response.data,
+          description: response.data.description || '', // Ensure description is not null
+        });
       } catch (error) {
+        setError('Error fetching profile');
         console.error('Error fetching profile:', error.response ? error.response.data : error.message);
       }
     };
@@ -58,10 +65,8 @@ function Profile() {
       if (!token) {
         throw new Error('No token found');
       }
-      console.log('Token:', token);
 
       const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
-      console.log('Submitting to:', url);
 
       const response = await axios.put(url, profile, {
         headers: {
@@ -70,6 +75,7 @@ function Profile() {
       });
       console.log('Profile saved', response.data);
     } catch (error) {
+      setError('Error saving profile');
       console.error('Error saving profile:', error.response ? error.response.data : error.message);
     }
   };
@@ -81,6 +87,7 @@ function Profile() {
   return (
     <div style={styles.container}>
       <h2 style={styles.header}>Edit Profile for {profile.username}</h2>
+      {error && <p style={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} style={styles.form}>
         <label htmlFor="age" style={styles.label}>Age</label>
         <input
@@ -102,12 +109,12 @@ function Profile() {
           onChange={handleChange}
           style={styles.input}
         />
-        <label htmlFor="description" style={styles.label}>Description</label> {/* Updated label */}
+        <label htmlFor="description" style={styles.label}>Description</label>
         <textarea
           id="description"
           name="description"
           placeholder="Description"
-          value={profile.description}
+          value={profile.description || ''} // Ensure description is not null
           onChange={handleChange}
           style={styles.textarea}
         />
@@ -219,6 +226,10 @@ const styles = {
     color: '#fff',
     fontSize: '16px',
     cursor: 'pointer',
+  },
+  error: {
+    color: 'red',
+    marginBottom: '10px',
   },
 };
 
