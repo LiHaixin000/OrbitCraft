@@ -13,7 +13,7 @@ function StudyGroupPage() {
   const [messages, setMessages] = useState([]);
   const [notification, setNotification] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const groupsPerPage = 5;
+  const groupsPerPage = 4;
   const navigate = useNavigate(); 
 
   useEffect(() => {
