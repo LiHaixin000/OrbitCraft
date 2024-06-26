@@ -1,6 +1,6 @@
 // backend/models/group.js
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/db'); // Adjust the path to your database configuration
+const sequelize = require('../config/db'); 
 
 const Group = sequelize.define('Group', {
   groupName: {

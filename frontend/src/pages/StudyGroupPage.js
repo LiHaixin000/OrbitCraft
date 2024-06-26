@@ -12,6 +12,8 @@ function StudyGroupPage() {
   const [groups, setGroups] = useState([]);
   const [messages, setMessages] = useState([]);
   const [notification, setNotification] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const groupsPerPage = 5;
   const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -53,6 +55,13 @@ function StudyGroupPage() {
     setNotification('');
   };
 
+  // Pagination logic
+  const indexOfLastGroup = currentPage * groupsPerPage;
+  const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
+  const currentGroups = groups.slice(indexOfFirstGroup, indexOfLastGroup);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
     <div className="container">
       <h2 className="heading">Study Groups</h2>
@@ -61,7 +70,8 @@ function StudyGroupPage() {
       </p>
       <CreateGroup onCreateGroup={handleCreateGroup} />
       <JoinGroup onJoinGroup={handleJoinGroup} />
-      <GroupList groups={groups} />
+      <h2 className="heading">Available Groups</h2> {/* Updated line */}
+      <GroupList groups={currentGroups} paginate={paginate} totalGroups={groups.length} groupsPerPage={groupsPerPage} />
       <MessageList messages={messages} />
       <Notification message={notification} onClose={handleCloseNotification} />
     </div>
@@ -69,3 +79,7 @@ function StudyGroupPage() {
 }
 
 export default StudyGroupPage;
+
+
+
+

@@ -1,24 +1,32 @@
 // frontend/src/components/GroupList.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import GroupItem from './GroupItem';
 import './commonStyles.css';
 
-function GroupList({ groups }) {
-  const navigate = useNavigate();
+function GroupList({ groups, paginate, totalGroups, groupsPerPage }) {
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(totalGroups / groupsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="group-list">
-      <h3 className="heading">Available Groups</h3>
-      <ul>
-        {groups.map((group, index) => (
-          <li key={index}>
-            <span>{group.group_name}</span>
-            <button onClick={() => navigate(`/groups/${group.group_name}`)}>Enter Chat</button>
-          </li>
+      <div className="group-cards">
+        {groups.map(group => (
+          <GroupItem key={group.id} group={group} />
         ))}
-      </ul>
+      </div>
+      <div className="pagination">
+        {pageNumbers.map(number => (
+          <span key={number} className="page-link" onClick={() => paginate(number)}>
+            {number}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default GroupList;
+
+

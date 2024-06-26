@@ -1,3 +1,4 @@
+// backend/controllers/profileController.js
 const { getUserProfile, updateUserProfile, createUserProfile } = require('../models/User');
 
 const getProfile = async (req, res) => {
@@ -30,7 +31,7 @@ const updateProfileHandler = async (req, res) => {
       profile = await createUserProfile(username);
     }
 
-    const updatedProfile = await updateUserProfile(username, age, major, description, gender, year_of_graduation, null); // Updated bio to description
+    const updatedProfile = await updateUserProfile(username, age, major, description, gender, year_of_graduation, null); 
 
     if (!updatedProfile) {
       return res.status(404).json({ error: 'Profile not found' });
