@@ -16,9 +16,9 @@ const app = express();
 // Middleware
 app.use(express.json()); // Use express.json() instead of body-parser
 
-// Temporary CORS configuration for localhost
+// CORS configuration for localhost and deployed frontend
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://orbit-craft.vercel.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204
@@ -32,6 +32,7 @@ app.use('/api/profile', profileRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
 
 
 

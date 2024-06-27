@@ -15,7 +15,7 @@ function GroupChat() {
     // Fetch messages for the group
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/groups/${groupName}/messages`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups/${groupName}/messages`);
         if (response.ok) {
           const data = await response.json();
           setMessages(data);
@@ -44,7 +44,7 @@ function GroupChat() {
     if (!newMessage.trim()) return;
 
     try {
-      const response = await fetch(`http://localhost:5001/api/groups/${groupName}/messages`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups/${groupName}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

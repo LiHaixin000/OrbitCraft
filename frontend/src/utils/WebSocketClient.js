@@ -1,3 +1,4 @@
+/*
 // src/utils/WebSocketClient.js
 const socket = new WebSocket('ws://localhost:8080/ws');
 
@@ -35,3 +36,4 @@ export function sendMessage(groupName, text) {
 }
 
 export default socket;
+*/

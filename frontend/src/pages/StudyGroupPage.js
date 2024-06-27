@@ -20,7 +20,7 @@ function StudyGroupPage() {
     // Fetch all groups from the backend when the component mounts
     const fetchGroups = async () => {
       try {
-        const response = await fetch('http://localhost:5001/api/groups');
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups`);
         if (response.ok) {
           const data = await response.json();
           setGroups(data);
@@ -79,7 +79,3 @@ function StudyGroupPage() {
 }
 
 export default StudyGroupPage;
-
-
-
-
