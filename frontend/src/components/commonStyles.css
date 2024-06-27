@@ -1,0 +1,212 @@
+/* Container Styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Heading Styles */
+.heading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Paragraph Styles */
+.paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Form Styles */
+.form {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff7043;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #e64a19;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Message List Styles */
+.message-list {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0;
+}
+
+.message-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.message-list li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+/* Group List Styles */
+.group-list {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px 0;
+}
+
+.group-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.group-item {
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.group-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.group-item:hover .hover-message {
+  display: block;
+}
+
+.group-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.course-code {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.members-count {
+  font-size: 14px;
+  color: #999;
+}
+
+.hover-message {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Loading Styles */
+.loading, .no-results, .error-message {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.no-results {
+  color: #999;
+}
+
+.error-message {
+  color: red;
+}
+
+/* Search Bar Styles */
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-link {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.2s;
+}
+
+.page-link:hover {
+  background-color: #f0f0f0;
+}
