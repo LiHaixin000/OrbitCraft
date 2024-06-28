@@ -1,4 +1,4 @@
-// App.js
+// src/App.js
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
@@ -6,7 +6,7 @@ import AuthPage from './pages/AuthPage';
 import MentorshipPage from './pages/MentorshipPage';
 import StudyGroupPage from './pages/StudyGroupPage';
 import ResourcesPage from './pages/ResourcesPage';
-import CareerInsightsPage from './pages/CareerInsightsPage';
+import CareerInsightsPage from './pages/CareerInsightsPage'; //
 import Header from './components/Header';
 import Profile from './pages/Profile'; // Import the Profile component
 import Footer from './components/Footer';
@@ -24,7 +24,7 @@ function App() {
           <Route path="/mentorship" element={<MentorshipPage />} />
           <Route path="/studygroup" element={<StudyGroupPage />} />
           <Route path="/resourcesharing" element={<ResourcesPage />} />
-          <Route path="/careerinsights" element={<CareerInsightsPage />} />
+          <Route path="/careerinsights" element={<CareerInsightsPage />} /> {/* Add the CareerInsightsPage route */}
           <Route path="/profile" element={<Profile />} /> {/* Add the Profile route */}
         </Routes>
       </main>

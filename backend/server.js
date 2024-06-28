@@ -1,7 +1,8 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const careerInsightsRoutes = require('./routes/careerInsightsRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 console.log('Starting server with PORT:', process.env.PORT);
@@ -22,7 +23,9 @@ app.use(cors({
 }));
 
 // Routes
+app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/career-insights', careerInsightsRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
