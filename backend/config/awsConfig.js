@@ -29,4 +29,12 @@ const upload = multer({
   })
 }).single('file');
 
+s3.listBuckets((err, data) => {
+  if (err) {
+    console.error('Error creating S3 instance:', err);
+  } else {
+    console.log('S3 instance created successfully. Buckets:', data.Buckets);
+  }
+});
+
 module.exports = { s3, upload };

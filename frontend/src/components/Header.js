@@ -67,7 +67,6 @@ const styles = {
   header: {
     width: '100vw',
     boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
-    padding: '5px 20px', // Adjust padding to add space to the left and right
     backgroundColor: '#ff7043',
     display: 'flex',
     justifyContent: 'space-between',

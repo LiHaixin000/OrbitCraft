@@ -1,7 +1,7 @@
 // routes/resourceRoutes.js
 const express = require('express');
 const { checkUploadStatus, handleFileUpload, getAllFiles } = require('../controllers/resourceController');
-const { authenticateToken } = require('../middleware/authMiddleware');
+const { authenticateToken } = require('../middleware/Authenticate');
 const { upload } = require('../config/awsConfig');
 const router = express.Router();
 

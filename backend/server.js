@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 console.log('Starting server with PORT:', process.env.PORT);
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
@@ -17,7 +18,7 @@ app.use(express.json()); // Use express.json() instead of body-parser
 
 // Temporary CORS configuration for localhost
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://orbit-craft.vercel.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204

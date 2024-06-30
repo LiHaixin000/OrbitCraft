@@ -7,13 +7,13 @@ const authenticateToken = (req, res, next) => {
 
   if (!token) {
     console.log('No token provided');
-    return res.sendStatus(401); // Unauthorized
+    return res.status(401).json({ message: 'No token provided' }); // Unauthorized
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.log('Token verification failed:', err);
-      return res.sendStatus(403); // Forbidden
+      return res.status(403).json({ message: 'Token verification failed' }); // Forbidden
     }
 
     req.user = user;

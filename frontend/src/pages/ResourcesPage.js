@@ -6,11 +6,25 @@ function ResourcesPage() {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [allFiles, setAllFiles] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  console.log('API_BASE_URL:', API_BASE_URL);
+
+  const buildUrl = (base, path) => {
+    if (base.endsWith('/')) {
+      base = base.slice(0, -1);
+    }
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    return base + path;
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('/api/resources/check', { headers: { Authorization: `Bearer ${token}` } })
+      const url = buildUrl(API_BASE_URL, '/api/resources/check');
+      axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
           setUploadStatus(response.data.uploadStatus);
           if (response.data.uploadStatus) {
@@ -22,7 +36,8 @@ function ResourcesPage() {
   }, []);
 
   const fetchAllFiles = () => {
-    axios.get('/api/resources/files')
+    const url = buildUrl(API_BASE_URL, '/api/resources/files');
+    axios.get(url)
       .then(response => setAllFiles(response.data))
       .catch(error => console.error('Error fetching files:', error));
   };
@@ -40,7 +55,8 @@ function ResourcesPage() {
     const formData = new FormData();
     formData.append('file', selectedFile);
 
-    axios.post('/api/resources/upload', formData, {
+    const url = buildUrl(API_BASE_URL, '/api/resources/upload');
+    axios.post(url, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,

@@ -1,10 +1,7 @@
 // controllers/resourceController.js
 const { getUserProfile, updateUserProfileUpload, getAllUploadedFiles, saveUploadedFile } = require('../models/Resource');
 const { body, validationResult } = require('express-validator');
-const AWS = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const s3 = require('../config/awsConfig').s3;
+const { s3, upload } = require('../config/awsConfig');
 
 // Check if user needs to upload a file
 const checkUploadStatus = async (req, res) => {
