@@ -40,17 +40,17 @@ function CreateGroup({ onCreateGroup }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newGroup = { groupName, courseCode, members: [] };
-
+    const newGroup = { groupName, courseCode, members: ['creator_username'] }; // Add the creator as the first member
+  
     // Ensure groupName is not empty before proceeding
     if (!groupName) {
       setError('Group name is required');
       return;
     }
-
+  
     // Log the newGroup object to check its structure
     console.log('Creating group with:', newGroup);
-
+  
     // Send new group to backend
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups`, {
@@ -60,7 +60,7 @@ function CreateGroup({ onCreateGroup }) {
         },
         body: JSON.stringify(newGroup),
       });
-
+  
       if (response.ok) {
         const createdGroup = await response.json();
         onCreateGroup(createdGroup);
@@ -78,6 +78,7 @@ function CreateGroup({ onCreateGroup }) {
       setError('Error creating group: ' + error.message);
     }
   };
+  
 
   return (
     <form className="form" onSubmit={handleSubmit}>
