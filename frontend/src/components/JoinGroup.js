@@ -33,7 +33,7 @@ function JoinGroup({ onJoinGroup, currentUser }) {
       }
     };
 
-    const debounceFetch = setTimeout(fetchGroups, 300); // Debounce API call by 300ms
+    const debounceFetch = setTimeout(fetchGroups, 300); 
 
     return () => clearTimeout(debounceFetch);
   }, [searchTerm]);
@@ -51,7 +51,7 @@ function JoinGroup({ onJoinGroup, currentUser }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ groupName: searchTerm, member: currentUser }), // Use actual user identifier
+        body: JSON.stringify({ groupName: searchTerm, member: currentUser }),
       });
 
       if (response.ok) {

@@ -10,7 +10,6 @@ function ResourcesPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Ensure token is retrieved and sent correctly
     const fetchUploadStatus = async () => {
       try {
         const token = localStorage.getItem('token');

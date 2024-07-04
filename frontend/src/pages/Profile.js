@@ -39,7 +39,7 @@ function Profile() {
 
         setProfile({
           ...response.data,
-          description: response.data.description || '', // Ensure description is not null
+          description: response.data.description || '', 
         });
       } catch (error) {
         setError('Error fetching profile');
@@ -114,7 +114,7 @@ function Profile() {
           id="description"
           name="description"
           placeholder="Description"
-          value={profile.description || ''} // Ensure description is not null
+          value={profile.description || ''} 
           onChange={handleChange}
           style={styles.textarea}
         />
