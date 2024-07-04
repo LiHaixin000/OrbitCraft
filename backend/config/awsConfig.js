@@ -27,7 +27,7 @@ const upload = multer({
       cb(null, Date.now().toString() + '-' + file.originalname);
     }
   })
-}).single('file');
+});
 
 s3.listBuckets((err, data) => {
   if (err) {
@@ -38,3 +38,4 @@ s3.listBuckets((err, data) => {
 });
 
 module.exports = { s3, upload };
+
