@@ -1,3 +1,4 @@
+// frontend/src/pages/AuthPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,6 +51,7 @@ function AuthPage() {
       if (response.ok) {
         if (isLogin) {
           localStorage.setItem('token', data.token);
+          localStorage.setItem('currentUser', username); // Store the current username
           navigate('/');
         } else {
           setMessage('Registration successful. Please log in.');
@@ -63,6 +65,7 @@ function AuthPage() {
       setMessage('Failed to connect to the server');
     }
   };
+  
   
   return (
     <div style={styles.container}>

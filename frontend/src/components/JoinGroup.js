@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import './commonStyles.css';
 
-function JoinGroup({ onJoinGroup, currentUser }) {
+function JoinGroup({ onJoinGroup }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const currentUser = localStorage.getItem('currentUser'); // Retrieve the current user
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -45,6 +47,12 @@ function JoinGroup({ onJoinGroup, currentUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (!searchTerm || !currentUser) {
+      alert('Group name and user are required');
+      return;
+    }
+  
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups/join`, {
         method: 'POST',
@@ -53,10 +61,19 @@ function JoinGroup({ onJoinGroup, currentUser }) {
         },
         body: JSON.stringify({ groupName: searchTerm, member: currentUser }),
       });
-
+  
       if (response.ok) {
         const group = await response.json();
-        onJoinGroup(group);
+        console.log('Group data:', group); // Log the group data for debugging
+  
+        // Check if the current user is already a member
+        const isMember = group.members.some(member => member.username === currentUser);
+        
+        if (isMember) {
+          alert('You are already a member of this group');
+        } else {
+          onJoinGroup(group);
+        }
       } else {
         const errorMessage = await response.json();
         alert('Failed to join group: ' + errorMessage.message);
@@ -67,6 +84,8 @@ function JoinGroup({ onJoinGroup, currentUser }) {
     }
     setSearchTerm('');
   };
+  
+
 
   return (
     <form className="form" onSubmit={handleSubmit}>
