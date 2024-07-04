@@ -1,18 +1,19 @@
+// backend/controllers/resourceController.js
 // controllers/resourceController.js
 const { getUserProfile, updateUserProfileUpload, getAllUploadedFiles, saveUploadedFile } = require('../models/Resource');
+const { body, validationResult } = require('express-validator');
+const { s3, upload } = require('../config/awsConfig');
 
 // Check if user needs to upload a file
 const checkUploadStatus = async (req, res) => {
+  const { username } = req.user; // assuming you have user info in req.user
   try {
-    console.log('Request headers:', req.headers); // Log request headers to verify token
-    console.log('User info:', req.user); // Log user info to verify
-    const { username } = req.user; // assuming you have user info in req.user
     const profile = await getUserProfile(username);
-
     if (profile && profile.upload) {
-      res.status(200).json({ uploadStatus: true });
+      const files = await getAllUploadedFiles();
+      res.status(200).json(files);
     } else {
-      res.status(200).json({ uploadStatus: false });
+      res.status(403).json({ message: 'You need to upload a file' });
     }
   } catch (error) {
     console.error('Check upload status error:', error);
@@ -21,31 +22,35 @@ const checkUploadStatus = async (req, res) => {
 };
 
 // Handle file upload
-const handleFileUpload = async (req, res) => {
-  try {
-    console.log('Request headers:', req.headers); // Log request headers to verify token
-    console.log('User info:', req.user); // Log user info to verify
-    const { username } = req.user; 
-    const fileUrl = req.file.location; 
+const handleFileUpload = [
+  // Add file validation here if needed
+  async (req, res) => {
+    upload(req, res, async function (error) {
+      if (error) {
+        console.error('Upload error:', error);
+        return res.status(500).json({ error: 'Failed to upload file' });
+      }
 
-    const savedFile = await saveUploadedFile(username, req.file.originalname, fileUrl); // Save file and get the result
-    await updateUserProfileUpload(username);
-    const files = await getAllUploadedFiles(username); 
+      const { username } = req.user; // assuming you have user info in req.user
+      const fileUrl = req.file.location; // S3 file URL
 
-    res.status(201).json({ message: 'File uploaded successfully', files });
-  } catch (error) {
-    console.error('File upload error:', error);
-    res.status(500).json({ error: 'Failed to upload file', details: error.message });
+      try {
+        await saveUploadedFile(username, req.file.originalname, fileUrl);
+        await updateUserProfileUpload(username);
+        const files = await getAllUploadedFiles();
+        res.status(201).json(files);
+      } catch (error) {
+        console.error('File upload error:', error);
+        res.status(500).json({ error: 'Failed to upload file', details: error.message });
+      }
+    });
   }
-};
+];
 
-// Get all uploaded files for a specific user
+// Get all uploaded files
 const getAllFiles = async (req, res) => {
   try {
-    console.log('Request headers:', req.headers); // Log request headers to verify token
-    console.log('User info:', req.user); // Log user info to verify
-    const { username } = req.user; // assuming you have user info in req.user
-    const files = await getAllUploadedFiles(username);
+    const files = await getAllUploadedFiles();
     res.status(200).json(files);
   } catch (error) {
     console.error('Get all files error:', error);

@@ -1,5 +1,5 @@
 // frontend/src/pages/ResourcesPage.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import '../pagesCss/ResourcesPage.css';
 
@@ -7,101 +7,77 @@ function ResourcesPage() {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [allFiles, setAllFiles] = useState([]);
-  const [error, setError] = useState('');
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  console.log('API_BASE_URL:', API_BASE_URL);
+
+  const buildUrl = (base, path) => {
+    if (base.endsWith('/')) {
+      base = base.slice(0, -1);
+    }
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    return base + path;
+  };
+
+  const fetchAllFiles = useCallback(() => {
+    const url = buildUrl(API_BASE_URL, '/api/resources/files');
+    axios.get(url)
+      .then(response => setAllFiles(response.data))
+      .catch(error => console.error('Error fetching files:', error));
+  }, [API_BASE_URL]);
 
   useEffect(() => {
-    const fetchUploadStatus = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        console.log('Token:', token); // Log token to verify it's being retrieved
-
-        if (!token) {
-          throw new Error('No token found');
-        }
-
-        const url = `${process.env.REACT_APP_API_BASE_URL}/api/resources/check`;
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        console.log('Upload status response:', response.data); // Log response data
-        setUploadStatus(response.data.uploadStatus);
-        if (response.data.uploadStatus) {
-          fetchAllFiles(token);
-        }
-      } catch (error) {
-        console.error('Error fetching upload status:', error.response ? error.response.data : error.message);
-        setError(error.response ? error.response.data.message : 'Error fetching upload status');
-      }
-    };
-
-    fetchUploadStatus();
-  }, []);
-
-  const fetchAllFiles = async (token) => {
-    try {
-      const url = `${process.env.REACT_APP_API_BASE_URL}/api/resources/files`;
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log('Files fetched:', response.data); // Log fetched files
-      setAllFiles(response.data);
-    } catch (error) {
-      console.error('Error fetching files:', error.response ? error.response.data : error.message);
-      setError('Error fetching files');
+    const token = localStorage.getItem('token');
+    if (token) {
+      const url = buildUrl(API_BASE_URL, '/api/resources/check');
+      axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => {
+          setUploadStatus(response.data.uploadStatus);
+          if (response.data.uploadStatus) {
+            fetchAllFiles();
+          }
+        })
+        .catch(error => console.error('Error fetching upload status:', error));
     }
-  };
+  }, [API_BASE_URL, fetchAllFiles]);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleFileUpload = async () => {
+  const handleFileUpload = () => {
     if (!selectedFile) {
       alert('Please select a file to upload');
       return;
     }
-    try {
-      const token = localStorage.getItem('token');
-      console.log('Token:', token); // Log token to verify it's being retrieved
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('file', selectedFile);
 
-      if (!token) {
-        throw new Error('No token found');
-      }
-
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-
-      const url = `${process.env.REACT_APP_API_BASE_URL}/api/resources/upload`;
-      const response = await axios.post(url, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
+    const url = buildUrl(API_BASE_URL, '/api/resources/upload');
+    axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {
+        setUploadStatus(true);
+        fetchAllFiles();
+        alert('File uploaded successfully');
+      })
+      .catch(error => {
+        console.error('Error uploading file:', error);
+        alert('File upload failed');
       });
-
-      console.log('File upload response:', response.data); // Log response data
-      setUploadStatus(true);
-      fetchAllFiles(token);
-      alert('File uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading file:', error.response ? error.response.data : error.message);
-      setError('Error uploading file');
-      alert('File upload failed');
-    }
   };
 
   return (
     <div className="resources-page">
       <h2>Upload a File</h2>
-      <p className="upload-explanation">
-        You do not have a history of uploading files, you need to upload files to access the resource.
-      </p>
+      <p className="upload-explanation">You do not have a history of uploading files, you need to upload files to access the resource.</p>
       {!uploadStatus ? (
         <div className="upload-section">
           <input
@@ -123,12 +99,11 @@ function ResourcesPage() {
           <h3>Uploaded Files</h3>
           <ul>
             {allFiles.map((file, index) => (
-              <li key={index}>{file.filename}</li>
+              <li key={index}>{file}</li>
             ))}
           </ul>
         </div>
       )}
-      {error && <p className="error">{error}</p>}
     </div>
   );
 }
