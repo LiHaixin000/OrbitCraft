@@ -1,5 +1,4 @@
 // backend/controllers/resourceController.js
-// controllers/resourceController.js
 const { getUserProfile, updateUserProfileUpload, getAllUploadedFiles, saveUploadedFile } = require('../models/Resource');
 const { body, validationResult } = require('express-validator');
 const { s3, upload } = require('../config/awsConfig');

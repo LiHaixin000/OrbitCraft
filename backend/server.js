@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // Import path module
 const authRoutes = require('./routes/authRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
 const groupRoutes = require('./routes/groupRoutes');
@@ -15,6 +16,7 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // Use express.json() instead of body-parser
+app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration for localhost and deployed frontend
 app.use(cors({
@@ -24,6 +26,9 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));
 
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/resources', resourceRoutes);
@@ -32,6 +37,7 @@ app.use('/api/profile', profileRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
 
 
 

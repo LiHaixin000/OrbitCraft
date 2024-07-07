@@ -1,6 +1,9 @@
 // frontend/src/pages/CareerInsightsPage.js
 import React from 'react';
-import './commonStyles.css'; // Import the common styles
+import '../pagesCss/commonStyles.css'; // Import the common styles
+import ViewPosts from '../components/ViewPosts';
+import CreatePosts from '../components/createPosts';
+
 
 function CareerInsightsPage() {
   return (
@@ -9,6 +12,12 @@ function CareerInsightsPage() {
       <p className="paragraph">
         Gain insights into various career paths, industry trends, and job opportunities. Connect with professionals to learn about their experiences and get advice on advancing your career.
       </p>
+      <div className="links">
+        <a href="/view-posts" className="link">View Posts</a>
+        <a href="/create-post" className="link">Create Post</a>
+      </div>
+      <ViewPosts />
+      <CreatePosts />
     </div>
   );
 }
