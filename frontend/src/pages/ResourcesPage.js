@@ -34,7 +34,7 @@ function ResourcesPage() {
       const url = buildUrl(API_BASE_URL, '/api/resources/check');
       axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
-          setUploadStatus(response.data.uploadStatus);
+          setUploadStatus(response.data.uploadStatus || false);
           if (response.data.uploadStatus) {
             fetchAllFiles();
           }

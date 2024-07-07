@@ -10,9 +10,9 @@ const checkUploadStatus = async (req, res) => {
     const profile = await getUserProfile(username);
     if (profile && profile.upload) {
       const files = await getAllUploadedFiles();
-      res.status(200).json(files);
+      res.status(200).json({ uploadStatus: true, files });
     } else {
-      res.status(403).json({ message: 'You need to upload a file' });
+      res.status(200).json({ uploadStatus: false });
     }
   } catch (error) {
     console.error('Check upload status error:', error);
@@ -30,8 +30,8 @@ const handleFileUpload = [
         return res.status(500).json({ error: 'Failed to upload file' });
       }
 
-      const { username } = req.user; // assuming you have user info in req.user
-      const fileUrl = req.file.location; // S3 file URL
+      const { username } = req.user;
+      const fileUrl = req.file.location; 
 
       try {
         await saveUploadedFile(username, req.file.originalname, fileUrl);
