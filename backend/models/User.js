@@ -15,13 +15,16 @@ const createUser = async (username, email, hashedPassword) => {
   }
 };
 
-// Get user details by username from the users table
-const getUserByUsername = async (username) => {
+// Get user details by username or email from the users table
+const getUserByUsernameOrEmail = async (identifier) => {
   try {
-    const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
+    const result = await db.query(
+      'SELECT * FROM users WHERE username = $1 OR email = $1',
+      [identifier]
+    );
     return result.rows[0];
   } catch (error) {
-    console.error('Database error in getUserByUsername:', error); 
+    console.error('Database error in getUserByUsernameOrEmail:', error); 
     throw error;
   }
 };
@@ -67,9 +70,8 @@ const updateUserProfile = async (username, age, major, description, gender, year
 
 module.exports = {
   createUser,
-  getUserByUsername,
+  getUserByUsernameOrEmail,
   createUserProfile,
   getUserProfile,
   updateUserProfile
 };
-

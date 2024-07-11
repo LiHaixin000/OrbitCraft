@@ -1,7 +1,7 @@
 // backend/config/authController.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { createUser, getUserByUsername, createUserProfile } = require('../models/User');
+const { createUser, getUserByUsernameOrEmail, createUserProfile } = require('../models/User');
 require('dotenv').config();
 const { body, validationResult } = require('express-validator');
 
@@ -45,7 +45,7 @@ const register = [
 
 // Login
 const login = [
-  body('username').notEmpty().withMessage('Username is required'),
+  body('identifier').notEmpty().withMessage('Username or Email is required'),
   body('password').notEmpty().withMessage('Password is required'),
   async (req, res) => {
     const errors = validationResult(req);
@@ -53,9 +53,9 @@ const login = [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, password } = req.body;
+    const { identifier, password } = req.body;
     try {
-      const user = await getUserByUsername(username);
+      const user = await getUserByUsernameOrEmail(identifier);
       if (user && await bcrypt.compare(password, user.password)) {
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });

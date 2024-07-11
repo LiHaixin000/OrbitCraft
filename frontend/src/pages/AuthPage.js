@@ -1,10 +1,11 @@
 // frontend/src/pages/AuthPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isTokenExpired, logoutUser } from '../utils/auth'; // Import utility functions
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [identifier, setIdentifier] = useState(''); // Change from username to identifier
+  const [identifier, setIdentifier] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,6 +14,22 @@ function AuthPage() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   console.log('API_BASE_URL:', API_BASE_URL);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token && isTokenExpired(token)) {
+      logoutUser();
+      navigate('/auth'); // Redirect to auth page
+    } else if (token) {
+      // Set timeout to log out the user after 1 hour
+      const timeout = setTimeout(() => {
+        logoutUser();
+        navigate('/auth'); // Redirect to auth page
+      }, 3600000); // 1 hour in milliseconds
+
+      return () => clearTimeout(timeout); // Clear timeout if component unmounts
+    }
+  }, [navigate]);
 
   const buildUrl = (base, path) => {
     if (base.endsWith('/')) {
