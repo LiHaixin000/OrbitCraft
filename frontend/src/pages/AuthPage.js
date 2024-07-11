@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [username, setUsername] = useState('');
+  const [identifier, setIdentifier] = useState(''); // Change from username to identifier
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,8 +29,8 @@ function AuthPage() {
   
     const endpoint = isLogin ? 'login' : 'register';
     const body = isLogin
-      ? { username, password }
-      : { username, email, password, confirmPassword };
+      ? { identifier, password }
+      : { username: identifier, email, password, confirmPassword };
   
     const url = buildUrl(API_BASE_URL, `/api/auth/${endpoint}`);
     console.log('Submitting to:', url);
@@ -51,7 +51,7 @@ function AuthPage() {
       if (response.ok) {
         if (isLogin) {
           localStorage.setItem('token', data.token);
-          localStorage.setItem('currentUser', username); // Store the current username
+          localStorage.setItem('currentUser', identifier); // Store the current identifier
           navigate('/');
         } else {
           setMessage('Registration successful. Please log in.');
@@ -66,7 +66,6 @@ function AuthPage() {
     }
   };
   
-  
   return (
     <div style={styles.container}>
       <div style={styles.card}>
@@ -74,9 +73,9 @@ function AuthPage() {
         <form onSubmit={handleSubmit} style={styles.form}>
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder={isLogin ? "Username or Email" : "Username"}
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
             required
             style={styles.input}
           />
@@ -201,3 +200,4 @@ const styles = {
 };
 
 export default AuthPage;
+
