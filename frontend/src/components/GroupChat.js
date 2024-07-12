@@ -1,12 +1,13 @@
 // frontend/src/components/GroupChat.js
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
 import './GroupChat.css'; // Updated to use a specific CSS file for the GroupChat component
 
 function GroupChat() {
   const { groupName } = useParams();
   const { currentUser } = useAuth(); // Get the current user from context
+  const navigate = useNavigate(); // Initialize useNavigate
   
   console.log('Current user in GroupChat:', currentUser); // Add this line
 
@@ -60,7 +61,7 @@ function GroupChat() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: newMessage, sender: currentUser.username }), // Use current user's username
+        body: JSON.stringify({ content: newMessage, sender: currentUser.username }), // Remove timestamp from here
       });
 
       if (response.ok) {
@@ -77,8 +78,19 @@ function GroupChat() {
     }
   };
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
+
   return (
     <div className="group-chat-container">
+      <button onClick={() => navigate('/studygroup')} className="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-left">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
       <h2 className="heading">Group Chat: {groupName}</h2>
       {loading ? (
         <p>Loading messages...</p>
@@ -90,6 +102,7 @@ function GroupChat() {
             {messages.map((msg, index) => (
               <div key={index} className="message">
                 <strong>{msg.sender}:</strong> {msg.content}
+                <span className="timestamp">{formatDate(msg.created_at)}</span> {/* Use created_at */}
               </div>
             ))}
             <div ref={messagesEndRef} />
@@ -110,5 +123,8 @@ function GroupChat() {
 }
 
 export default GroupChat;
+
+
+
 
 
