@@ -1,10 +1,15 @@
-/* GroupChat.css */
-
 body, html {
   height: 100%;
+  width: 100%;
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .group-chat-container {
@@ -14,6 +19,10 @@ body, html {
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%; /* Ensure it doesn't exceed the viewport width */
+  margin: 20px; /* Add some margin to ensure it's not too close to the edges */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .back-button {
@@ -36,7 +45,6 @@ body, html {
   color: #ff5722; /* Change this color to match your theme */
 }
 
-
 .heading {
   margin-bottom: 20px;
   font-size: 28px;
@@ -49,8 +57,7 @@ body, html {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 700px;
-  height: 60vh;
+  height: 50vh; /* Adjust the height as needed */
   overflow-y: auto;
   background-color: #fff;
   padding: 20px;
@@ -59,6 +66,7 @@ body, html {
   margin-bottom: 20px;
   scrollbar-width: thin;
   scrollbar-color: #ff5722 #fff3e0;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .messages::-webkit-scrollbar {
@@ -85,7 +93,7 @@ body, html {
   margin-right: 10px;
 }
 
-.message .timestamp { /* Add this block */
+.message .timestamp {
   font-size: 12px;
   color: #999;
   margin-left: 10px;
@@ -95,6 +103,7 @@ body, html {
   display: flex;
   width: 100%;
   max-width: 700px;
+  margin: 0 auto; /* Center the form */
 }
 
 .message-form input {
@@ -157,7 +166,7 @@ body, html {
   }
 
   .messages {
-    height: 50vh;
+    height: 40vh;
     padding: 10px;
   }
 
