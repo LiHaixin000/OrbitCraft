@@ -16,6 +16,7 @@ function App() {
   const location = useLocation(); // Hook to get the current route
 
   return (
+    // Changed: Removed AuthProvider from here, it should be in index.js
     <div style={styles.appContainer}> {/* Ensure the styles are applied */}
       {location.pathname !== '/auth' && <Header />} {/* Conditionally render Header */}
       <main style={styles.mainContent}>

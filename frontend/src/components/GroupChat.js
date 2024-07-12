@@ -1,10 +1,15 @@
 // frontend/src/components/GroupChat.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
 import './GroupChat.css'; // Updated to use a specific CSS file for the GroupChat component
 
 function GroupChat() {
   const { groupName } = useParams();
+  const { currentUser } = useAuth(); // Get the current user from context
+  
+  console.log('Current user in GroupChat:', currentUser); // Add this line
+
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -43,13 +48,19 @@ function GroupChat() {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
+    if (!currentUser || !currentUser.username) {
+      console.error('Current user is not defined');
+      setError('You must be logged in to send messages');
+      return;
+    }
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/groups/${groupName}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: newMessage, sender: 'currentUser' }), // Replace 'currentUser' with actual user identifier
+        body: JSON.stringify({ content: newMessage, sender: currentUser.username }), // Use current user's username
       });
 
       if (response.ok) {
@@ -99,3 +110,5 @@ function GroupChat() {
 }
 
 export default GroupChat;
+
+

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isTokenExpired, logoutUser } from '../utils/auth'; // Import utility functions
+import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +12,7 @@ function AuthPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { login } = useAuth(); // Get the login function from context
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -43,16 +46,16 @@ function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const endpoint = isLogin ? 'login' : 'register';
     const body = isLogin
       ? { identifier, password }
       : { username: identifier, email, password, confirmPassword };
-  
+
     const url = buildUrl(API_BASE_URL, `/api/auth/${endpoint}`);
     console.log('Submitting to:', url);
     console.log('Request body:', body);
-  
+
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -61,15 +64,13 @@ function AuthPage() {
         },
         body: JSON.stringify(body)
       });
-  
+
       const data = await response.json();
       console.log('Response data:', data);
-  
+
       if (response.ok) {
         if (isLogin) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('currentUser', identifier); // Store the current identifier
-          navigate('/');
+          login(identifier, password); // Use login function from context
         } else {
           setMessage('Registration successful. Please log in.');
           setIsLogin(true); // Switch to login view after successful registration

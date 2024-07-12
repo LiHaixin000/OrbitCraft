@@ -73,7 +73,6 @@ function Profile() {
       setAvatar(file);
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,34 +81,34 @@ function Profile() {
       if (!token) {
         throw new Error("No token found");
       }
-  
+
       const url = `${process.env.REACT_APP_API_BASE_URL}/api/profile`;
-  
+
       const formData = new FormData();
       formData.append("age", profile.age);
       formData.append("major", profile.major);
       formData.append("description", profile.description);
       formData.append("gender", profile.gender);
       formData.append("year_of_graduation", profile.year_of_graduation);
-  
+
       if (avatar) {
         formData.append("avatar", avatar);
       } else if (profile.avatar_url) {
         formData.append("avatar_url", profile.avatar_url);
       }
-  
+
       // Debugging logs
       console.log("FormData entries:");
       for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-  
+
       const response = await axios.put(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       setProfile(response.data.profile);
       toast.success("Profile updated successfully!");
     } catch (error) {
@@ -123,9 +122,6 @@ function Profile() {
       }
     }
   };
-  
-  
-
 
   const handleBack = () => {
     navigate("/");
@@ -332,3 +328,4 @@ styleSheet.innerText = globalStyles;
 document.head.appendChild(styleSheet);
 
 export default Profile;
+
