@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AuthPage from './pages/AuthPage';
-import MentorshipPage from './pages/MentorshipPage';
+import MentorshipPage from './pages/MentorshipPage'; // Ensure this import is correct
 import StudyGroupPage from './pages/StudyGroupPage';
 import ResourcesPage from './pages/ResourcesPage';
 import CareerInsightsPage from './pages/CareerInsightsPage';
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
-          <Route path="/mentorship" element={<MentorshipPage />} />
+          <Route path="/mentorship" element={<MentorshipPage />} /> {/* Ensure this route is correct */}
           <Route path="/studygroup" element={<StudyGroupPage />} />
           <Route path="/resourcesharing" element={<ResourcesPage />} />
           <Route path="/careerinsights" element={<CareerInsightsPage />} />
@@ -57,4 +57,5 @@ const styles = {
 };
 
 export default App;
+
 
