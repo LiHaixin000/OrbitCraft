@@ -1,19 +1,20 @@
 // backend/controllers/resourceController.js
-const { getUserProfile, updateUserProfileUpload, getAllUploadedFiles, saveUploadedFile } = require('../models/Resource');
-const { body, validationResult } = require('express-validator');
-const { s3, upload } = require('../config/awsConfig');
+const path = require('path');
+const fs = require('fs');
+const { updateUserProfileUpload, getUserProfile } = require('../models/User'); // Import necessary functions from User model
+const { saveUploadedFile } = require('../models/Resource'); // Import from Resource model
 
 // Check if user needs to upload a file
 const checkUploadStatus = async (req, res) => {
-  const { username } = req.user; // assuming you have user info in req.user
   try {
+    const username = req.user.username;
     const profile = await getUserProfile(username);
-    if (profile && profile.upload) {
-      const files = await getAllUploadedFiles();
-      res.status(200).json({ uploadStatus: true, files });
-    } else {
-      res.status(200).json({ uploadStatus: false });
+
+    if (!profile) {
+      return res.status(404).json({ error: 'Profile not found' });
     }
+
+    res.status(200).json({ uploadStatus: profile.upload, avatarUrl: profile.avatar_url });
   } catch (error) {
     console.error('Check upload status error:', error);
     res.status(500).json({ error: 'Failed to check upload status', details: error.message });
@@ -21,35 +22,38 @@ const checkUploadStatus = async (req, res) => {
 };
 
 // Handle file upload
-const handleFileUpload = [
-  // Add file validation here if needed
-  async (req, res) => {
-    upload(req, res, async function (error) {
-      if (error) {
-        console.error('Upload error:', error);
-        return res.status(500).json({ error: 'Failed to upload file' });
-      }
-
-      const { username } = req.user;
-      const fileUrl = req.file.location; 
-
-      try {
-        await saveUploadedFile(username, req.file.originalname, fileUrl);
-        await updateUserProfileUpload(username);
-        const files = await getAllUploadedFiles();
-        res.status(201).json(files);
-      } catch (error) {
-        console.error('File upload error:', error);
-        res.status(500).json({ error: 'Failed to upload file', details: error.message });
-      }
-    });
+const handleFileUpload = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
   }
-];
+
+  try {
+    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const username = req.user.username;
+
+    // Save the file information to the database
+    await saveUploadedFile(username, req.file.originalname, fileUrl);
+
+    // Update the user's profile to set the upload field to true
+    const updatedProfile = await updateUserProfileUpload(username);
+    
+    console.log('Updated profile:', updatedProfile); // Add this line
+
+    res.status(201).json({ name: req.file.originalname, url: fileUrl, profile: updatedProfile });
+  } catch (error) {
+    console.error('File upload error:', error);
+    res.status(500).json({ error: 'Failed to upload file', details: error.message });
+  }
+};
+
 
 // Get all uploaded files
-const getAllFiles = async (req, res) => {
+const getAllFiles = (req, res) => {
   try {
-    const files = await getAllUploadedFiles();
+    const files = fs.readdirSync(path.join(__dirname, '../uploads')).map(file => ({
+      name: file,
+      url: `${req.protocol}://${req.get('host')}/uploads/${file}`
+    }));
     res.status(200).json(files);
   } catch (error) {
     console.error('Get all files error:', error);
@@ -62,5 +66,8 @@ module.exports = {
   handleFileUpload,
   getAllFiles,
 };
+
+
+
 
 

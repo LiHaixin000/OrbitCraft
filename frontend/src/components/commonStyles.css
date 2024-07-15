@@ -1,3 +1,11 @@
+/* Ensure the background color covers the entire screen */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff7f0; /* Warm background color */
+}
+
 /* Container Styles */
 .container {
   width: 100%;
@@ -9,6 +17,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: #fff7f0; /* Warm background color */
 }
 
 /* Heading Styles */
@@ -16,7 +25,7 @@
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #333;
+  color: #f07650; /* Warm dark orange */
 }
 
 /* Paragraph Styles */
@@ -34,6 +43,10 @@
   max-width: 500px;
   margin: 20px 0;
   position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form input {
@@ -42,6 +55,7 @@
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .form button {
@@ -52,6 +66,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .form button:hover {
@@ -75,10 +90,11 @@
 .dropdown li {
   padding: 10px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .dropdown li:hover {
-  background-color: #f0f0f0;
+  background-color: #ffe0b2; /* Light warm color */
 }
 
 /* Message List Styles */
@@ -86,6 +102,10 @@
   width: 100%;
   max-width: 800px;
   margin: 20px 0;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .message-list ul {
@@ -98,6 +118,8 @@
   padding: 10px;
   margin: 5px 0;
   border-radius: 5px;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Group List Styles */
@@ -139,7 +161,7 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #333;
+  color: #d84315; /* Warm dark orange */
 }
 
 .course-code {
@@ -208,5 +230,6 @@
 }
 
 .page-link:hover {
-  background-color: #f0f0f0;
+  background-color: #ffe0b2; /* Light warm color */
 }
+

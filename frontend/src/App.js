@@ -11,12 +11,12 @@ import GroupChat from './components/GroupChat'; // Import the GroupChat componen
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Profile from './pages/Profile'; // Import the Profile component
+import ViewPosts from './components/ViewPosts'; // Import the ViewPosts component
 
 function App() {
   const location = useLocation(); // Hook to get the current route
 
   return (
-    // Changed: Removed AuthProvider from here, it should be in index.js
     <div style={styles.appContainer}> {/* Ensure the styles are applied */}
       {location.pathname !== '/auth' && <Header />} {/* Conditionally render Header */}
       <main style={styles.mainContent}>
@@ -29,6 +29,7 @@ function App() {
           <Route path="/careerinsights" element={<CareerInsightsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/groups/:groupName" element={<GroupChat />} /> {/* Add the group chat route */}
+          <Route path="/view-posts" element={<ViewPosts />} /> {/* Add the view posts route */}
         </Routes>
       </main>
       <Footer />
@@ -56,3 +57,4 @@ const styles = {
 };
 
 export default App;
+

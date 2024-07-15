@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   try {
     const result = await db.query(
       'INSERT INTO groups (group_name, course_code, members) VALUES ($1, $2, $3) RETURNING *',
-      [groupName, courseCode, members || []] // Ensure members is an array
+      [groupName, courseCode, members || []] 
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
     if (search) {
       result = await db.query(
         'SELECT * FROM groups WHERE group_name ILIKE $1 OR course_code ILIKE $2',
-        [`${search}%`, `${search}%`] // Use searchTerm% to match the start of the string
+        [`${search}%`, `${search}%`] 
       );
     } else {
       result = await db.query('SELECT * FROM groups');

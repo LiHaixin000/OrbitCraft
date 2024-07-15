@@ -1,4 +1,5 @@
 // backend/controllers/careerInsightsController.js
+const db = require('../config/db'); 
 const { getAllPosts, createNewPost, addNewComment } = require('../models/CareerInsights');
 
 const getPosts = async (req, res) => {
@@ -13,9 +14,10 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
   const { title, content } = req.body;
-  const { username } = req.user; // assuming you have user info in req.user
+  const { username } = req.user; 
+
   try {
-    const post = await createNewPost(username, title, content);
+    const post = await createNewPost(username, title, content); 
     res.status(201).json(post);
   } catch (error) {
     console.error('Error creating post:', error);
@@ -26,7 +28,7 @@ const createPost = async (req, res) => {
 const addComment = async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;
-  const { username } = req.user; // assuming you have user info in req.user
+  const { username } = req.user; 
   try {
     const comment = await addNewComment(postId, username, content);
     res.status(201).json(comment);
@@ -41,3 +43,6 @@ module.exports = {
   createPost,
   addComment,
 };
+
+
+

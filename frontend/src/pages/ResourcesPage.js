@@ -1,6 +1,9 @@
 // frontend/src/pages/ResourcesPage.js
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 import '../pagesCss/ResourcesPage.css';
 
 function ResourcesPage() {
@@ -24,7 +27,10 @@ function ResourcesPage() {
   const fetchAllFiles = useCallback(() => {
     const url = buildUrl(API_BASE_URL, '/api/resources/files');
     axios.get(url)
-      .then(response => setAllFiles(response.data))
+      .then(response => {
+        console.log('Fetched files:', response.data);
+        setAllFiles(response.data);
+      })
       .catch(error => console.error('Error fetching files:', error));
   }, [API_BASE_URL]);
 
@@ -34,6 +40,7 @@ function ResourcesPage() {
       const url = buildUrl(API_BASE_URL, '/api/resources/check');
       axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
         .then(response => {
+          console.log('Check upload status response:', response.data);
           setUploadStatus(response.data.uploadStatus || false);
           if (response.data.uploadStatus) {
             fetchAllFiles();
@@ -49,7 +56,7 @@ function ResourcesPage() {
 
   const handleFileUpload = () => {
     if (!selectedFile) {
-      alert('Please select a file to upload');
+      toast.error('Please select a file to upload');
       return;
     }
     const token = localStorage.getItem('token');
@@ -64,18 +71,20 @@ function ResourcesPage() {
       },
     })
       .then(response => {
+        console.log('File upload response:', response.data);
         setUploadStatus(true);
-        fetchAllFiles();
-        alert('File uploaded successfully');
+        fetchAllFiles(); // Fetch files after upload
+        toast.success('File uploaded successfully'); // Show success toast
       })
       .catch(error => {
         console.error('Error uploading file:', error);
-        alert('File upload failed');
+        toast.error('File upload failed'); // Show error toast
       });
   };
 
   return (
     <div className="resources-page">
+      <ToastContainer /> {/* Add ToastContainer */}
       <h2>Upload a File</h2>
       <p className="upload-explanation">You do not have a history of uploading files, you need to upload files to access the resource.</p>
       {!uploadStatus ? (
@@ -99,7 +108,7 @@ function ResourcesPage() {
           <h3>Uploaded Files</h3>
           <ul>
             {allFiles.map((file, index) => (
-              <li key={index}>{file}</li>
+              <li key={index}><a href={file.url} target="_blank" rel="noopener noreferrer">{file.name}</a></li>
             ))}
           </ul>
         </div>
@@ -109,4 +118,3 @@ function ResourcesPage() {
 }
 
 export default ResourcesPage;
-

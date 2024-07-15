@@ -1,7 +1,7 @@
 // backend/routes/careerInsightsRoutes.js
 const express = require('express');
 const { getPosts, createPost, addComment } = require('../controllers/careerInsightsController');
-const { authenticateToken } = require('../middleware/authMiddleware');
+const { authenticateToken } = require('../middleware/Authenticate');
 const router = express.Router();
 
 router.get('/posts', authenticateToken, getPosts);

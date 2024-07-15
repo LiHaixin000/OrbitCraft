@@ -60,7 +60,6 @@ const getUserProfile = async (username) => {
   }
 };
 
-
 // Update user profile details in the profiles table
 const updateUserProfile = async (username, age, major, description, gender, year_of_graduation, avatar_url) => {
   try {
@@ -75,10 +74,25 @@ const updateUserProfile = async (username, age, major, description, gender, year
   }
 };
 
+// Update the 'upload' field to true for a specific user in the profiles table
+const updateUserProfileUpload = async (username) => {
+  try {
+    const result = await db.query(
+      'UPDATE profiles SET upload = true WHERE username = $1 RETURNING *',
+      [username]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error('Database error in updateUserProfileUpload:', error); 
+    throw error;
+  }
+};
+
 module.exports = {
   createUser,
   getUserByUsernameOrEmail,
   createUserProfile,
   getUserProfile,
-  updateUserProfile
+  updateUserProfile,
+  updateUserProfileUpload
 };

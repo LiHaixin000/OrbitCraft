@@ -1,11 +1,13 @@
 // frontend/src/pages/CareerInsightsPage.js
 import React from 'react';
 import '../pagesCss/commonStyles.css'; // Import the common styles
-import ViewPosts from '../components/ViewPosts';
-import CreatePosts from '../components/createPosts';
-
+import '../pagesCss/CareerInsightsPage.css'; // Import the page-specific styles
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import CreatePosts from '../components/CreatePosts';
 
 function CareerInsightsPage() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <div className="container">
       <h2 className="heading">Career Insights</h2>
@@ -13,13 +15,17 @@ function CareerInsightsPage() {
         Gain insights into various career paths, industry trends, and job opportunities. Connect with professionals to learn about their experiences and get advice on advancing your career.
       </p>
       <div className="links">
-        <a href="/view-posts" className="link">View Posts</a>
-        <a href="/create-post" className="link">Create Post</a>
+        <button className="link" onClick={() => navigate('/view-posts')}>
+          View Posts
+        </button>
       </div>
-      <ViewPosts />
-      <CreatePosts />
+      <div id="create-post">
+        <CreatePosts />
+      </div>
     </div>
   );
 }
 
 export default CareerInsightsPage;
+
+
