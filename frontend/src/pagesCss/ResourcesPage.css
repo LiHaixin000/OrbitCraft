@@ -1,63 +1,59 @@
 .resources-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .upload-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .upload-button {
-    display: none;
-  }
-  
-  .files-section {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-  }
-  
-  .files-section ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .files-section li {
-    background: #f4f4f4;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .cssbuttons-io-button {
-    display: flex;
-    align-items: center;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 17px;
-    padding: 0.8em 1.5em 0.8em 1.2em;
-    color: white;
-    background: #ad5389;
-    background: linear-gradient(0deg, rgb(120, 47, 255) 0%, rgb(185, 132, 255) 100%);
-    border: none;
-    box-shadow: 0 0.7em 1.5em -0.5em rgb(184, 146, 255);
-    letter-spacing: 0.05em;
-    border-radius: 20em;
-  }
-  
-  .cssbuttons-io-button svg {
-    margin-right: 8px;
-  }
-  
-  .cssbuttons-io-button:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em rgb(149, 91, 255);
-  }
-  
-  .cssbuttons-io-button:active {
-    box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.files-section {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.files-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.files-section li {
+  background: #f4f4f4;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cssbuttons-io-button {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 0.8em 1.5em 0.8em 1.2em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(0deg, rgb(120, 47, 255) 0%, rgb(185, 132, 255) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em rgb(184, 146, 255);
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+}
+
+.cssbuttons-io-button svg {
+  margin-right: 8px;
+}
+
+.cssbuttons-io-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em rgb(149, 91, 255);
+}
+
+.cssbuttons-io-button:active {
+  box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
+}

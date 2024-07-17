@@ -1,9 +1,8 @@
-/* Ensure the background color covers the entire screen */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #fff7f0; /* Warm background color */
+  background-color: #fff7f0; 
 }
 
 /* Container Styles */

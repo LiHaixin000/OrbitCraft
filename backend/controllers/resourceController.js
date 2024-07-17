@@ -1,8 +1,7 @@
 // backend/controllers/resourceController.js
-const path = require('path');
-const fs = require('fs');
-const { updateUserProfileUpload, getUserProfile } = require('../models/User'); // Import necessary functions from User model
-const { saveUploadedFile } = require('../models/Resource'); // Import from Resource model
+const { updateUserProfileUpload, getUserProfile } = require('../models/User'); 
+const { saveUploadedFile, getAllUploadedFiles } = require('../models/Resource'); 
+const { s3, upload } = require('../config/awsConfig');
 
 // Check if user needs to upload a file
 const checkUploadStatus = async (req, res) => {
@@ -28,7 +27,7 @@ const handleFileUpload = async (req, res) => {
   }
 
   try {
-    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const fileUrl = req.file.location; // URL of the uploaded file in S3
     const username = req.user.username;
 
     // Save the file information to the database
@@ -36,7 +35,7 @@ const handleFileUpload = async (req, res) => {
 
     // Update the user's profile to set the upload field to true
     const updatedProfile = await updateUserProfileUpload(username);
-    
+
     console.log('Updated profile:', updatedProfile); // Add this line
 
     res.status(201).json({ name: req.file.originalname, url: fileUrl, profile: updatedProfile });
@@ -46,14 +45,10 @@ const handleFileUpload = async (req, res) => {
   }
 };
 
-
 // Get all uploaded files
-const getAllFiles = (req, res) => {
+const getAllFiles = async (req, res) => {
   try {
-    const files = fs.readdirSync(path.join(__dirname, '../uploads')).map(file => ({
-      name: file,
-      url: `${req.protocol}://${req.get('host')}/uploads/${file}`
-    }));
+    const files = await getAllUploadedFiles(req.user.username);
     res.status(200).json(files);
   } catch (error) {
     console.error('Get all files error:', error);
@@ -66,6 +61,7 @@ module.exports = {
   handleFileUpload,
   getAllFiles,
 };
+
 
 
 

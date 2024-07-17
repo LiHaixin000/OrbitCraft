@@ -1,5 +1,4 @@
 // backend/server.js
-// backend/server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -9,7 +8,7 @@ const resourceRoutes = require('./routes/resourceRoutes');
 const groupRoutes = require('./routes/groupRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const careerInsightsRoutes = require('./routes/careerInsightsRoutes');
-const mentorshipRoutes = require('./routes/mentorshipRoutes'); 
+const mentorshipRoutes = require('./routes/mentorshipRoutes');
 
 console.log('Starting server with PORT:', process.env.PORT);
 console.log('JWT_SECRET:', process.env.JWT_SECRET);
@@ -38,10 +37,18 @@ app.use('/api/resources', resourceRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/career-insights', careerInsightsRoutes);
-app.use('/api/mentorship', mentorshipRoutes); // Use mentorship routes
+app.use('/api/mentorship', mentorshipRoutes);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+
+
+
+
+
+
+
 
 
 
