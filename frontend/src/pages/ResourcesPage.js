@@ -1,5 +1,6 @@
 // frontend/src/pages/ResourcesPage.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +8,7 @@ import '../pagesCss/ResourcesPage.css';
 
 function ResourcesPage() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const navigate = useNavigate(); // Initialize useNavigate
 
   console.log('API_BASE_URL:', API_BASE_URL);
   console.log('ResourcesPage component rendered');
@@ -43,18 +45,14 @@ function ResourcesPage() {
     } catch (error) {
       console.error('Error uploading file:', error);
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.error('Error response data:', error.response.data);
         console.error('Error response status:', error.response.status);
         console.error('Error response headers:', error.response.headers);
         toast.error('File upload failed: ' + error.response.data.message);
       } else if (error.request) {
-        // The request was made but no response was received
         console.error('Error request:', error.request);
         toast.error('File upload failed: No response from server');
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.error('Error message:', error.message);
         toast.error('File upload failed: ' + error.message);
       }
@@ -84,6 +82,9 @@ function ResourcesPage() {
           </svg>
           <span>Upload</span>
         </button>
+      </div>
+      <div className="view-files-container" onClick={() => navigate('/view-files')}>
+        <span>View Uploaded Files</span>
       </div>
     </div>
   );

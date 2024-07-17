@@ -57,3 +57,17 @@
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
 }
+
+.view-files-container {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgb(149, 91, 255);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.view-files-container:hover {
+  background-color: #ad5389;
+}

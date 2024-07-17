@@ -1,0 +1,25 @@
+.view-files-page {
+    padding: 20px;
+  }
+  
+  .view-files-page ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .view-files-page li {
+    margin: 5px 0;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 5px;
+  }
+  
+  .view-files-page li a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .view-files-page li a:hover {
+    text-decoration: underline;
+  }
+  

@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import ViewPosts from './components/ViewPosts';
 import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
+import ViewFilesPage from './pages/ViewFilesPage'; // Import ViewFilesPage
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="/groups/:groupName" element={<PrivateRoute><GroupChat /></PrivateRoute>} />
             <Route path="/view-posts" element={<PrivateRoute><ViewPosts /></PrivateRoute>} />
+            <Route path="/view-files" element={<PrivateRoute><ViewFilesPage /></PrivateRoute>} /> {/* Add new route */}
           </Routes>
         </main>
         <Footer />
@@ -61,5 +63,4 @@ const styles = {
 };
 
 export default App;
-
 
