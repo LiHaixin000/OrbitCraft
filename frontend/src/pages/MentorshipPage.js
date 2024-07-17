@@ -25,25 +25,33 @@ function MentorshipPage() {
   };
 
   return (
-    <div className="container">
+    <div className="container mentorship-page">
       <h2 className="heading">Mentorship Matching System</h2>
       <p className="paragraph">
         Connects students with alumni and industry professionals. Matches based on shared interests, academic backgrounds, and career goals. Facilitates meaningful mentorship relationships.
       </p>
-      <div>
-        <h3>Register as Mentor</h3>
-        <RegisterMentor />
+      <div className="instructions-container">
+        <h3 className="instructions-heading">How to Use This Page</h3>
+        <ul className="instructions-list">
+          <li>Register as a Mentor if you are an industry professional or alumni willing to guide students.</li>
+          <li>Register as a Mentee if you are a student seeking mentorship.</li>
+          <li>Click on "View Matches" to see your mentorship matches based on your profile and interests.</li>
+        </ul>
       </div>
-      <div>
-        <h3>Register as Mentee</h3>
-        <RegisterMentee />
+      <div className="registration-section">
+        <div className="registration-block">
+          <h3>Register as Mentor</h3>
+          <RegisterMentor />
+        </div>
+        <div className="registration-block">
+          <h3>Register as Mentee</h3>
+          <RegisterMentee />
+        </div>
       </div>
-      <div>
-        <button onClick={handleViewMatches}>View Matches</button>
-      </div>
-      <div>
+      <div className="matches-section">
+        <button className="view-matches-button" onClick={handleViewMatches}>View Matches</button>
         {matches.length > 0 && (
-          <ul>
+          <ul className="matches-list">
             {matches.map((match, index) => (
               <li key={index}>{match.mentor} is matched with {match.mentee}</li>
             ))}
@@ -55,6 +63,3 @@ function MentorshipPage() {
 }
 
 export default MentorshipPage;
-
-
-

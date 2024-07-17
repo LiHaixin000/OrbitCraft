@@ -1,4 +1,4 @@
-/* CareerInsightsPage.css */
+/* frontend/src/pagesCss/CareerInsightsPage.css */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -24,6 +24,30 @@
   color: #7f8c8d; /* Softer color */
   max-width: 800px;
   margin: 0 auto 40px; /* Added bottom margin */
+}
+
+.instructions-container {
+  background-color: #f9f9f9; /* Light background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 40px; /* Space below instructions */
+  text-align: left; /* Left-align text for readability */
+  max-width: 800px;
+  width: 100%;
+}
+
+.instructions-heading {
+  font-size: 24px; /* Larger font size for heading */
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.instructions-list {
+  list-style-type: disc; /* Disc list style */
+  padding-left: 20px; /* Indent list items */
+  color: #7f8c8d;
 }
 
 .links {
@@ -120,4 +144,3 @@
 .button:hover {
   background-color: #1f618d;
 }
-

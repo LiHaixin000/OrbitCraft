@@ -29,4 +29,3 @@ function GroupList({ groups, paginate, totalGroups, groupsPerPage }) {
 
 export default GroupList;
 
-

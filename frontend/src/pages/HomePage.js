@@ -120,7 +120,7 @@ const styles = {
     boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
     justifyContent: 'space-between', // Distribute space evenly between elements
     padding: '20px',
-    backgroundColor: '#fff3e0', // Light orange background
+    backgroundColor: '#fff7f0', // Light orange background
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',

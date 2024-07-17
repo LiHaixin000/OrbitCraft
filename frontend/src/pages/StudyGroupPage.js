@@ -6,6 +6,7 @@ import JoinGroup from '../components/JoinGroup';
 import GroupList from '../components/GroupList';
 import MessageList from '../components/MessageList';
 import Notification from '../components/Notification';
+import Instructions from '../components/Instructions'; // Import the Instructions component
 import './commonStyles.css';
 
 function StudyGroupPage() {
@@ -68,9 +69,12 @@ function StudyGroupPage() {
       <p className="paragraph">
         Join study groups to collaborate with peers, share knowledge, and prepare for exams together. Find or create study groups that match your academic interests and schedule.
       </p>
-      <CreateGroup onCreateGroup={handleCreateGroup} />
-      <JoinGroup onJoinGroup={handleJoinGroup} />
-      <h2 className="heading">Available Groups</h2> {/* Updated line */}
+      <Instructions /> {/* Add the Instructions component here */}
+      <div className="form-container">
+        <CreateGroup onCreateGroup={handleCreateGroup} />
+        <JoinGroup onJoinGroup={handleJoinGroup} />
+      </div>
+      <h2 className="heading">Available Groups</h2>
       <GroupList groups={currentGroups} paginate={paginate} totalGroups={groups.length} groupsPerPage={groupsPerPage} />
       <MessageList messages={messages} />
       <Notification message={notification} onClose={handleCloseNotification} />

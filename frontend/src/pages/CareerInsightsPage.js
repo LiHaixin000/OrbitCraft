@@ -14,6 +14,14 @@ function CareerInsightsPage() {
       <p className="paragraph">
         Gain insights into various career paths, industry trends, and job opportunities. Connect with professionals to learn about their experiences and get advice on advancing your career.
       </p>
+      <div className="instructions-container">
+        <h3 className="instructions-heading">How to Use This Page</h3>
+        <ul className="instructions-list">
+          <li>Click on "View Posts" to explore career insights shared by professionals.</li>
+          <li>Use the "Create Post" section to share your own career experiences and advice.</li>
+          <li>Engage with the community by commenting on and liking posts.</li>
+        </ul>
+      </div>
       <div className="links">
         <button className="link" onClick={() => navigate('/view-posts')}>
           View Posts
@@ -27,5 +35,3 @@ function CareerInsightsPage() {
 }
 
 export default CareerInsightsPage;
-
-

@@ -1,3 +1,4 @@
+/* commonStyles.css */
 html, body {
   height: 100%;
   margin: 0;
@@ -7,16 +8,15 @@ html, body {
 
 /* Container Styles */
 .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
-  box-sizing: border-box;
+}
+
+/* Form Container Styles */
+.form-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-color: #fff7f0; /* Warm background color */
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px; /* Add some space below the forms */
 }
 
 /* Heading Styles */
@@ -33,19 +33,29 @@ html, body {
   line-height: 1.5;
   color: #666;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto; /* Add bottom margin for spacing */
 }
 
 /* Form Styles */
 .form {
-  width: 100%;
-  max-width: 500px;
-  margin: 20px 0;
-  position: relative;
+  flex: 1 1 100%; /* Adjust the base size to 100% of the container */
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold; /* Make the label text bold */
+  color: #333; /* Darker color for better visibility */
+  margin-bottom: 5px;
 }
 
 .form input {
@@ -145,6 +155,9 @@ html, body {
   cursor: pointer;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
+  flex: 1 1 calc(25% - 40px); /* Ensure the cards take up 25% of the width minus the gap */
+  max-width: calc(25% - 40px); /* Ensure the cards take up 25% of the width minus the gap */
+  box-sizing: border-box;
 }
 
 .group-item:hover {
@@ -225,10 +238,12 @@ html, body {
   border-radius: 5px;
   cursor: pointer;
   background-color: #fff;
-  transition: background-color 0.2s;
+  color: #333; /* Darker color for better visibility */
+  font-weight: bold; /* Make the text bold */
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .page-link:hover {
   background-color: #ffe0b2; /* Light warm color */
+  color: #000; /* Even darker color on hover */
 }
-

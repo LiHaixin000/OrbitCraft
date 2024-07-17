@@ -87,6 +87,7 @@ function ResourcesPage() {
     <div className="resources-page">
       <ToastContainer />
       <h2>Upload a File</h2>
+      <p className="description">Please follow the steps below to upload your file. Ensure the file is in the correct format and category.</p>
       <div className="upload-section">
         <input
           type="file"
@@ -160,5 +161,3 @@ function ResourcesPage() {
 }
 
 export default ResourcesPage;
-
-
