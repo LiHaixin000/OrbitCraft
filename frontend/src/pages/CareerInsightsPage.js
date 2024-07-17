@@ -3,7 +3,7 @@ import React from 'react';
 import '../pagesCss/commonStyles.css'; // Import the common styles
 import '../pagesCss/CareerInsightsPage.css'; // Import the page-specific styles
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import CreatePosts from '../components/CreatePosts';
+import CreatePosts from '../components/createPosts';
 
 function CareerInsightsPage() {
   const navigate = useNavigate(); // Initialize useNavigate
