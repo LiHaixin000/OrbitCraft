@@ -9,7 +9,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+}
+
+.file-preview {
+  margin-top: 10px;
+  max-width: 200px;
+}
+
+.file-preview img {
+  width: 100%;
+  height: auto;
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  max-width: 600px;
+  background: #f4f4f4;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress {
+  height: 10px;
+  background: linear-gradient(0deg, rgb(120, 47, 255) 0%, rgb(185, 132, 255) 100%);
 }
 
 .files-section {
@@ -56,18 +85,4 @@
 
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
-}
-
-.view-files-container {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: rgb(149, 91, 255);
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.view-files-container:hover {
-  background-color: #ad5389;
 }
