@@ -235,6 +235,7 @@ const styles = {
     width: "100vw",
     padding: "20px",
     backgroundColor: "#ffefd5",
+    marginTop: "60px", 
   },
   header: {
     marginBottom: "20px",
@@ -291,7 +292,7 @@ const styles = {
   },
   backButton: {
     padding: "12px",
-    margin: "10px 0 20px", 
+    margin: "10px 0 80px", 
     borderRadius: "5px",
     border: "none",
     backgroundColor: "#ff7043",
@@ -304,11 +305,11 @@ const styles = {
     marginBottom: "10px",
   },
   avatar: {
-    width: "150px",
-    height: "150px",
+    width: "80px", 
+    height: "80px", 
     borderRadius: "50%",
     objectFit: "cover",
-    marginBottom: "20px",
+    marginBottom: "0px",
     border: "3px solid #007bff",
   },
 };
@@ -328,4 +329,5 @@ styleSheet.innerText = globalStyles;
 document.head.appendChild(styleSheet);
 
 export default Profile;
+
 

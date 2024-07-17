@@ -39,6 +39,22 @@ const upload = multer({
   })
 });
 
+const uploadProfilePicture = multer({
+  storage: multerS3({
+    s3: s3Client,
+    bucket: process.env.S3_BUCKET_NAME,
+    metadata: function (req, file, cb) {
+      console.log('Setting metadata for profile picture:', file.originalname);
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      const key = `profile-pictures/${Date.now().toString()}-${file.originalname}`;
+      console.log('Setting key for profile picture:', key);
+      cb(null, key);
+    }
+  })
+});
+
 // Check if the S3 instance is created successfully
 const listBucketsCommand = new ListBucketsCommand({});
 s3Client.send(listBucketsCommand)
@@ -49,7 +65,8 @@ s3Client.send(listBucketsCommand)
     console.error('Error creating S3 instance:', err);
   });
 
-module.exports = { s3Client, upload };
+module.exports = { s3Client, upload, uploadProfilePicture };
+
 
 
 
