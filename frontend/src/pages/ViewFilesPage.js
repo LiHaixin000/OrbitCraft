@@ -5,7 +5,13 @@ import '../pagesCss/ViewFilesPage.css';
 
 function ViewFilesPage() {
   const [files, setFiles] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  const categories = [
+    'Computer Science', 'Engineering', 'Business', 'Medicine', 'Law', 'Arts & Social Sciences',
+    'Science', 'Design & Environment', 'Dentistry', 'Music', 'Others', 'No Category'
+  ];
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -45,21 +51,43 @@ function ViewFilesPage() {
     }
   };
 
+  const groupedFiles = files.reduce((acc, file) => {
+    const category = file.category || 'No Category';
+    acc[category] = acc[category] || [];
+    acc[category].push(file);
+    return acc;
+  }, {});
+
   return (
     <div className="view-files-page">
       <h2>Uploaded Files</h2>
-      <ul>
-        {files.map((file, index) => (
-          <li key={index}>
-            <a href={file.url} target="_blank" rel="noopener noreferrer">
-              {getFileIcon(file.name)}
-              <span>{file.name}</span>
-            </a>
-          </li>
+      <div className="categories-container">
+        {categories.map((category, index) => (
+          <div key={index} className="category-container" onClick={() => setSelectedCategory(category)}>
+            <h3>{category}</h3>
+          </div>
         ))}
-      </ul>
+      </div>
+      {selectedCategory && (
+        <div className="files-section">
+          <h3>{selectedCategory}</h3>
+          <ul>
+            {(groupedFiles[selectedCategory] || []).map((file, idx) => (
+              <li key={idx}>
+                <a href={file.url} target="_blank" rel="noopener noreferrer">
+                  {getFileIcon(file.name)}
+                  <span>{file.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
 
 export default ViewFilesPage;
+
+
+

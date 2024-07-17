@@ -2,33 +2,42 @@
 const express = require('express');
 const multer = require('multer');
 const { s3Client } = require('../config/awsConfig');
-const { ListObjectsV2Command, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { ListObjectsV2Command, PutObjectCommand, HeadObjectCommand } = require('@aws-sdk/client-s3');
 const router = express.Router();
 
 // Configure Multer
 const storage = multer.memoryStorage(); // Store files in memory for processing before uploading to S3
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('file'), async (req, res, next) => {
+router.post('/upload', upload.single('file'), async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (!req.file) {
     console.log('No file uploaded');
     return res.status(400).send({ message: 'No file uploaded' });
   }
 
+  const category = req.body.category || 'No Category';
+
   try {
     const uploadParams = {
       Bucket: process.env.S3_BUCKET_NAME,
       Key: Date.now().toString() + '-' + req.file.originalname, // Unique key for the file
       Body: req.file.buffer,
-      ContentType: req.file.mimetype
+      ContentType: req.file.mimetype,
+      Metadata: {
+        category: category
+      }
     };
 
     const command = new PutObjectCommand(uploadParams);
     await s3Client.send(command);
 
     console.log('File uploaded successfully:', req.file.originalname);
-    res.status(200).send({ message: 'File uploaded successfully', url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uploadParams.Key}` });
+    res.status(200).send({
+      message: 'File uploaded successfully',
+      url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uploadParams.Key}`,
+      category: category
+    });
   } catch (error) {
     console.error('Error uploading file to S3:', error);
     res.status(500).send({ message: 'Error uploading file to S3', error: error.message });
@@ -42,9 +51,19 @@ router.get('/list', async (req, res) => {
       Bucket: process.env.S3_BUCKET_NAME,
     });
     const data = await s3Client.send(command);
-    const files = data.Contents.map(file => ({
-      name: file.Key,
-      url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.Key}`
+
+    const files = await Promise.all(data.Contents.map(async file => {
+      const headCommand = new HeadObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: file.Key
+      });
+      const headData = await s3Client.send(headCommand);
+
+      return {
+        name: file.Key,
+        url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.Key}`,
+        category: headData.Metadata.category || 'No Category'
+      };
     }));
 
     res.status(200).send({ files });

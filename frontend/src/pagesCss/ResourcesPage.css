@@ -25,6 +25,16 @@
 .button-group {
   display: flex;
   gap: 20px;
+  align-items: center;
+}
+
+.category-select {
+  padding: 0.8em 1.5em;
+  font-size: 17px;
+  border-radius: 20em;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
 }
 
 .progress-bar {
@@ -86,3 +96,5 @@
 .cssbuttons-io-button:active {
   box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
 }
+
+

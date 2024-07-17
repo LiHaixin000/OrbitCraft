@@ -13,19 +13,27 @@ function ResourcesPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const categories = [
+    'Computer Science', 'Engineering', 'Business', 'Medicine', 'Law', 'Arts & Social Sciences',
+    'Science', 'Design & Environment', 'Dentistry', 'Music', 'Others'
+  ];
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
 
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setPreviewUrl(null);
+    if (file) {
+      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewUrl(reader.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        setPreviewUrl(null);
+      }
     }
   };
 
@@ -35,8 +43,14 @@ function ResourcesPage() {
       return;
     }
 
+    if (!selectedCategory) {
+      toast.error('Please select a category');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', selectedFile);
+    formData.append('category', selectedCategory);
 
     const url = `${API_BASE_URL}/api/resources/upload`;
 
@@ -55,6 +69,7 @@ function ResourcesPage() {
       setSelectedFile(null);
       setUploadProgress(0);
       setPreviewUrl(null);
+      setSelectedCategory('');
     } catch (error) {
       console.error('Error uploading file:', error);
       if (error.response) {
@@ -81,10 +96,24 @@ function ResourcesPage() {
         />
         {previewUrl && (
           <div className="file-preview">
-            <img src={previewUrl} alt="File Preview" />
+            {selectedFile.type === 'application/pdf' ? (
+              <embed src={previewUrl} type="application/pdf" width="100%" height="400px" />
+            ) : (
+              <img src={previewUrl} alt="File Preview" />
+            )}
           </div>
         )}
         <div className="button-group">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="category-select"
+          >
+            <option value="" disabled>Select Category</option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>{category}</option>
+            ))}
+          </select>
           <button
             className="cssbuttons-io-button"
             onClick={() => {
@@ -120,4 +149,5 @@ function ResourcesPage() {
 }
 
 export default ResourcesPage;
+
 
