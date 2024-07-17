@@ -291,7 +291,7 @@ const styles = {
   },
   backButton: {
     padding: "12px",
-    margin: "10px 0",
+    margin: "10px 0 20px", 
     borderRadius: "5px",
     border: "none",
     backgroundColor: "#ff7043",
