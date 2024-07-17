@@ -144,6 +144,17 @@ function ResourcesPage() {
           </div>
         )}
       </div>
+      <div className="instructions">
+        <h3>Instructions to Upload Files</h3>
+        <ol>
+          <li>Click on the "Choose File" button to select the file you want to upload.</li>
+          <li>Preview the selected file to ensure it is correct.</li>
+          <li>Select the appropriate category for the file from the dropdown menu.</li>
+          <li>Click on the "Submit Upload" button to upload the file.</li>
+          <li>Once the upload is complete, you will see a success message.</li>
+          <li>You can click on the "View Uploaded Files" button to see all uploaded files.</li>
+        </ol>
+      </div>
     </div>
   );
 }

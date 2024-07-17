@@ -38,11 +38,11 @@ body {
 .back-button svg {
   width: 24px;
   height: 24px;
-  color: #000; /* Change this color to match your theme */
+  color: #000; 
 }
 
 .back-button svg:hover {
-  color: #ff5722; /* Change this color to match your theme */
+  color: #ff5722; 
 }
 
 .heading {

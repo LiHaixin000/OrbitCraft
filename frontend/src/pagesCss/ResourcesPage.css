@@ -97,4 +97,27 @@
   box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
 }
 
+.instructions {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instructions h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.instructions ol {
+  padding-left: 20px;
+  color: #666;
+}
+
+.instructions ol li {
+  margin-bottom: 10px;
+}
+
+
 

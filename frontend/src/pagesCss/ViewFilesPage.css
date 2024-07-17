@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f9f9f9; /* Light background for better contrast */
+  position: relative; /* Ensure the back button is positioned relative to this container */
 }
 
 .view-files-page h2 {
@@ -15,49 +17,85 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 }
 
 .category-container {
-  width: 200px;
-  margin: 10px;
-  padding: 15px;
-  background: #f4f4f4;
-  border-radius: 5px;
+  flex: 1 1 calc(33.333% - 30px);
+  max-width: calc(33.333% - 30px);
+  min-width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  transition: background 0.3s;
-  text-align: center;
+  text-decoration: none;
 }
 
 .category-container:hover {
-  background: #e0e0e0;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .category-container h3 {
-  margin: 0;
-  font-size: 20px;
-  color: #555;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .files-section {
   width: 100%;
-  max-width: 600px;
+  max-width: 1200px;
   margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.files-section h3 {
+.files-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
+}
+
+.files-header h3 {
   font-size: 20px;
   color: #555;
 }
 
-.files-section ul {
-  list-style-type: none;
-  padding: 0;
+.view-toggle-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #f07650;
+  color: #f07650;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.files-section li {
-  margin: 10px 0;
-  padding: 10px 15px;
+.view-toggle-button:hover {
+  background-color: #f07650;
+  color: #fff;
+}
+
+.files-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.files-list.list li {
+  margin: 5px 0;
+  padding: 5px 10px;
   background: #f4f4f4;
   border-radius: 5px;
   display: flex;
@@ -65,11 +103,11 @@
   transition: background 0.3s;
 }
 
-.files-section li:hover {
+.files-list.list li:hover {
   background: #e0e0e0;
 }
 
-.files-section li a {
+.files-list.list li a {
   text-decoration: none;
   color: #007bff;
   display: flex;
@@ -77,14 +115,86 @@
   width: 100%;
 }
 
-.files-section li a span {
+.files-list.list li a span {
   margin-left: 10px;
   font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.files-section li a:hover {
+.files-list.list li a:hover {
   text-decoration: underline;
 }
 
+.files-list.icon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
 
+.files-list.icon li {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+}
 
+.files-list.icon li .file-link {
+  text-decoration: none;
+  color: #007bff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.files-list.icon li .file-link span {
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.files-list.icon li .file-link:hover {
+  text-decoration: underline;
+}
+
+.files-list.list li a svg, .files-list.icon li .file-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-button svg {
+  width: 32px; 
+  height: 32px; 
+  color: #000;
+}
+
+.back-button svg:hover {
+  color: #ff5722;
+}
