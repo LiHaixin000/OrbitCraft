@@ -94,7 +94,12 @@ function ResourcesPage() {
   };
 
   return (
-    <div className="resources-page">
+    <div className="resources-container">
+      <button className="back-button" onClick={() => navigate('/')}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7M8 12H21" />
+        </svg>
+      </button>
       <ToastContainer />
       <h2>Upload a File</h2>
       <p className="description">Please follow the steps below to upload your file. Ensure the file is in the correct format and category.</p>
@@ -167,7 +172,7 @@ function ResourcesPage() {
             ) : (
               <div className="file-icon">
                 <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="gray" d="M6 2h9l5 5v15H6zM5 0h10l6 6v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm7 14h4v2h-4v-2zm-4-2h8v2H8v-2zm0-2h8v2H8v-2zm0-2h8v2H8V8z"/>
+                  <path fill="gray" d="M6 2h9l5 5v15H6zM5 0h10l6 6v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm7 14h4v2h-4v-2zm-4-2h8v2H8v-2zm0-2h8v2H8V8z"/>
                 </svg>
                 <p>{selectedFile.name}</p>
               </div>

@@ -9,6 +9,27 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative; /* Add position relative for the container */
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  color: #000; 
+}
+
+.back-button svg:hover {
+  color: #f07650; 
 }
 
 .heading {
@@ -59,7 +80,7 @@
 .link {
   font-size: 16px;
   color: #fff; /* White color for text */
-  background-color: #f07650; /* Blue background */
+  background-color: #ff7043; 
   text-decoration: none;
   padding: 10px 20px;
   border: none;
@@ -75,3 +96,4 @@
   width: 100%;
   max-width: 800px;
 }
+

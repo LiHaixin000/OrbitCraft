@@ -1,12 +1,16 @@
 // frontend/src/pages/MentorShipPage.js
+// frontend/src/pages/MentorShipPage.js
 import React, { useState } from 'react';
 import './commonStyles.css'; // Import the common styles
+import '../pagesCss/MentorshipPage.css'; // Import the new CSS file
 import RegisterMentor from '../components/RegisterMentor';
 import RegisterMentee from '../components/RegisterMentee';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function MentorshipPage() {
   const [matches, setMatches] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleViewMatches = async () => {
     const token = localStorage.getItem('token');
@@ -26,6 +30,11 @@ function MentorshipPage() {
 
   return (
     <div className="container mentorship-page">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7M8 12H21" />
+        </svg>
+      </button>
       <h2 className="heading">Mentorship Matching System</h2>
       <p className="paragraph">
         Connects students with alumni and industry professionals. Matches based on shared interests, academic backgrounds, and career goals. Facilitates meaningful mentorship relationships.

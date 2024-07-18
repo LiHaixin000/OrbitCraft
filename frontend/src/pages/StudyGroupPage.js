@@ -7,7 +7,7 @@ import GroupList from '../components/GroupList';
 import MessageList from '../components/MessageList';
 import Notification from '../components/Notification';
 import Instructions from '../components/Instructions'; // Import the Instructions component
-import './commonStyles.css';
+import '../pagesCss/StudyGroupPage.css'; // Import the new CSS file
 
 function StudyGroupPage() {
   const [groups, setGroups] = useState([]);
@@ -65,6 +65,11 @@ function StudyGroupPage() {
 
   return (
     <div className="container">
+      <button className="back-button" onClick={() => navigate(-1)}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7M8 12H21" />
+        </svg>
+      </button>
       <h2 className="heading">Study Groups</h2>
       <p className="paragraph">
         Join study groups to collaborate with peers, share knowledge, and prepare for exams together. Find or create study groups that match your academic interests and schedule.

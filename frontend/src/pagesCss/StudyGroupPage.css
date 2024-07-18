@@ -1,0 +1,198 @@
+/* frontend/src/pagesCss/StudyGroupPage.css */
+body {
+    background-color: #ffefd5; /* Set the background color to match the container */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Ensure consistent font */
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px; /* Ensure it matches the max width used in HomePage */
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center text to match the HomePage style */
+    background-color: #fff7f0; /* Set the background color */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Add this line */
+  }
+  
+  .heading {
+    font-size: 28px; /* Adjust font size to match HomePage headings */
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* Ensure consistent text color */
+  }
+  
+  .paragraph {
+    font-size: 16px; /* Adjust font size to match HomePage text */
+    line-height: 1.5;
+    color: #666; /* Ensure consistent text color */
+    max-width: 800px; /* Limit paragraph width for better readability */
+    margin: 0 auto 20px; /* Center the paragraph and add bottom margin */
+  }
+  
+  /* Instructions Container Styles */
+  .instructions-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make the container as wide as the form container */
+    margin-top: 20px; /* Add margin to separate sections */
+    margin-bottom: 40px; /* Add bottom margin for space below the container */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+  }
+  
+  .instructions-heading {
+    font-size: 20px;
+    font-weight: bold; /* Increase font weight for better visibility */
+    color: #333; /* Ensure the text color is dark enough */
+    margin-bottom: 15px;
+  }
+  
+  .instructions-list {
+    font-size: 16px;
+    color: #666; /* Ensure consistent text color */
+    text-align: left;
+    line-height: 1.5;
+  }
+  
+  .registration-section {
+    display: flex;
+    justify-content: space-around;
+    width: 88%;
+    margin-bottom: 20px; /* Add margin to separate sections */
+  }
+  
+  .registration-block {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 45%; /* Adjust width to fit two blocks side by side */
+  }
+  
+  .registration-block h3 {
+    font-size: 20px;
+    font-weight: bold; /* Increase font weight for better visibility */
+    color: #333; /* Ensure the text color is dark enough */
+    margin-bottom: 15px;
+  }
+  
+  .view-matches-button {
+    background-color: #ff7043;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .view-matches-button:hover {
+    background-color: #ff5722;
+  }
+  
+  .matches-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .matches-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .matches-list li {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  /* Form Container Styles */
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px; /* Add some space below the forms */
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 1000px; /* Limit the maximum width */
+  }
+  
+  /* Form Styles */
+  .form {
+    flex: 1 1 48%; /* Adjust the base size to 48% of the container to make them wider */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold; /* Make the label text bold */
+    color: #333; /* Darker color for better visibility */
+    margin-bottom: 5px;
+  }
+  
+  .form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff7043;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form button:hover {
+    background-color: #e64a19;
+  }
+  
+  /* Back Button Styles */
+  .back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .back-button svg {
+    width: 24px;
+    height: 24px;
+    color: #000; 
+  }
+  
+  .back-button svg:hover {
+    color: #f07650; 
+  }
+  
