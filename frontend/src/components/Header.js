@@ -66,20 +66,22 @@ function Header() {
 const styles = {
   header: {
     width: '100vw',
-    boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
-    padding: '5px 20px', // Adjust padding to add space to the left and right
+    height: '60px', // Set height to match the footer
+    boxSizing: 'border-box',
+    padding: '10px 20px', 
     backgroundColor: '#ff7043',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    borderBottom: '2px solid #d2691e',
   },
   logoContainer: {
     display: 'flex',
     alignItems: 'center',
   },
   logo: {
-    height: '80px',
+    height: '70px', 
   },
   nav: {
     display: 'flex',
@@ -88,12 +90,16 @@ const styles = {
   },
   navLink: {
     textDecoration: 'none',
-    color: '#333',
+    color: '#fff',
     fontSize: '16px',
-    transition: 'color 0.3s ease',
+    fontWeight: '500',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    transition: 'background-color 0.3s ease, color 0.3s ease',
   },
   navLinkHover: {
-    color: '#ffd54f',
+    backgroundColor: '#ffd54f',
+    color: '#333',
   },
   profileContainer: {
     display: 'flex',

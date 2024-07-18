@@ -40,13 +40,15 @@ function Footer() {
 const styles = {
   footer: {
     width: '100vw',
+    height: '60px', // Set height to match the header
     boxSizing: 'border-box', // Ensure padding and border are included in the element's total width and height
     backgroundColor: '#ff7043', // Vibrant orange
-    padding: '15px',
+    padding: '10px 20px', // Consistent padding with the header
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    boxShadow: '0 -4px 8px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 -4px 8px rgba(0, 0, 0, 0.1)', // Subtle shadow for separation
+    borderTop: '2px solid #d2691e', // Similar border color as header
   },
   contactInfo: {
     color: '#fff',
