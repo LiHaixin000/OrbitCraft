@@ -20,9 +20,8 @@ function Feature({ title, description, link }) {
 
 const styles = {
   feature: {
-    flex: '1 1 calc(33.333% - 30px)', // Adjust the flex basis to make features larger
-    maxWidth: 'calc(33.333% - 30px)',
-    minWidth: '250px',
+    width: '100%', // Ensure each feature takes up the full width of its grid cell
+    maxWidth: '500px', // Set a maximum width for each feature
     padding: '20px',
     borderRadius: '10px',
     backgroundColor: '#ffffff',

@@ -153,12 +153,12 @@ const styles = {
     borderRadius: '5px',
   },
   featuresContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    display: 'grid', // Use grid layout
+    gridTemplateColumns: 'repeat(2, 1fr)', // 2 columns
     gap: '30px',
     width: '100%', // Ensure the features container takes up the full width
     maxWidth: '1200px', // Adjust the max width as needed
+    justifyItems: 'center', // Center align items horizontally
   },
   logoutButton: {
     backgroundColor: '#ff7043', // Vibrant orange
