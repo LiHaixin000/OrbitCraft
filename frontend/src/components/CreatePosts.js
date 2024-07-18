@@ -1,6 +1,7 @@
 // frontend/src/components/CreatePosts.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import './CreatePosts.css'; // Import the new CSS file
 
 function CreatePosts() {
   const [title, setTitle] = useState('');
@@ -55,7 +56,7 @@ function CreatePosts() {
           onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <button className="button" type="submit">Create Post</button>
     </form>
   );

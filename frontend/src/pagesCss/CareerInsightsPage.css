@@ -12,7 +12,7 @@
 }
 
 .heading {
-  font-size: 32px; /* Increased font size */
+  font-size: 36px; /* Increased font size */
   font-weight: bold;
   margin-bottom: 20px;
   color: #2c3e50; /* Darker color for better readability */
@@ -58,89 +58,20 @@
 
 .link {
   font-size: 16px;
-  color: #2980b9; /* Blue color for links */
+  color: #fff; /* White color for text */
+  background-color: #f07650; /* Blue background */
   text-decoration: none;
   padding: 10px 20px;
-  border: 2px solid #2980b9;
+  border: none;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .link:hover {
-  background-color: #2980b9;
-  color: #fff;
+  background-color: #e64a19;
 }
 
-.posts {
+#create-post {
   width: 100%;
   max-width: 800px;
-  margin-bottom: 40px;
-}
-
-.post {
-  background-color: #ecf0f1;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  text-align: left;
-}
-
-.post-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.post-content {
-  font-size: 16px;
-  color: #7f8c8d;
-}
-
-.form {
-  width: 100%;
-  max-width: 800px;
-  background-color: #ecf0f1;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.label {
-  font-size: 16px;
-  color: #2c3e50;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.input, .textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #bdc3c7;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.textarea {
-  height: 100px;
-  resize: vertical;
-}
-
-.button {
-  font-size: 16px;
-  color: #fff;
-  background-color: #2980b9;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #1f618d;
 }

@@ -17,11 +17,12 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 
   const category = req.body.category || 'No Category';
+  const newFileName = req.body.newFileName || req.file.originalname; // Use the new file name if provided
 
   try {
     const uploadParams = {
       Bucket: process.env.S3_BUCKET_NAME,
-      Key: Date.now().toString() + '-' + req.file.originalname, // Unique key for the file
+      Key: newFileName, // Use the new file name
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
       Metadata: {
@@ -32,7 +33,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     const command = new PutObjectCommand(uploadParams);
     await s3Client.send(command);
 
-    console.log('File uploaded successfully:', req.file.originalname);
+    console.log('File uploaded successfully:', newFileName);
     res.status(200).send({
       message: 'File uploaded successfully',
       url: `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uploadParams.Key}`,
@@ -79,3 +80,4 @@ router.use((err, req, res, next) => {
 });
 
 module.exports = router;
+

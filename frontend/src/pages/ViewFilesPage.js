@@ -52,8 +52,8 @@ function ViewFilesPage() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const categories = [
-    'Computer Science', 'Engineering', 'Business', 'Medicine', 'Law', 'Arts & Social Sciences',
-    'Science', 'Design & Environment', 'Dentistry', 'Music', 'Others', 'No Category'
+    'Computer Science', 'Engineering', 'Business', 'Math', 'Law', 'Arts & Social Sciences',
+    'Science', 'Design & Environment', 'Medicine', 'Music', 'Others', 'No Category'
   ];
 
   useEffect(() => {

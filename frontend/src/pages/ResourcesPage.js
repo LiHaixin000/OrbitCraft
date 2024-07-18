@@ -1,6 +1,7 @@
 // frontend/src/pages/ResourcesPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './commonStyles.css'; // Import the common styles
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,11 +14,13 @@ function ResourcesPage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [previewLoading, setPreviewLoading] = useState(false); // New state for preview loading
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [newFileName, setNewFileName] = useState(''); // New state for the file name
 
   const categories = [
-    'Computer Science', 'Engineering', 'Business', 'Medicine', 'Law', 'Arts & Social Sciences',
-    'Science', 'Design & Environment', 'Dentistry', 'Music', 'Others'
+    'Computer Science', 'Engineering', 'Business', 'Math', 'Law', 'Arts & Social Sciences',
+    'Science', 'Design & Environment', 'Medicine', 'Music', 'Others'
   ];
 
   const handleFileChange = (event) => {
@@ -25,15 +28,15 @@ function ResourcesPage() {
     setSelectedFile(file);
 
     if (file) {
-      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPreviewUrl(reader.result);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        setPreviewUrl(null);
-      }
+      console.log('Selected file:', file);
+      setPreviewLoading(true); // Set loading state to true
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+        setPreviewLoading(false); // Set loading state to false
+        console.log('Preview URL:', reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -48,9 +51,15 @@ function ResourcesPage() {
       return;
     }
 
+    if (!newFileName) {
+      toast.error('Please enter a new file name');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('category', selectedCategory);
+    formData.append('newFileName', newFileName); // Add the new file name to the form data
 
     const url = `${API_BASE_URL}/api/resources/upload`;
 
@@ -70,6 +79,7 @@ function ResourcesPage() {
       setUploadProgress(0);
       setPreviewUrl(null);
       setSelectedCategory('');
+      setNewFileName(''); // Reset the file name input
     } catch (error) {
       console.error('Error uploading file:', error);
       if (error.response) {
@@ -95,26 +105,7 @@ function ResourcesPage() {
           style={{ display: 'none' }}
           id="fileInput"
         />
-        {previewUrl && (
-          <div className="file-preview">
-            {selectedFile.type === 'application/pdf' ? (
-              <embed src={previewUrl} type="application/pdf" width="100%" height="400px" />
-            ) : (
-              <img src={previewUrl} alt="File Preview" />
-            )}
-          </div>
-        )}
         <div className="button-group">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="category-select"
-          >
-            <option value="" disabled>Select Category</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>{category}</option>
-            ))}
-          </select>
           <button
             className="cssbuttons-io-button"
             onClick={() => {
@@ -126,6 +117,23 @@ function ResourcesPage() {
             </svg>
             <span>Choose File</span>
           </button>
+          <input
+            type="text"
+            placeholder="Enter new file name"
+            value={newFileName}
+            onChange={(e) => setNewFileName(e.target.value)}
+            className="file-name-input"
+          />
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="category-select"
+          >
+            <option value="" disabled>Select Category</option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>{category}</option>
+            ))}
+          </select>
           <button
             className="cssbuttons-io-button"
             onClick={handleFileUpload}
@@ -139,6 +147,33 @@ function ResourcesPage() {
             <span>View Uploaded Files</span>
           </button>
         </div>
+        {previewLoading && (
+          <div className="preview-loading">
+            <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" stroke="gray" strokeWidth="4" fill="none" />
+              <path fill="gray" d="M12 2a10 10 0 0 0-7.071 17.071l14.142-14.142A9.953 9.953 0 0 0 12 2z">
+                <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite" />
+              </path>
+            </svg>
+            <p>Loading preview...</p>
+          </div>
+        )}
+        {previewUrl && !previewLoading && (
+          <div className="file-preview">
+            {selectedFile && selectedFile.type === 'application/pdf' ? (
+              <embed src={previewUrl} type="application/pdf" width="100%" height="400px" />
+            ) : selectedFile && selectedFile.type.startsWith('image/') ? (
+              <img src={previewUrl} alt="File Preview" />
+            ) : (
+              <div className="file-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="gray" d="M6 2h9l5 5v15H6zM5 0h10l6 6v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm7 14h4v2h-4v-2zm-4-2h8v2H8v-2zm0-2h8v2H8v-2zm0-2h8v2H8V8z"/>
+                </svg>
+                <p>{selectedFile.name}</p>
+              </div>
+            )}
+          </div>
+        )}
         {uploadProgress > 0 && (
           <div className="progress-bar">
             <div className="progress" style={{ width: `${uploadProgress}%` }}></div>
@@ -149,7 +184,8 @@ function ResourcesPage() {
         <h3>Instructions to Upload Files</h3>
         <ol>
           <li>Click on the "Choose File" button to select the file you want to upload.</li>
-          <li>Preview the selected file to ensure it is correct.</li>
+          <li>Preview the selected file to ensure it is correct. (Preview may take very long if the file is too big)</li>
+          <li>Enter a meaningful name for the file in the "Enter new file name" field.</li>
           <li>Select the appropriate category for the file from the dropdown menu.</li>
           <li>Click on the "Submit Upload" button to upload the file.</li>
           <li>Once the upload is complete, you will see a success message.</li>

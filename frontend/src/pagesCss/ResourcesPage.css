@@ -22,19 +22,67 @@
   height: auto;
 }
 
+.preview-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.preview-loading svg {
+  margin-bottom: 10px;
+}
+
+.file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.file-icon svg {
+  margin-bottom: 10px;
+}
+
 .button-group {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
-.category-select {
+.category-select, .file-name-input, .cssbuttons-io-button {
   padding: 0.8em 1.5em;
   font-size: 17px;
   border-radius: 20em;
   border: 1px solid #ccc;
   background: white;
   color: #333;
+}
+
+.cssbuttons-io-button {
+  background: linear-gradient(0deg, rgb(120, 47, 255) 0%, rgb(185, 132, 255) 100%);
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em rgb(184, 146, 255);
+  color: white;
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.cssbuttons-io-button svg {
+  margin-right: 8px;
+}
+
+.cssbuttons-io-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em rgb(149, 91, 255);
+}
+
+.cssbuttons-io-button:active {
+  box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
 }
 
 .progress-bar {
@@ -69,34 +117,6 @@
   border-radius: 5px;
 }
 
-.cssbuttons-io-button {
-  display: flex;
-  align-items: center;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 17px;
-  padding: 0.8em 1.5em 0.8em 1.2em;
-  color: white;
-  background: #ad5389;
-  background: linear-gradient(0deg, rgb(120, 47, 255) 0%, rgb(185, 132, 255) 100%);
-  border: none;
-  box-shadow: 0 0.7em 1.5em -0.5em rgb(184, 146, 255);
-  letter-spacing: 0.05em;
-  border-radius: 20em;
-}
-
-.cssbuttons-io-button svg {
-  margin-right: 8px;
-}
-
-.cssbuttons-io-button:hover {
-  box-shadow: 0 0.5em 1.5em -0.5em rgb(149, 91, 255);
-}
-
-.cssbuttons-io-button:active {
-  box-shadow: 0 0.3em 1em -0.5em rgb(160, 109, 255);
-}
-
 .instructions {
   margin-top: 30px;
   padding: 20px;
@@ -106,7 +126,6 @@
   width: 100%; /* Make the container as wide as its parent */
   box-sizing: border-box; /* Ensure padding and border are included in the width */
 }
-
 
 .instructions h3 {
   margin-bottom: 10px;
@@ -128,5 +147,11 @@
   margin-bottom: 20px; /* Add space below the description */
 }
 
-
-
+.file-name-input {
+  padding: 0.8em 1.5em;
+  font-size: 17px;
+  border-radius: 20em;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
+}

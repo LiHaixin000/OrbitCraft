@@ -1,6 +1,7 @@
 // frontend/src/components/ViewPosts.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ViewPosts.css'; // Import the new CSS file
 
 function ViewPosts() {
   const [posts, setPosts] = useState([]);
@@ -27,18 +28,25 @@ function ViewPosts() {
       });
   }, []);
 
+  const getRandomColor = () => {
+    const colors = ['#FFEB3B', '#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFCC80'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   return (
-    <div className="posts">
-      <h3>Posts</h3>
+    <div className="posts-container">
+      <h3 className="posts-heading">Posts</h3>
       {error ? (
-        <p>{error}</p>
+        <p className="error-message">{error}</p>
       ) : (
-        posts.map(post => (
-          <div key={post.id} className="post">
-            <h4 className="post-title">{post.title}</h4>
-            <p className="post-content">{post.content}</p>
-          </div>
-        ))
+        <div className="posts-wrapper">
+          {posts.map(post => (
+            <div key={post.id} className="post-card" style={{ backgroundColor: getRandomColor() }}>
+              <h4 className="post-title">{post.title}</h4>
+              <p className="post-content">{post.content}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

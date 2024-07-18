@@ -1,0 +1,58 @@
+.posts-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .posts-heading {
+    font-size: 32px; /* Larger font size */
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Darker color for better readability */
+  }
+  
+  .error-message {
+    color: #e74c3c; /* Red color for error messages */
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .posts-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+    justify-content: center; /* Center the posts horizontally */
+    gap: 20px; /* Space between posts */
+  }
+  
+  .post-card {
+    width: 300px; /* Fixed width for post-it note appearance */
+    height: 300px; /* Fixed height to make it square */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: left; /* Left-align text for readability */
+    color: #2c3e50; /* Darker color for text */
+    position: relative; /* For positioning the icon */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure content is right below the title */
+  }
+  
+  .post-title {
+    font-size: 24px; /* Larger font size for title */
+    font-weight: bold;
+    margin-bottom: 10px; /* Space below title */
+    font-family: 'Arial', sans-serif; /* Distinct font for title */
+  }
+  
+  .post-content {
+    font-size: 16px;
+    line-height: 1.6; /* Increased line height for readability */
+    font-family: 'Georgia', serif; /* Distinct font for content */
+  }
+  

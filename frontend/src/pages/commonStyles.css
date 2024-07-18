@@ -1,5 +1,8 @@
 body {
-  background-color: #fff7f0; /* Set the background color */
+  background-color: #fff7f0; /* Set the background color to match the container */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  font-family: Arial, sans-serif; /* Ensure consistent font */
 }
 
 .container {
@@ -57,7 +60,6 @@ body {
   text-align: left;
   line-height: 1.5;
 }
-
 
 .registration-section {
   display: flex;
