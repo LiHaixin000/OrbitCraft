@@ -125,6 +125,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%; /* Make the container as wide as its parent */
   box-sizing: border-box; /* Ensure padding and border are included in the width */
+  text-align: left; /* Align text to the left */
 }
 
 .instructions h3 {
@@ -132,12 +133,13 @@
   color: #333;
 }
 
-.instructions ol {
+.instructions ul {
   padding-left: 20px;
   color: #666;
+  list-style-type: disc; /* Use bullet points */
 }
 
-.instructions ol li {
+.instructions ul li {
   margin-bottom: 10px;
 }
 
