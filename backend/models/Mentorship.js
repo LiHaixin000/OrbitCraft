@@ -1,22 +1,31 @@
+// backend/models/Mentorship.js
 const db = require('../config/db');
 
-const createMentor = async (username, expertise) => {
+const createOrUpdateMentor = async (username, expertise) => {
   try {
+    console.log('Attempting to create or update mentor in the database');
     const result = await db.query(
-      'INSERT INTO mentors (username, expertise) VALUES ($1, $2) RETURNING *',
+      `INSERT INTO mentors (username, expertise) VALUES ($1, $2)
+       ON CONFLICT (username) DO UPDATE SET expertise = $2
+       RETURNING *`,
       [username, expertise]
     );
+    console.log('Database query result:', result);
     return result.rows[0];
   } catch (error) {
-    console.error('Database error:', error);
+    console.error('Database error in createOrUpdateMentor:', error);
     throw error;
   }
 };
 
-const createMentee = async (username, interest) => {
+
+
+const createOrUpdateMentee = async (username, interest) => {
   try {
     const result = await db.query(
-      'INSERT INTO mentees (username, interest) VALUES ($1, $2) RETURNING *',
+      `INSERT INTO mentees (username, interest) VALUES ($1, $2)
+       ON CONFLICT (username) DO UPDATE SET interest = $2
+       RETURNING *`,
       [username, interest]
     );
     return result.rows[0];
@@ -26,13 +35,30 @@ const createMentee = async (username, interest) => {
   }
 };
 
-const matchMentorMentee = async () => {
+const matchMentorMentee = async (username) => {
   try {
-    const result = await db.query(
-      `SELECT mentors.username AS mentor, mentees.username AS mentee
-       FROM mentors
-       JOIN mentees ON mentors.expertise = mentees.interest`
-    );
+    // Check if the user is a mentor
+    const mentorCheck = await db.query('SELECT * FROM mentors WHERE username = $1', [username]);
+    let result;
+    if (mentorCheck.rows.length > 0) {
+      // If user is a mentor, get matched mentees
+      result = await db.query(
+        `SELECT mentees.username AS mentee
+         FROM mentors
+         JOIN mentees ON mentors.expertise = mentees.interest
+         WHERE mentors.username = $1`,
+        [username]
+      );
+    } else {
+      // Otherwise, get matched mentors
+      result = await db.query(
+        `SELECT mentors.username AS mentor
+         FROM mentees
+         JOIN mentors ON mentees.interest = mentors.expertise
+         WHERE mentees.username = $1`,
+        [username]
+      );
+    }
     return result.rows;
   } catch (error) {
     console.error('Database error:', error);
@@ -41,8 +67,8 @@ const matchMentorMentee = async () => {
 };
 
 module.exports = {
-  createMentor,
-  createMentee,
+  createOrUpdateMentor,
+  createOrUpdateMentee,
   matchMentorMentee,
 };
 

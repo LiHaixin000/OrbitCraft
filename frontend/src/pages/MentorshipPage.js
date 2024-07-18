@@ -1,5 +1,4 @@
 // frontend/src/pages/MentorShipPage.js
-// frontend/src/pages/MentorShipPage.js
 import React, { useState } from 'react';
 import './commonStyles.css'; // Import the common styles
 import '../pagesCss/MentorshipPage.css'; // Import the new CSS file
@@ -14,6 +13,7 @@ function MentorshipPage() {
 
   const handleViewMatches = async () => {
     const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username'); // Assuming username is stored in local storage
 
     try {
       const response = await axios.get('http://localhost:5001/api/mentorship/match', {
@@ -62,7 +62,9 @@ function MentorshipPage() {
         {matches.length > 0 && (
           <ul className="matches-list">
             {matches.map((match, index) => (
-              <li key={index}>{match.mentor} is matched with {match.mentee}</li>
+              <li key={index}>
+                {match.mentee ? `${match.mentee}` : `${match.mentor}`}
+              </li>
             ))}
           </ul>
         )}
@@ -72,3 +74,4 @@ function MentorshipPage() {
 }
 
 export default MentorshipPage;
+

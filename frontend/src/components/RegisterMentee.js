@@ -1,5 +1,4 @@
 // frontend/src/components/RegisterMentee.js
-// frontend/src/components/RegisterMentee.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import ExpertiseDropdown from './ExpertiseDropdown';
@@ -15,7 +14,7 @@ const RegisterMentee = () => {
     try {
       await axios.post(
         'http://localhost:5001/api/mentorship/mentee',
-        { username, interest },
+        { interest },
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -38,3 +37,4 @@ const RegisterMentee = () => {
 };
 
 export default RegisterMentee;
+
