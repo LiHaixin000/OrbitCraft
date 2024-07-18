@@ -84,11 +84,13 @@
   
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto; /* Adjusted to reduce top margin */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
+    width: 90%; /* Increased width */
+    max-width: 800px; /* Increased max-width */
+    max-height: 80vh; /* Added max-height to ensure it fits within the viewport */
+    overflow-y: auto; /* Added vertical scrolling */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     position: relative;
