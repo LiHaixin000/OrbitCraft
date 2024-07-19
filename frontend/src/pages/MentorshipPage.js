@@ -6,6 +6,8 @@ import RegisterMentee from '../components/RegisterMentee';
 import ProfilePopup from '../components/ProfilePopup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
 
 function MentorshipPage() {
   const [matches, setMatches] = useState([]);
@@ -24,7 +26,7 @@ function MentorshipPage() {
       setMatches(response.data);
     } catch (error) {
       console.error('Error fetching matches:', error);
-      alert('Failed to fetch matches');
+      toast.error('Failed to fetch matches');
     }
   };
 
@@ -35,6 +37,7 @@ function MentorshipPage() {
 
   return (
     <div className="container mentorship-page">
+      <ToastContainer />
       <button className="back-button" onClick={() => navigate(-1)}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7M8 12H21" />

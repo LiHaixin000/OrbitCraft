@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import ExpertiseDropdown from './ExpertiseDropdown';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
 
 const RegisterMentee = () => {
   const [interest, setInterest] = useState('');
@@ -9,7 +11,11 @@ const RegisterMentee = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username'); // Assuming username is stored in local storage
+
+    if (!interest) {
+      toast.error('Please select an interest');
+      return;
+    }
 
     try {
       await axios.post(
@@ -21,20 +27,24 @@ const RegisterMentee = () => {
           }
         }
       );
-      alert('Mentee registered successfully');
+      toast.success('Mentee registered successfully');
     } catch (error) {
       console.error('Error registering mentee:', error);
-      alert('Failed to register mentee');
+      toast.error('Failed to register mentee');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ExpertiseDropdown value={interest} onChange={(e) => setInterest(e.target.value)} />
-      <button type="submit">Register as Mentee</button>
-    </form>
+    <>
+      <ToastContainer />
+      <form onSubmit={handleSubmit}>
+        <ExpertiseDropdown value={interest} onChange={(e) => setInterest(e.target.value)} />
+        <button type="submit">Register as Mentee</button>
+      </form>
+    </>
   );
 };
 
 export default RegisterMentee;
+
 

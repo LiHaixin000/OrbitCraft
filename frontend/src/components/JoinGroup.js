@@ -92,7 +92,7 @@ function JoinGroup({ onJoinGroup }) {
       <h3 className="heading">Join Group</h3>
       <input
         type="text"
-        placeholder="Search by Course Code or Interest"
+        placeholder="Search by Course Code or Group Name"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         required

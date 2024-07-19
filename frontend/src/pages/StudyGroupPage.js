@@ -1,18 +1,18 @@
 // frontend/src/pages/StudyGroupPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
 import CreateGroup from '../components/CreateGroup';
 import JoinGroup from '../components/JoinGroup';
 import GroupList from '../components/GroupList';
 import MessageList from '../components/MessageList';
-import Notification from '../components/Notification';
 import Instructions from '../components/Instructions'; // Import the Instructions component
 import '../pagesCss/StudyGroupPage.css'; // Import the new CSS file
 
 function StudyGroupPage() {
   const [groups, setGroups] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [notification, setNotification] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const groupsPerPage = 4;
   const navigate = useNavigate(); 
@@ -40,9 +40,9 @@ function StudyGroupPage() {
     if (newGroup.group_name) {
       setGroups([...groups, newGroup]);
       setMessages([...messages, { type: 'groupCreated', group: newGroup }]);
-      setNotification(`Group "${newGroup.group_name}" created successfully!`);
+      toast.success(`Group "${newGroup.group_name}" created successfully!`);
     } else {
-      setNotification('Failed to create group: Group name is missing.');
+      toast.error('Failed to create group: Group name is missing.');
     }
   };
 
@@ -50,10 +50,7 @@ function StudyGroupPage() {
     setGroups([...groups, group]);
     setMessages([...messages, { type: 'joinRequest', group }]);
     navigate(`/groups/${group.group_name}`);
-  };
-
-  const handleCloseNotification = () => {
-    setNotification('');
+    toast.info(`You have joined the group "${group.group_name}"`);
   };
 
   // Pagination logic
@@ -65,6 +62,7 @@ function StudyGroupPage() {
 
   return (
     <div className="container">
+      <ToastContainer />
       <button className="back-button" onClick={() => navigate(-1)}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7M8 12H21" />
@@ -82,7 +80,6 @@ function StudyGroupPage() {
       <h2 className="heading">Available Groups</h2>
       <GroupList groups={currentGroups} paginate={paginate} totalGroups={groups.length} groupsPerPage={groupsPerPage} />
       <MessageList messages={messages} />
-      <Notification message={notification} onClose={handleCloseNotification} />
     </div>
   );
 }
