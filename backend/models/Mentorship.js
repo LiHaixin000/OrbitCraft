@@ -18,8 +18,6 @@ const createOrUpdateMentor = async (username, expertise) => {
   }
 };
 
-
-
 const createOrUpdateMentee = async (username, interest) => {
   try {
     const result = await db.query(
@@ -30,7 +28,7 @@ const createOrUpdateMentee = async (username, interest) => {
     );
     return result.rows[0];
   } catch (error) {
-    console.error('Database error:', error);
+    console.error('Database error in createOrUpdateMentee:', error);
     throw error;
   }
 };
@@ -61,14 +59,31 @@ const matchMentorMentee = async (username) => {
     }
     return result.rows;
   } catch (error) {
-    console.error('Database error:', error);
+    console.error('Database error in matchMentorMentee:', error);
     throw error;
   }
 };
+
+const sendMessage = async (senderUsername, recipientUsername, message) => {
+  try {
+    console.log('Attempting to send message from', senderUsername, 'to', recipientUsername);
+    const result = await db.query(
+      `INSERT INTO user_messages (sender_username, recipient_username, message) VALUES ($1, $2, $3)
+       RETURNING *`,
+      [senderUsername, recipientUsername, message]
+    );
+    console.log('Message sent successfully:', result.rows[0]);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Database error in sendMessage:', error);
+    throw error;
+  }
+};
+
 
 module.exports = {
   createOrUpdateMentor,
   createOrUpdateMentee,
   matchMentorMentee,
+  sendMessage,
 };
-

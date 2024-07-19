@@ -12,9 +12,10 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Profile from './pages/Profile';
 import ViewPosts from './components/ViewPosts';
-import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
-import { AuthProvider } from './context/AuthContext'; // Import AuthProvider
-import ViewFilesPage from './pages/ViewFilesPage'; // Import ViewFilesPage
+import PrivateRoute from './components/PrivateRoute';
+import { AuthProvider } from './context/AuthContext';
+import ViewFilesPage from './pages/ViewFilesPage';
+import Messages from './components/Messages'; // Import Messages component
 
 function App() {
   const location = useLocation();
@@ -34,7 +35,8 @@ function App() {
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="/groups/:groupName" element={<PrivateRoute><GroupChat /></PrivateRoute>} />
             <Route path="/view-posts" element={<PrivateRoute><ViewPosts /></PrivateRoute>} />
-            <Route path="/view-files" element={<PrivateRoute><ViewFilesPage /></PrivateRoute>} /> {/* Add new route */}
+            <Route path="/view-files" element={<PrivateRoute><ViewFilesPage /></PrivateRoute>} />
+            <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} /> {/* Add new route */}
           </Routes>
         </main>
         <Footer />
@@ -63,4 +65,3 @@ const styles = {
 };
 
 export default App;
-

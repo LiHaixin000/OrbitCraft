@@ -1,19 +1,20 @@
-// frontend/src/pages/MentorShipPage.js
+// frontend/src/pages/MentorshipPage.js
 import React, { useState } from 'react';
-import './commonStyles.css'; // Import the common styles
-import '../pagesCss/MentorshipPage.css'; // Import the new CSS file
+import './commonStyles.css'; 
+import '../pagesCss/MentorshipPage.css'; 
 import RegisterMentor from '../components/RegisterMentor';
 import RegisterMentee from '../components/RegisterMentee';
+import ProfilePopup from '../components/ProfilePopup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
 function MentorshipPage() {
   const [matches, setMatches] = useState([]);
-  const navigate = useNavigate(); // Initialize navigate
+  const [selectedUser, setSelectedUser] = useState(null); 
+  const navigate = useNavigate(); 
 
   const handleViewMatches = async () => {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username'); // Assuming username is stored in local storage
 
     try {
       const response = await axios.get('http://localhost:5001/api/mentorship/match', {
@@ -26,6 +27,11 @@ function MentorshipPage() {
       console.error('Error fetching matches:', error);
       alert('Failed to fetch matches');
     }
+  };
+
+  const handleUserClick = (user) => {
+    console.log('User clicked:', user); 
+    setSelectedUser(user);
   };
 
   return (
@@ -60,18 +66,20 @@ function MentorshipPage() {
       <div className="matches-section">
         <button className="view-matches-button" onClick={handleViewMatches}>View Matches</button>
         {matches.length > 0 && (
-          <ul className="matches-list">
+          <div className="matches-list">
             {matches.map((match, index) => (
-              <li key={index}>
+              <button key={index} className="match-button" onClick={() => handleUserClick(match.mentee || match.mentor)}>
                 {match.mentee ? `${match.mentee}` : `${match.mentor}`}
-              </li>
+              </button>
             ))}
-          </ul>
+          </div>
         )}
       </div>
+      {selectedUser && (
+        <ProfilePopup username={selectedUser} onClose={() => setSelectedUser(null)} />
+      )}
     </div>
   );
 }
 
 export default MentorshipPage;
-

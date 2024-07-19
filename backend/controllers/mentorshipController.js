@@ -1,5 +1,40 @@
 // backend/controllers/mentorshipController.js
-const { createOrUpdateMentor, createOrUpdateMentee, matchMentorMentee } = require('../models/Mentorship');
+const { createOrUpdateMentor, createOrUpdateMentee, matchMentorMentee, sendMessage } = require('../models/Mentorship');
+const { getUserProfile } = require('../models/User'); // Import the getUserProfile function
+const pool = require('../config/db'); // Assuming you're using a database connection pool
+
+
+// Fetch profile information
+const handleGetProfile = async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const profile = await getUserProfile(username);
+    res.status(200).json(profile);
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+};
+
+const handleSendMessage = async (req, res) => {
+  const { senderUsername, recipientUsername, message } = req.body;
+
+  if (!senderUsername || !recipientUsername || !message) {
+    console.error('Validation error: All fields are required');
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    console.log('Sending message from:', senderUsername, 'to:', recipientUsername, 'message:', message);
+    await sendMessage(senderUsername, recipientUsername, message);
+    res.status(201).json({ message: 'Message sent successfully' });
+  } catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).json({ error: 'Failed to send message' });
+  }
+};
+
 
 const handleCreateMentor = async (req, res) => {
   const { username } = req.user;
@@ -15,8 +50,6 @@ const handleCreateMentor = async (req, res) => {
     res.status(500).json({ error: 'Failed to create mentor' });
   }
 };
-
-
 
 const handleCreateMentee = async (req, res) => {
   const { username } = req.user;
@@ -42,9 +75,29 @@ const handleMatchMentorMentee = async (req, res) => {
   }
 };
 
+// Handler to fetch messages for the logged-in user
+const handleGetMessages = async (req, res) => {
+  const username = req.user.username; // Assuming the username is stored in req.user after token verification
+
+  try {
+    const result = await pool.query(
+      'SELECT sender_username, message, timestamp FROM user_messages WHERE recipient_username = $1 ORDER BY timestamp DESC',
+      [username]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 module.exports = {
   handleCreateMentor,
   handleCreateMentee,
   handleMatchMentorMentee,
+  handleGetProfile,
+  handleSendMessage,
+  handleGetMessages,
 };
 

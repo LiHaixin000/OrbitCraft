@@ -34,7 +34,30 @@ function Header() {
       </nav>
       <div style={styles.profileContainer}>
         <button
-          style={styles.profileButton}
+          style={styles.iconButton}
+          onClick={() => navigate('/messages')}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 4H20V16H4V4Z"
+              stroke="black"
+              strokeWidth="2"
+            />
+            <path
+              d="M4 4L12 10L20 4"
+              stroke="black"
+              strokeWidth="2"
+            />
+          </svg>
+        </button>
+        <button
+          style={styles.iconButton}
           onClick={() => navigate('/profile')}
         >
           <svg
@@ -66,9 +89,9 @@ function Header() {
 const styles = {
   header: {
     width: '100vw',
-    height: '60px', // Set height to match the footer
+    height: '60px',
     boxSizing: 'border-box',
-    padding: '10px 20px', 
+    padding: '10px 20px',
     backgroundColor: '#ff7043',
     display: 'flex',
     justifyContent: 'space-between',
@@ -81,7 +104,7 @@ const styles = {
     alignItems: 'center',
   },
   logo: {
-    height: '70px', 
+    height: '70px',
   },
   nav: {
     display: 'flex',
@@ -105,10 +128,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
   },
-  profileButton: {
+  iconButton: {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
+    marginRight: '10px',
   },
 };
 

@@ -106,17 +106,25 @@ body {
   }
   
   .matches-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
   }
   
-  .matches-list li {
-    background-color: #ffffff;
-    padding: 10px;
+  .match-button {
+    background-color: #ff7043;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .match-button:hover {
+    background-color: #ff5722;
   }
   
   /* Form Container Styles */
@@ -195,4 +203,31 @@ body {
   .back-button svg:hover {
     color: #f07650; 
   }
+
+  .profile-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
+  .profile-popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    float: right;
+  }
