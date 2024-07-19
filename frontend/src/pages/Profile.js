@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import '../pagesCss/Profile.css'; // Import the new CSS file
 
 function Profile() {
   const navigate = useNavigate();
@@ -128,14 +129,14 @@ function Profile() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="profile-container">
       {profile.avatar_url && (
-        <img src={profile.avatar_url} alt="Profile" style={styles.avatar} />
+        <img src={profile.avatar_url} alt="Profile" className="profile-avatar" />
       )}
-      <h2 style={styles.header}>Edit Profile for {profile.username}</h2>
-      {error && <p style={styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <label htmlFor="age" style={styles.label}>
+      <h2 className="profile-header">Edit Profile for {profile.username}</h2>
+      {error && <p className="profile-error">{error}</p>}
+      <form onSubmit={handleSubmit} className="profile-form">
+        <label htmlFor="age" className="profile-label">
           Age
         </label>
         <input
@@ -145,9 +146,9 @@ function Profile() {
           placeholder="Age"
           value={profile.age || ""}
           onChange={handleChange}
-          style={styles.input}
+          className="profile-input"
         />
-        <label htmlFor="major" style={styles.label}>
+        <label htmlFor="major" className="profile-label">
           Major
         </label>
         <input
@@ -157,9 +158,9 @@ function Profile() {
           placeholder="Major"
           value={profile.major || ""}
           onChange={handleChange}
-          style={styles.input}
+          className="profile-input"
         />
-        <label htmlFor="description" style={styles.label}>
+        <label htmlFor="description" className="profile-label">
           Description
         </label>
         <textarea
@@ -168,9 +169,9 @@ function Profile() {
           placeholder="Description"
           value={profile.description || ""}
           onChange={handleChange}
-          style={styles.textarea}
+          className="profile-textarea"
         />
-        <label htmlFor="gender" style={styles.label}>
+        <label htmlFor="gender" className="profile-label">
           Gender
         </label>
         <select
@@ -178,14 +179,14 @@ function Profile() {
           name="gender"
           value={profile.gender || ""}
           onChange={handleChange}
-          style={styles.select}
+          className="profile-select"
         >
           <option value="">Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        <label htmlFor="year_of_graduation" style={styles.label}>
+        <label htmlFor="year_of_graduation" className="profile-label">
           Year of Graduation
         </label>
         <select
@@ -193,7 +194,7 @@ function Profile() {
           name="year_of_graduation"
           value={profile.year_of_graduation || ""}
           onChange={handleChange}
-          style={styles.select}
+          className="profile-select"
         >
           <option value="">Select Year of Graduation</option>
           {years.map((year) => (
@@ -202,7 +203,7 @@ function Profile() {
             </option>
           ))}
         </select>
-        <label htmlFor="avatar" style={styles.label}>
+        <label htmlFor="avatar" className="profile-label">
           Profile Picture
         </label>
         <input
@@ -210,14 +211,14 @@ function Profile() {
           id="avatar"
           name="avatar"
           onChange={handleAvatarChange}
-          style={styles.input}
+          className="profile-input"
         />
-        <button type="submit" style={styles.button}>
+        <button type="submit" className="profile-button">
           Save
         </button>
       </form>
 
-      <button onClick={handleBack} style={styles.backButton}>
+      <button onClick={handleBack} className="profile-backButton">
         Back to Home
       </button>
       <ToastContainer />
@@ -225,109 +226,4 @@ function Profile() {
   );
 }
 
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-    width: "100vw",
-    padding: "20px",
-    backgroundColor: "#ffefd5",
-    marginTop: "60px", 
-  },
-  header: {
-    marginBottom: "20px",
-    fontSize: "24px",
-    color: "#333",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    maxWidth: "400px",
-    backgroundColor: "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  },
-  label: {
-    margin: "10px 0 5px",
-    fontSize: "14px",
-    fontWeight: "bold",
-    color: "#333",
-  },
-  input: {
-    margin: "10px 0",
-    padding: "12px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-    fontSize: "16px",
-  },
-  textarea: {
-    margin: "10px 0",
-    padding: "12px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-    fontSize: "16px",
-    height: "100px",
-  },
-  select: {
-    margin: "10px 0",
-    padding: "12px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-    fontSize: "16px",
-  },
-  button: {
-    padding: "12px",
-    margin: "10px 0",
-    borderRadius: "5px",
-    border: "none",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  backButton: {
-    padding: "12px",
-    margin: "10px 0 80px", 
-    borderRadius: "5px",
-    border: "none",
-    backgroundColor: "#ff7043",
-    color: "#fff",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  error: {
-    color: "red",
-    marginBottom: "10px",
-  },
-  avatar: {
-    width: "80px", 
-    height: "80px", 
-    borderRadius: "50%",
-    objectFit: "cover",
-    marginBottom: "0px",
-    border: "3px solid #007bff",
-  },
-};
-
-const globalStyles = `
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #ffefd5;
-  }
-`;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = globalStyles;
-document.head.appendChild(styleSheet);
-
 export default Profile;
-
-
