@@ -105,6 +105,14 @@ body {
     margin-top: 20px;
   }
   
+  .matches-container {
+    margin-top: 20px; /* Add padding between the view matches button and container */
+    padding: 20px; /* Add padding inside the container */
+    background-color: #fff; /* Set background color for the container */
+    border-radius: 10px; /* Add border radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  }
+  
   .matches-list {
     display: flex;
     flex-wrap: wrap;
@@ -113,7 +121,7 @@ body {
   }
   
   .match-button {
-    background-color: #ff7043;
+    background-color: #f47e5e; /* Different background color from view matches button */
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -124,7 +132,7 @@ body {
   }
   
   .match-button:hover {
-    background-color: #ff5722;
+    background-color: #fb5006;
   }
   
   /* Form Container Styles */
@@ -203,7 +211,7 @@ body {
   .back-button svg:hover {
     color: #f07650; 
   }
-
+  
   .profile-popup {
     position: fixed;
     top: 0;
@@ -231,3 +239,4 @@ body {
     cursor: pointer;
     float: right;
   }
+  

@@ -1,4 +1,3 @@
-// frontend/src/components/ProfilePopup.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
@@ -77,7 +76,21 @@ const ProfilePopup = ({ username, onClose }) => {
   return (
     <div className="profile-popup">
       <div className="profile-popup-content">
-        <button className="close-button" onClick={onClose}>X</button>
+        <svg
+          className="close-icon"
+          onClick={onClose}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
         <h2>{profile.username}'s Profile</h2>
         <p><strong>Email:</strong> {profile.email}</p>
         <textarea
@@ -92,4 +105,3 @@ const ProfilePopup = ({ username, onClose }) => {
 };
 
 export default ProfilePopup;
-

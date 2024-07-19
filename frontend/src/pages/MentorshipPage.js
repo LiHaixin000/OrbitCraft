@@ -1,4 +1,3 @@
-// frontend/src/pages/MentorshipPage.js
 import React, { useState } from 'react';
 import './commonStyles.css'; 
 import '../pagesCss/MentorshipPage.css'; 
@@ -66,7 +65,7 @@ function MentorshipPage() {
       <div className="matches-section">
         <button className="view-matches-button" onClick={handleViewMatches}>View Matches</button>
         {matches.length > 0 && (
-          <div className="matches-list">
+          <div className="matches-container">
             {matches.map((match, index) => (
               <button key={index} className="match-button" onClick={() => handleUserClick(match.mentee || match.mentor)}>
                 {match.mentee ? `${match.mentee}` : `${match.mentor}`}
