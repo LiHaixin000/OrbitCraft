@@ -1,6 +1,9 @@
+// frontend/src/components/ProfilePopup.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
 import './ProfilePopup.css';
 
 const ProfilePopup = ({ username, onClose }) => {
@@ -63,11 +66,11 @@ const ProfilePopup = ({ username, onClose }) => {
           }
         }
       );
-      alert('Message sent successfully');
+      toast.success('Message sent successfully');
       setMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message');
+      toast.error('Failed to send message');
     }
   };
 
@@ -75,6 +78,7 @@ const ProfilePopup = ({ username, onClose }) => {
 
   return (
     <div className="profile-popup">
+      <ToastContainer /> {/* Add ToastContainer to display toasts */}
       <div className="profile-popup-content">
         <svg
           className="close-icon"
@@ -105,3 +109,4 @@ const ProfilePopup = ({ username, onClose }) => {
 };
 
 export default ProfilePopup;
+

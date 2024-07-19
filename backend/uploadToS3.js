@@ -1,3 +1,4 @@
+// backend/uploadToS3.js
 require("dotenv").config();
 const AWS = require("aws-sdk");
 const fs = require("fs");

@@ -1,3 +1,4 @@
+// frontend/src/pages/ViewFilesPage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FileText, Image, Video, Music, File, ArrowLeft } from 'lucide-react'; // Added ArrowLeft
