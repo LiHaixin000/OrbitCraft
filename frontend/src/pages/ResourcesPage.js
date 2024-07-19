@@ -28,13 +28,11 @@ function ResourcesPage() {
     setSelectedFile(file);
 
     if (file) {
-      console.log('Selected file:', file);
       setPreviewLoading(true); // Set loading state to true
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result);
         setPreviewLoading(false); // Set loading state to false
-        console.log('Preview URL:', reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -79,7 +77,7 @@ function ResourcesPage() {
       setUploadProgress(0);
       setPreviewUrl(null);
       setSelectedCategory('');
-      setNewFileName(''); // Reset the file name input
+      setNewFileName(''); 
     } catch (error) {
       console.error('Error uploading file:', error);
       if (error.response) {
