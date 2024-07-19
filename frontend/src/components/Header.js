@@ -40,6 +40,7 @@ function Header() {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={styles.mailIcon} // Add this line to apply the transform style
           >
             <path
               d="M4 4H20V16H4V4Z"
@@ -130,6 +131,9 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  mailIcon: {
+    transform: "translateY(2px)", // Adjust this value to move the mail icon downwards
   },
 };
 
