@@ -132,4 +132,46 @@
     color: #ff5722; 
   }
   
+  .like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute; /* Positioning the like button absolutely */
+    bottom: 10px; /* Position it 10px from the bottom */
+    right: 10px; /* Position it 10px from the right */
+  }
+  
+  .like-button svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .like-button:hover svg {
+    color: #ff5722;
+  }
+  
+  .comment-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute; /* Positioning the comment button absolutely */
+    bottom: 10px; /* Position it 10px from the bottom */
+    right: 10px; /* Position it 10px from the right */
+  }
+  
+  .comment-button svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .comment-button:hover svg {
+    color: #ff5722;
+  }
+  
   

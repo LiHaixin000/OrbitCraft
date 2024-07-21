@@ -85,7 +85,7 @@ html, body {
 /* Dropdown Styles */
 .dropdown {
   position: absolute;
-  width: 100%;
+  width: 37.5%;
   max-height: 200px;
   overflow-y: auto;
   background-color: #fff;

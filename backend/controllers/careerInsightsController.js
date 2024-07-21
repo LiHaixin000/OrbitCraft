@@ -1,6 +1,5 @@
 // backend/controllers/careerInsightsController.js
-const db = require('../config/db'); 
-const { getAllPosts, createNewPost, addNewComment } = require('../models/CareerInsights');
+const { getAllPosts, createNewPost, addNewComment, addLikeToPost, removeLikeFromPost } = require('../models/CareerInsights');
 
 const getPosts = async (req, res) => {
   try {
@@ -38,10 +37,51 @@ const addComment = async (req, res) => {
   }
 };
 
+const likePost = async (req, res) => {
+  const { postId } = req.params;
+  const { username } = req.user;
+
+  try {
+    const like = await addLikeToPost(postId, username);
+    res.status(201).json(like);
+  } catch (error) {
+    console.error('Error liking post:', error);
+    res.status(500).json({ error: 'Failed to like post' });
+  }
+};
+
+const unlikePost = async (req, res) => {
+  const { postId } = req.params;
+  const { username } = req.user;
+
+  try {
+    const unlike = await removeLikeFromPost(postId, username);
+    res.status(200).json(unlike);
+  } catch (error) {
+    console.error('Error unliking post:', error);
+    res.status(500).json({ error: 'Failed to unlike post' });
+  }
+};
+
+const likeComment = async (req, res) => {
+  const { commentId } = req.params;
+
+  try {
+    const like = await addLikeToComment(commentId);
+    res.status(201).json(like);
+  } catch (error) {
+    console.error('Error liking comment:', error);
+    res.status(500).json({ error: 'Failed to like comment' });
+  }
+};
+
 module.exports = {
   getPosts,
   createPost,
   addComment,
+  likePost,
+  unlikePost,
+  likeComment,
 };
 
 
