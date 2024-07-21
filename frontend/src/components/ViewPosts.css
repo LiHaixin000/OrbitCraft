@@ -1,3 +1,4 @@
+/* Container for the posts */
 .posts-container {
     width: 100%;
     max-width: 1200px;
@@ -10,6 +11,7 @@
     position: relative;
   }
   
+  /* Heading for the posts list */
   .posts-heading {
     font-size: 32px; /* Larger font size */
     font-weight: bold;
@@ -19,12 +21,14 @@
     width: 100%; /* Ensure the heading takes full width of the container */
   }
   
+  /* Error message styling */
   .error-message {
     color: #e74c3c; /* Red color for error messages */
     font-size: 16px;
     margin-bottom: 20px;
   }
   
+  /* Container for the list of posts */
   .posts-list-container {
     width: 100%;
     background-color: #fff6f0; /* Container background color */
@@ -35,6 +39,7 @@
     overflow-y: auto; /* Enable vertical scrolling */
   }
   
+  /* Wrapper for individual posts */
   .posts-wrapper {
     display: flex;
     flex-wrap: wrap; /* Allows wrapping to the next line if needed */
@@ -42,6 +47,7 @@
     gap: 20px; /* Space between posts */
   }
   
+  /* Individual post card styling */
   .post-card {
     width: 300px; /* Fixed width for post-it note appearance */
     height: 300px; /* Fixed height to make it square */
@@ -57,19 +63,25 @@
     cursor: pointer; /* Cursor pointer to indicate clickable */
   }
   
+  /* Title styling for individual post */
   .post-title {
     font-size: 24px; /* Larger font size for title */
     font-weight: bold;
     margin-bottom: 10px; /* Space below title */
-    font-family: 'Arial', sans-serif; /* Distinct font for title */
+    font-family: 'Times New Roman', Times, serif; /* Newspaper-like font */
+    text-align: center; /* Center the title */
   }
   
+  /* Content styling for individual post */
   .post-content {
     font-size: 16px;
-    line-height: 1.6; /* Increased line height for readability */
+    line-height: 1.8; /* Increased line height for readability */
     font-family: 'Georgia', serif; /* Distinct font for content */
+    padding: 10px 0; /* Add padding to paragraphs */
+    text-align: justify; /* Justify the content text */
   }
   
+  /* Modal styling */
   .modal {
     display: flex;
     justify-content: center;
@@ -84,6 +96,7 @@
     background-color: rgba(0, 0, 0, 0.4);
   }
   
+  /* Content within the modal */
   .modal-content {
     background-color: #fefefe;
     margin: 5% auto; /* Adjusted to reduce top margin */
@@ -98,6 +111,7 @@
     position: relative;
   }
   
+  /* Close button within the modal */
   .close {
     color: #aaa;
     float: right;
@@ -112,6 +126,7 @@
     cursor: pointer;
   }
   
+  /* Back button styling */
   .back-button {
     position: absolute;
     top: 20px;
@@ -122,6 +137,7 @@
     padding: 0;
   }
   
+  /* SVG within the back button */
   .back-button svg {
     width: 24px;
     height: 24px;
@@ -132,6 +148,7 @@
     color: #ff5722; 
   }
   
+  /* Like button styling */
   .like-button {
     background: none;
     border: none;
@@ -153,6 +170,7 @@
     color: #ff5722;
   }
   
+  /* Comment button styling */
   .comment-button {
     background: none;
     border: none;
@@ -172,6 +190,11 @@
   
   .comment-button:hover svg {
     color: #ff5722;
+  }
+  
+  /* Paragraph styling within post content */
+  .post-content p {
+    margin-bottom: 10px; /* Add space between paragraphs */
   }
   
   

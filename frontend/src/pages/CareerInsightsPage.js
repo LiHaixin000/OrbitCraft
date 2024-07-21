@@ -24,7 +24,7 @@ function CareerInsightsPage() {
         <ul className="instructions-list">
           <li>Click on "View Posts" to explore career insights shared by professionals.</li>
           <li>Use the "Create Post" section to share your own career experiences and advice.</li>
-          <li>Engage with the community by commenting on and liking posts.</li>
+          <li>Engage with the community by liking the posts.</li>
         </ul>
       </div>
       <div id="create-post">

@@ -76,6 +76,12 @@ function ViewPosts() {
     console.log(`Comment on post ${postId}`);
   };
 
+  const renderPostContent = (content) => {
+    return content.split('\n').map((paragraph, index) => (
+      <p key={index}>{paragraph}</p>
+    ));
+  };
+
   return (
     <div className="posts-container">
       <div className="posts-list-container">
@@ -97,9 +103,9 @@ function ViewPosts() {
                 onClick={() => handlePostClick(post)}
               >
                 <h4 className="post-title">{post.title}</h4>
-                <p className="post-content">
-                  {post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content}
-                </p>
+                <div className="post-content">
+                  {renderPostContent(post.content.length > 100 ? post.content.substring(0, 100) + '...' : post.content)}
+                </div>
                 <button className="like-button" onClick={(e) => { e.stopPropagation(); handleLikePost(post.id, post.liked); }}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill={post.liked ? 'red' : 'none'} viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -115,7 +121,7 @@ function ViewPosts() {
             <div className="modal-content">
               <span className="close" onClick={handleClose}>&times;</span>
               <h4 className="post-title">{selectedPost.title}</h4>
-              <p className="post-content">{selectedPost.content}</p>
+              <div className="post-content">{renderPostContent(selectedPost.content)}</div>
               <button className="comment-button" onClick={() => handleCommentClick(selectedPost.id)}>
                 Comment
               </button>
@@ -128,5 +134,4 @@ function ViewPosts() {
 }
 
 export default ViewPosts;
-
 
