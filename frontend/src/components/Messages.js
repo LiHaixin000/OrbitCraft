@@ -1,3 +1,4 @@
+// frontend/src/components/Message.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,12 +10,13 @@ const Messages = () => {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const token = localStorage.getItem('token'); // Get the token from localStorage
+      const token = localStorage.getItem('token');
 
       try {
-        const response = await axios.get('http://localhost:5001/api/mentorship/messages', {
+        const url = `${process.env.REACT_APP_API_BASE_URL}/api/mentorship/messages`;
+        const response = await axios.get(url, {
           headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the headers
+            'Authorization': `Bearer ${token}`
           }
         });
         setMessages(response.data);

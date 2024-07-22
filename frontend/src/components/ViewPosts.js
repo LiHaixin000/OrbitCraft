@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './ViewPosts.css'; // Import the new CSS file
+import './ViewPosts.css';
 
 function ViewPosts() {
   const [posts, setPosts] = useState([]);
@@ -13,7 +13,7 @@ function ViewPosts() {
   useEffect(() => {
     const token = localStorage.getItem('token'); 
 
-    axios.get('http://localhost:5001/api/career-insights/posts', {
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/career-insights/posts`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -50,7 +50,7 @@ function ViewPosts() {
 
   const handleLikePost = (postId, liked) => {
     const token = localStorage.getItem('token');
-    const url = `http://localhost:5001/api/career-insights/posts/${postId}/like`;
+    const url = `${process.env.REACT_APP_API_BASE_URL}/api/career-insights/posts/${postId}/like`;
     const method = liked ? 'delete' : 'post';
 
     axios({
@@ -61,7 +61,6 @@ function ViewPosts() {
       }
     })
       .then(response => {
-        // Update the post with the new like/unlike
         setPosts(posts.map(post =>
           post.id === postId ? { ...post, liked: !liked, likes: liked ? post.likes - 1 : post.likes + 1 } : post
         ));
@@ -72,7 +71,6 @@ function ViewPosts() {
   };
 
   const handleCommentClick = (postId) => {
-    // Handle comment click
     console.log(`Comment on post ${postId}`);
   };
 

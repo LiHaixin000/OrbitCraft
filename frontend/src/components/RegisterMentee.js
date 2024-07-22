@@ -1,9 +1,10 @@
 // frontend/src/components/RegisterMentee.js
+// frontend/src/components/RegisterMentee.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import ExpertiseDropdown from './ExpertiseDropdown';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterMentee = () => {
   const [interest, setInterest] = useState('');
@@ -18,8 +19,9 @@ const RegisterMentee = () => {
     }
 
     try {
+      const url = `${process.env.REACT_APP_API_BASE_URL}/api/mentorship/mentee`;
       await axios.post(
-        'http://localhost:5001/api/mentorship/mentee',
+        url,
         { interest },
         {
           headers: {
@@ -46,5 +48,4 @@ const RegisterMentee = () => {
 };
 
 export default RegisterMentee;
-
 

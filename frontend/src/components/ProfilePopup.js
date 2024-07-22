@@ -1,29 +1,30 @@
 // frontend/src/components/ProfilePopup.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+import { useAuth } from '../context/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
+import 'react-toastify/dist/ReactToastify.css';
 import './ProfilePopup.css';
 
 const ProfilePopup = ({ username, onClose }) => {
   const [profile, setProfile] = useState(null);
   const [message, setMessage] = useState('');
-  const { currentUser } = useAuth(); // Get the current user from context
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem('token'); // Get the token from localStorage
+      const token = localStorage.getItem('token');
 
       try {
-        console.log(`Fetching profile for: ${username}`); // Debugging statement
-        const response = await axios.get(`http://localhost:5001/api/mentorship/profile/${username}`, {
+        console.log(`Fetching profile for: ${username}`);
+        const url = `${process.env.REACT_APP_API_BASE_URL}/api/mentorship/profile/${username}`;
+        const response = await axios.get(url, {
           headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the headers
+            'Authorization': `Bearer ${token}`
           }
         });
         setProfile(response.data);
-        console.log('Profile fetched:', response.data); // Debugging statement
+        console.log('Profile fetched:', response.data);
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
@@ -40,9 +41,8 @@ const ProfilePopup = ({ username, onClose }) => {
     }
 
     const senderUsername = currentUser.username;
-    const token = localStorage.getItem('token'); // Get the token from localStorage
+    const token = localStorage.getItem('token');
 
-    // Log the values to debug
     console.log('senderUsername:', senderUsername);
     console.log('recipientUsername:', username);
     console.log('message:', message);
@@ -53,8 +53,9 @@ const ProfilePopup = ({ username, onClose }) => {
     }
 
     try {
+      const url = `${process.env.REACT_APP_API_BASE_URL}/api/mentorship/message`;
       await axios.post(
-        'http://localhost:5001/api/mentorship/message',
+        url,
         {
           senderUsername,
           recipientUsername: username,
@@ -62,7 +63,7 @@ const ProfilePopup = ({ username, onClose }) => {
         },
         {
           headers: {
-            'Authorization': `Bearer ${token}` // Include the token in the headers
+            'Authorization': `Bearer ${token}`
           }
         }
       );
@@ -78,7 +79,7 @@ const ProfilePopup = ({ username, onClose }) => {
 
   return (
     <div className="profile-popup">
-      <ToastContainer /> {/* Add ToastContainer to display toasts */}
+      <ToastContainer />
       <div className="profile-popup-content">
         <svg
           className="close-icon"
@@ -109,4 +110,3 @@ const ProfilePopup = ({ username, onClose }) => {
 };
 
 export default ProfilePopup;
-

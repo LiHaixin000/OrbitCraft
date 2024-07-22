@@ -40,4 +40,3 @@ function CareerInsightsPage() {
 }
 
 export default CareerInsightsPage;
-

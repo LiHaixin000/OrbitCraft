@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ExpertiseDropdown from './ExpertiseDropdown';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for toast notifications
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterMentor = () => {
   const [expertise, setExpertise] = useState('');
@@ -18,8 +18,9 @@ const RegisterMentor = () => {
     }
 
     try {
+      const url = `${process.env.REACT_APP_API_BASE_URL}/api/mentorship/mentor`;
       await axios.post(
-        'http://localhost:5001/api/mentorship/mentor',
+        url,
         { expertise },
         {
           headers: {
@@ -46,4 +47,3 @@ const RegisterMentor = () => {
 };
 
 export default RegisterMentor;
-
