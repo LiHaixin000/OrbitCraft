@@ -61,7 +61,7 @@ const getUserProfile = async (username) => {
 };
 
 // Update user profile details in the profiles table
-const updateUserProfile = async (username, age, major, description, gender, year_of_graduation, avatar_url) => {a
+const updateUserProfile = async (username, age, major, description, gender, year_of_graduation, avatar_url) => {
   try {
     const result = await db.query(
       'UPDATE profiles SET age = $1, major = $2, description = $3, gender = $4, year_of_graduation = $5, avatar_url = $6 WHERE username = $7 RETURNING *',
